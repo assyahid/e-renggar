@@ -357,7 +357,12 @@
 										<a href="batastgl.php?data">
 											<span class="sub-item">Batas Tanggal</span>
 										</a>
-									</li>				
+									</li>	
+									<li>
+										<a href="pegawai.php?data">
+											<span class="sub-item">Pegawai</span>
+										</a>
+									</li>			
 								</ul>
 							</div>
 						</li>
@@ -370,13 +375,8 @@
 							<div class="collapse" id="sidebarLayouts">
 								<ul class="nav nav-collapse">
 									<li>
-										<a href="pegawai_pns.php?data">
-											<span class="sub-item">Pegawai PNS</span>
-										</a>
-									</li>
-									<li>
-										<a href="pegawai_non_pns.php?data">
-											<span class="sub-item">Pegawai Non PNS</span>
+										<a href="pegawai.php?data">
+											<span class="sub-item">Pegawai</span>
 										</a>
 									</li>
 								</ul>

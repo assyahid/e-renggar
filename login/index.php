@@ -180,7 +180,7 @@
                     window.location.href = "../kepala";
                   });
 
-                } else if(response == "success-pegawaipns") {
+                } else if(response == "success-operator") {
 
                   Swal.fire({
                     icon: 'success',
@@ -191,7 +191,7 @@
                     showConfirmButton: false
                   })
                   .then (function() {
-                    window.location.href = "../pegawai_pns";
+                    window.location.href = "../operator";
                   });
 
                 } else if(response == "success-pegawainonpns") {

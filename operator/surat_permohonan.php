@@ -3,7 +3,7 @@
 			<div class="content">
 				<div class="page-inner">
 					<div class="page-header">
-						<h4 class="page-title">Data Pegawai PNS</h4>
+						<h4 class="page-title">Data Surat Permohonan</h4>
 						<ul class="breadcrumbs">
 							<li class="nav-home">
 								<a href="#">
@@ -14,13 +14,13 @@
 								<i class="flaticon-right-arrow"></i>
 							</li>
 							<li class="nav-item">
-								<a href="#">Data Pegawai</a>
+								<a href="#">Data Surat Permohonan</a>
 							</li>
 							<li class="separator">
 								<i class="flaticon-right-arrow"></i>
 							</li>
 							<li class="nav-item">
-								<a href="pegawai_pns.php?data">Pegawai PNS</a>
+								<a href="surat_permohonan.php?data">Surat Permohonan</a>
 							</li>
 						</ul>
 					</div>
@@ -39,77 +39,55 @@
 											<thead>
 												<tr>
 													<th>No</th>
-													<th width="250px">Nama</th>
-										            <th>Jabatan</th>
-										            <th>Gol Terakhir</th>
-										            <th>Pendidikan Terkahir</th>
+													<th width="250px">No Surat</th>
+										            <th>Perihal</th>
+										            <th>Lampiran</th>
+										            <th>Tanggal</th>
+										            <th>Judul</th>
 													<th width="90px">Opsi</th>
 												</tr>
 											</thead>
 											<tfoot>
 												<tr>
 													<th>No</th>
-													<th>Nama</th>
-										            <th>Jabatan</th>
-										            <th>Gol Terakhir</th>
-										            <th>Pendidikan Terkahir</th>
-													<th>Opsi</th>
+													<th width="250px">No Surat</th>
+										            <th>Perihal</th>
+										            <th>Lampiran</th>
+										            <th>Tanggal</th>
+										            <th>Judul</th>
+													<th width="90px">Opsi</th>
 												</tr>
 											</tfoot>
 											<tbody>
 											<?php
-									        $query = mysqli_query($koneksi,"SELECT * FROM pegawai_pns order by nip_baru ASC");
+									        $sql = "SELECT * FROM surat_permohonan";
+									        $query = mysqli_query($koneksi,$sql);
 									        $no=1;
 									        while ($a = mysqli_fetch_array($query)) :?>
 												<tr>
 													<td><?php echo $no++; ?></td>
-													<td><?php echo $a['nama'] ?><br><?php echo $a['nip_lama'] ?><br><?php echo $a['nip_baru'] ?></td>
-													<td><?php $id_pegawai_pns = $a['id_pegawai_pns']; 
-											        	$sql=mysqli_query($koneksi,"SELECT * FROM `riwayat_jabatan` where id_pegawai_pns='$id_pegawai_pns' ORDER BY id_riwayat_jabatan DESC");
-											        	$data=mysqli_fetch_array($sql);
-											        	if (isset($data['jabatan_eselon'])!=NULL) {
-											        		echo $data['jabatan_eselon'];
-											        	} else {
-											        		echo "<span class='badge badge-warning'>Data belum di update</span>";
-											        	}
-											        	
+													<td><?php echo $a['no_surat'] ?></td>
+													<td><?php echo $a['perihal'] ?></td>
+													<td><?php echo $a['lampiran'] ?></td>
+													<td><?php echo $a['tgl_surat'] ?></td>
+													<td><?php echo $a['judul_surat'] ?></td>
+													<td><a class="blue" href="cetak_sp.php?id_surat_permohonan=<?php echo $a['id_surat_permohonan']; ?>" title='cetak PDF' target="_BLANK">
+															<i class="ace-icon fa fa-print bigger-130"></i>
+														</a>
 
-											        ?></td>
-													<td><?php $id_pegawai_pns= $a['id_pegawai_pns']; 
-											        	$sql=mysqli_query($koneksi,"SELECT * FROM `riwayat_pangkat` where id_pegawai_pns='$id_pegawai_pns' ORDER BY id_riwayat_pangkat DESC");
-											        	$data=mysqli_fetch_array($sql);
-											        	if (isset($data['golongan'])!=NULL) {
-											        		echo $data['golongan'];
-											        	} else {
-											        		echo "<span class='badge badge-warning'>Data belum di update</span>";
-											        	}
-											        	
-
-											        ?></td>
-													<td><?php $id_pegawai_pns= $a['id_pegawai_pns']; 
-											        	$sql=mysqli_query($koneksi,"SELECT * FROM `riwayat_pendidikan` where id_pegawai_pns='$id_pegawai_pns' ORDER BY id_riwayat_pendidikan DESC");
-											        	$data=mysqli_fetch_array($sql);
-											        	if (isset($data['pendidikan'])!=NULL) {
-											        		echo $data['pendidikan'];
-											        	} else {
-											        		echo "<span class='badge badge-warning'>Data belum di update</span>";
-											        	}
-											        	
-
-											        ?></td>
-													<td><a class="blue" href="?lengkapidata&id_pegawai_pns=<?php echo $a['id_pegawai_pns']; ?>" title='Lengkapi Data'>
+														<a class="blue" href="?lengkapidata&id_surat_permohonan=<?php echo $a['id_surat_permohonan']; ?>" title='Lengkapi Data'>
 															<i class="ace-icon fa fa-plus bigger-130"></i>
 														</a>
 
-														<a class="blue" href="?detail&id_pegawai_pns=<?php echo $a['id_pegawai_pns']; ?>"  title='Detail'>
+														<a class="blue" href="?detail&id_surat_permohonan=<?php echo $a['id_surat_permohonan']; ?>"  title='Detail'>
 															<i class="ace-icon fa fa-search-plus bigger-130"></i>
 														</a>
 
-														<a class="green" href="?edit&id_pegawai_pns=<?php echo $a['id_pegawai_pns']; ?>"  title='Edit'>
+														<a class="green" href="?edit&id_surat_permohonan=<?php echo $a['id_surat_permohonan']; ?>"  title='Edit'>
 															<i class="ace-icon fa fa-edit bigger-130"></i>
 														</a>
 
-														<a onclick="if(confirm('Apakah anda yakin ingin menghapus data ini ??')){ location.href='?hapus&id_pegawai_pns=<?php echo $a['id_pegawai_pns']; ?>' }" class="red"><i class="ace-icon fa fa-trash bigger-130"  title='Hapus'></i></a>
+													
 													</td>
 												</tr>
 												<?php endwhile;?>
@@ -124,8 +102,8 @@
 
 <?php
   if(isset($_GET['hapus'])){
-    $id_pegawai_pns=$_GET['id_pegawai_pns'];
-$query2 = "DELETE FROM pegawai_pns WHERE id_pegawai_pns='$id_pegawai_pns'";
+    $id_surat_permohonan=$_GET['id_surat_permohonan'];
+$query2 = "DELETE FROM surat_permohonan WHERE id_surat_permohonan='$id_surat_permohonan'";
 $sql2 = mysqli_query($koneksi,$query2); // Eksekusi/Jalankan query dari variabel $query
 if($sql2){ // Cek jika proses simpan ke database sukses atau tidak  // Jika Sukses, Lakukan :  
 echo '<script type="text/javascript">
@@ -146,401 +124,68 @@ echo '<script type="text/javascript">
 						<div class="col-md-12">
 							<div class="card">
 								<div class="card-header">
-									<h4 class="card-title">Edit Data Users</h4>
+									<h4 class="card-title">Edit Data Surat Permohonan</h4>
 								</div>
 								<div class="card-body">
 <?php
-$id_pegawai_pns=$_GET['id_pegawai_pns'];
-$det=mysqli_query($koneksi,"SELECT * FROM pegawai_pns where id_pegawai_pns='$id_pegawai_pns' ")or die(mysql_error());
+$id_surat_permohonan=$_GET['id_surat_permohonan'];
+$det=mysqli_query($koneksi,"SELECT * FROM surat_permohonan where id_surat_permohonan='$id_surat_permohonan' ")or die(mysql_error());
 while($d=mysqli_fetch_array($det)){
 ?> 
 
  <form action="" method="post" class="form-horizontal" enctype="multipart/form-data">
-    <div class="form-group">
-		<label><font color="">Data Identitas</font></label>
-		<input type="hidden" id="form-field-1" placeholder="" name="id_pegawai_pns" value="<?php echo $d['id_pegawai_pns']?>" class="form-control col-xs-10 col-sm-6" />
-	</div>
-
+   
 	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> NIP/NRP Lama* </label>
+		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> No Surat </label>
 
 		<div class="col-sm-9">
-			<input type="text" id="form-field-1" placeholder="" name="nip_lama" value="<?php echo $d['nip_lama']?>" class="form-control col-xs-10 col-sm-6" />
+			<input type="text" id="form-field-1-1" placeholder="" name="no_surat" value="<?php echo $d['no_surat']?>" class="form-control col-xs-10 col-sm-6" />
 		</div>
 	</div>
 
 	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> NIP/NRP Baru </label>
+		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Perihal</label>
 
 		<div class="col-sm-9">
-			<input type="text" id="form-field-1-1" placeholder="" name="nip_baru" value="<?php echo $d['nip_baru']?>" class="form-control col-xs-10 col-sm-6" />
+			<input type="text" id="form-field-1-1" placeholder="" name="perihal" value="<?php echo $d['perihal']?>" class="form-control col-xs-10 col-sm-6" />
 		</div>
 	</div>
 
 	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> No. Kartu Pegawai</label>
+		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Lampiran</label>
 
 		<div class="col-sm-9">
-			<input type="text" id="form-field-1-1" placeholder="" name="no_karpeg" value="<?php echo $d['no_karpeg']?>" class="form-control col-xs-10 col-sm-6" />
+			<input type="text" id="form-field-1-1" placeholder="" name="lampiran" value="<?php echo $d['lampiran']?>" class="form-control col-xs-10 col-sm-6" />
 		</div>
 	</div>
 
 	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Nama*</label>
+		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Tanggal Surat</label>
 
 		<div class="col-sm-9">
-			<input type="text" id="form-field-1-1" placeholder="" name="nama" value="<?php echo $d['nama']?>" class="form-control col-xs-10 col-sm-6" />
+			<input type="text" id="form-field-1-1" placeholder="" name="tgl_surat" value="<?php echo $d['tgl_surat']?>" class="form-control col-xs-10 col-sm-6" />
 		</div>
 	</div>
 
 	<div class="form-group">
-					<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Jenis Kelamin </label>
-
-					<div class="col-sm-9">
-						<select name="jk" class="form-control">
-			                <option value="<?php echo $d['jk']?>"><?php echo $d['jk']?></option>
-			                <option value="Laki-laki">Laki-laki</option>
-			                <option value="Perempuan">Perempuan</option>
-		                </select>
-					</div>
-	</div>
-
-	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Tempat Lahir</label>
+		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Judul Surat</label>
 
 		<div class="col-sm-9">
-			<input type="text" id="form-field-1-1" placeholder="" name="tempat_lahir" value="<?php echo $d['tempat_lahir']?>" class="form-control col-xs-10 col-sm-6" />
+			<input type="text" id="form-field-1-1" placeholder="" name="judul_surat" value="<?php echo $d['judul_surat']?>" class="form-control col-xs-10 col-sm-6" />
 		</div>
 	</div>
 
 	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Tanggal Lahir</label>
+		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Isi Surat</label>
 
 		<div class="col-sm-9">
-			<input type="date" id="form-field-1-1" placeholder="" name="tgl_lahir" value="<?php echo $d['tgl_lahir']?>" class="form-control col-xs-10 col-sm-6" />
+			<input type="text" id="form-field-1-1" placeholder="" name="isi_surat" value="<?php echo $d['isi_surat']?>" class="form-control col-xs-10 col-sm-6" />
 		</div>
 	</div>
 
-	<div class="form-group">
-					<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Agama </label>
+	
 
-					<div class="col-sm-9">
-						<select name="agama" class="form-control">
-			                <option value="<?php echo $d['agama'];?>"><?php echo $d['agama'];?></option>
-			                <option value="Islam">Islam</option>
-			                <option value="Kristen">Kristen</option>
-			                <option value="Hindu">Hindu</option>
-			                <option value="Budha">Budha</option>
-			                <option value="Khong Hu Cu">Khong Hu Cu</option>
-			                <option value="Katolik">Katolik</option>
-		                </select>
-					</div>
-	</div>
-
-	<div class="form-group">
-					<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Status Perkawinan </label>
-
-					<div class="col-sm-9">
-						<select name="status_kawin" class="form-control">
-			                <option value="<?php echo $d['status_kawin'];?>"><?php echo $d['status_kawin'];?></option>
-			                <option value="Belum Menikah">Belum Menikah</option>
-			                <option value="Menikah">Menikah</option>
-			                <option value="Janda/Duda">Janda/Duda</option>
-		                </select>
-					</div>
-	</div>
-
-	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Alamat</label>
-
-		<div class="col-sm-9">
-			<textarea input type="text" id="form-field-1-1" placeholder="" name="alamat"  class="form-control col-xs-10 col-sm-6" /><?php echo $d['alamat'];?></textarea>
-		</div>
-	</div>
-
-	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> No. Telp</label>
-
-		<div class="col-sm-9">
-			<input type="text" id="form-field-1-1" placeholder="" name="no_telp" value="<?php echo $d['no_telp'];?>" class="form-control col-xs-10 col-sm-6" />
-		</div>
-	</div>
-
-	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> NIK</label>
-
-		<div class="col-sm-9">
-			<input type="text" id="form-field-1-1" placeholder="" name="nik" value="<?php echo $d['nik'];?>" class="form-control col-xs-10 col-sm-6" />
-		</div>
-	</div>
-
-	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> NPWP</label>
-
-		<div class="col-sm-9">
-			<input type="text" id="form-field-1-1" placeholder="" name="npwp" value="<?php echo $d['npwp'];?>" class="form-control col-xs-10 col-sm-6" />
-		</div>
-	</div>
-
-	<div class="form-group">
-		<label><font color="">Data Kepegawaian</font></label>
-	</div>
-
-	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> TMT CPNS</label>
-
-		<div class="col-sm-9">
-			<input type="date" id="form-field-1-1" placeholder="" name="tmt_cpns" value="<?php echo $d['tmt_cpns'];?>" class="form-control col-xs-10 col-sm-6" />
-		</div>
-	</div>
-
-	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> TMT PNS</label>
-
-		<div class="col-sm-9">
-			<input type="date" id="form-field-1-1" placeholder="" name="tmt_pns" value="<?php echo $d['tmt_pns'];?>" class="form-control col-xs-10 col-sm-6" />
-		</div>
-	</div>
-
-	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Status Kepegawaian</label>
-
-		<div class="col-sm-9">
-			<input type="text" id="form-field-1-1" placeholder="" name="status_kepegawaian" value="<?php echo $d['status_kepegawaian'];?>" class="form-control col-xs-10 col-sm-6" />
-		</div>
-	</div>
-
-	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Jenis Kepegawaian</label>
-
-		<div class="col-sm-9">
-			<input type="text" id="form-field-1-1" placeholder="" name="jenis_kepegawaian" value="<?php echo $d['jenis_kepegawaian'];?>" class="form-control col-xs-10 col-sm-6" />
-		</div>
-	</div>
-
-	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Status Hukuman Disiplin</label>
-
-		<div class="col-sm-9">
-			<input type="text" id="form-field-1-1" placeholder="" name="status_hukuman_disiplin" value="<?php echo $d['status_hukuman_disiplin'];?>" class="form-control col-xs-10 col-sm-6" />
-		</div>
-	</div>
-
-	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Pendidikan Terakhir</label>
-
-		<div class="col-sm-9">
-			<input type="text" id="form-field-1-1" placeholder="" name="pendidikan_terakhir" value="<?php echo $d['pendidikan_terakhir'];?>" class="form-control col-xs-10 col-sm-6" />
-		</div>
-	</div>
-
-	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Jabatan Saat Ini</label>
-
-		<div class="col-sm-9">
-			<input type="text" id="form-field-1-1" placeholder="" name="jabatan_saat_ini" value="<?php echo $d['jabatan_saat_ini'];?>" class="form-control col-xs-10 col-sm-6" />
-		</div>
-	</div>
-
-	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> TMT Jabatan Saat Ini</label>
-
-		<div class="col-sm-9">
-			<input type="date" id="form-field-1-1" placeholder="" name="tmt_jabatan_saat_ini" value="<?php echo $d['tmt_jabatan_saat_ini'];?>" class="form-control col-xs-10 col-sm-6" />
-		</div>
-	</div>
-
-	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Masa Kerja Golongan</label>
-
-		<div class="col-sm-9">
-			<input type="text" id="form-field-1-1" placeholder="" name="masa_kerja_golongan" value="<?php echo $d['masa_kerja_golongan'];?>" class="form-control col-xs-10 col-sm-6" />
-		</div>
-	</div>
-
-	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Eselon</label>
-
-		<div class="col-sm-9">
-			<input type="text" id="form-field-1-1" placeholder="" name="eselon" value="eselon" class="form-control col-xs-10 col-sm-6" />
-		</div>
-	</div>
-
-	<div class="form-group">
-		<label><font color="">Tempat Kerja Sekarang</font></label>
-	</div>
-
-	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Organisasi</label>
-
-		<div class="col-sm-9">
-			<input type="text" id="form-field-1-1" placeholder="" name="organisasi" value="<?php echo $d['organisasi'];?>" value="Direktorat Jenderal Pelayanan Kesehatan" class="form-control col-xs-10 col-sm-6" />
-		</div>
-	</div>
-
-	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Satuan Kerja</label>
-
-		<div class="col-sm-9">
-			<input type="text" id="form-field-1-1" placeholder="" name="satuan_kerja"  value="<?php echo $d['satuan_kerja'];?>" class="form-control col-xs-10 col-sm-6" />
-		</div>
-	</div>
-
-	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Satuan Organisasi</label>
-
-		<div class="col-sm-9">
-			<input type="text" id="form-field-1-1" placeholder="" name="satuan_organisasi" value="<?php echo $d['satuan_organisasi'];?>" class="form-control col-xs-10 col-sm-6" />
-		</div>
-	</div>
-
-	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Unit Organisasi</label>
-
-		<div class="col-sm-9">
-			<input type="text" id="form-field-1-1" placeholder="" name="unit_organisasi" value="<?php echo $d['unit_organisasi'];?>" class="form-control col-xs-10 col-sm-6" />
-		</div>
-	</div>
-
-	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Unit Kerja</label>
-
-		<div class="col-sm-9">
-			<input type="text" id="form-field-1-1" placeholder="" name="unit_kerja" value="<?php echo $d['unit_kerja'];?>" class="form-control col-xs-10 col-sm-6" />
-		</div>
-	</div>
-
-
-
-	<div class="form-group">
-		<label><font color="">Data Akun</font></label>
-	</div>
-
-	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Email</label>
-
-		<div class="col-sm-9">
-			<input type="text" id="form-field-1-1" placeholder="" name="email" value="<?php echo $d['email'];?>" class="form-control col-xs-10 col-sm-6" />
-		</div>
-	</div>
-
-	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Username</label>
-
-		<div class="col-sm-9">
-			<input type="text" id="form-field-1-1" placeholder="" name="username" value="<?php echo $d['username'];?>" class="form-control col-xs-10 col-sm-6" />
-		</div>
-	</div>
-
-	<div class="form-group">
-					<label class="col-sm-3 control-label no-padding-right" for="form-field-2"> Password </label>
-
-					<div class="col-sm-9">
-						<input type="password" id="form-field-2" placeholder="" name="password" value="<?php echo $d['password'];?>" class="form-control col-xs-10 col-sm-6" />
-					</div>
-				</div>
-
-
-	<div class="form-group">
-		<label><font color="">Data Keluarga</font></label>
-	</div>
-
-	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Nama Suami / Istri</label>
-
-		<div class="col-sm-9">
-			<input type="text" id="form-field-1-1" placeholder="" name="nama_suami_istri" value="<?php echo $d['nama_suami_istri'];?>" class="form-control col-xs-10 col-sm-6" />
-		</div>
-	</div>
-
-	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Tanggal Lahir</label>
-
-		<div class="col-sm-9">
-			<input type="text" id="form-field-1-1" placeholder="" name="tgk_lahir_suami_istri" value="<?php echo $d['tgl_lahir_suami_istri'];?>" class="form-control col-xs-10 col-sm-6" />
-		</div>
-	</div>
-
-	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Pekerjaan</label>
-
-		<div class="col-sm-9">
-			<input type="text" id="form-field-1-1" placeholder="" name="pekerjaan_suami_istri" value="<?php echo $d['pekerjaan_suami_istri'];?>" class="form-control col-xs-10 col-sm-6" />
-		</div>
-	</div>
-
-	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> No Seri Karsu / Karis</label>
-
-		<div class="col-sm-9">
-			<input type="text" id="form-field-1-1" placeholder="" name="no_seri" value="<?php echo $d['no_seri'];?>" class="form-control col-xs-10 col-sm-6" />
-		</div>
-	</div>
-
-	<div class="form-group">
-		<label><font color="">Data Gaji</font></label>
-	</div>
-
-	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Gaji</label>
-
-		<div class="col-sm-9">
-			<input type="text" id="form-field-1-1" placeholder="" name="gaji" value="<?php echo $d['gaji'];?>" class="form-control col-xs-10 col-sm-6" />
-		</div>
-	</div>
-
-	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Pajak</label>
-
-		<div class="col-sm-9">
-			<input type="text" id="form-field-1-1" placeholder="" name="pajak" value="<?php echo $d['pajak'];?>" class="form-control col-xs-10 col-sm-6" />
-		</div>
-	</div>
-
-
-
-	<div class="form-group">
-		<label><font color="red">Kontak yang bisa dihubungi dalam keadaan darurat</font></label>
-	</div>
-
-	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"><font color="red"> Nama</font></label>
-
-		<div class="col-sm-9">
-			<input type="text" id="form-field-1-1" placeholder="" name="nama_kontak" value="<?php echo $d['nama_kontak'];?>" class="form-control col-xs-10 col-sm-6" />
-		</div>
-	</div>
-
-	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"><font color="red"> Hubungan</font></label>
-
-		<div class="col-sm-9">
-			<input type="text" id="form-field-1-1" placeholder="" name="hubungan" value="<?php echo $d['hubungan'];?>" class="form-control col-xs-10 col-sm-6" />
-		</div>
-	</div>
-
-	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"><font color="red"> No Handphone</font></label>
-
-		<div class="col-sm-9">
-			<input type="text" id="form-field-1-1" placeholder="" name="no_hp_kontak" value="<?php echo $d['no_hp_kontak'];?>" class="form-control col-xs-10 col-sm-6" />
-		</div>
-	</div>
-
-	<div class="form-group">
-					<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Status KPE </label>
-
-					<div class="col-sm-9">
-						<select name="status_kpe" class="form-control">
-							
-			                <option value="Belum KPE">Belum KPE</option>
-			                <option value="Sudah Foto">Sudah Foto</option>
-			                <option value="Cetak KPE">Cetak KPE</option>
-			                <option value="Terima KPE">Terima KPE</option>
-		                </select>
-					</div>
-  
-   </div>
+	
         <!-- /.box-body -->
         <div class="card-footer">
         <a class="btn btn-info" href="?data"><span class="glyphicon glyphicon-arrow-left"></span>  Back</a>
@@ -561,94 +206,25 @@ while($d=mysqli_fetch_array($det)){
 ?>
 <?php  
 if(isset($_POST['submit1'])){
-$id_user=$_GET['id_user'];
-$nama = $_POST['nama'];
-$nip_baru = $_POST['nip_baru'];
-$nip_lama = $_POST['nip_lama'];
-$no_karpeg = $_POST['no_karpeg'];
-$tempat_lahir = $_POST['tempat_lahir'];
-$tgl_lahir = $_POST['tgl_lahir'];
-$jk = $_POST['jk'];
-$agama = $_POST['agama'];
-$status_kawin = $_POST['status_kawin'];
-$alamat = $_POST['alamat'];
-$no_telp = $_POST['no_telp'];
-$nik = $_POST['nik'];
-$npwp = $_POST['npwp'];
-$email = $_POST['email'];
-$nama_kontak = $_POST['nama_kontak'];
-$hubungan = $_POST['hubungan'];
-$no_hp_kontak = $_POST['no_hp_kontak'];
-$tmt_cpns = $_POST['tmt_cpns'];
-$tmt_pns = $_POST['tmt_pns'];
-$status_kepegawaian = $_POST['status_kepegawaian'];
-$jenis_kepegawaian = $_POST['jenis_kepegawaian'];
-$status_hukuman_disiplin = $_POST['status_hukuman_disiplin'];
-$pendidikan_terakhir = $_POST['pendidikan_terakhir'];
-$jabatan_saat_ini = $_POST['jabatan_saat_ini'];
-$tmt_jabatan_saat_ini = $_POST['tmt_jabatan_saat_ini'];
-$masa_kerja_golongan = $_POST['masa_kerja_golongan'];
-$eselon = $_POST['eselon'];
-$organisasi = $_POST['organisasi'];
-$satuan_kerja = $_POST['status_kerja'];
-$satuan_organisasi = $_POST['satuan_organisasi'];
-$unit_organisasi = $_POST['unit_organisasi'];
-$unit_kerja = $_POST['unit_kerja'];
-$username = $_POST['username'];
-$password = $_POST['password'];
-$nama_suami_istri = $_POST['nama_suami_istri'];
-$tgl_lahir_suami_istri = $_POST['tgl_lahir_suami_istri'];
-$pekerjaan_suami_istri = $_POST['pekerjaan_suami_istri'];
-$no_seri = $_POST['no_seri'];
-$gaji = $_POST['gaji'];
-$pajak = $_POST['pajak'];
+$id_surat_permohonan = $_GET['id_surat_permohonan'];
+$no_surat = $_POST['no_surat'];
+$perihal = $_POST['perihal'];
+$lampiran = $_POST['lampiran'];
+$tgl_surat = $_POST['tgl_surat'];
+$judul_surat = $_POST['judul_surat'];
+$isi_surat = $_POST['isi_surat'];
 
-    $update=mysqli_query($koneksi,"
-UPDATE `pegawai_pns` 
+    $update=mysqli_query($koneksi,"UPDATE `surat_permohonan` 
 	SET
-	`nama` = '$nama', 
-	`nip_baru` = '$nip_baru', 
-	`nip_lama` = '$nip_lama', 
-	`no_karpeg` = '$no_karpeg', 
-	`tempat_lahir` = '$tempat_lahir', 
-	`tgl_lahir` = '$tgl_lahir', 
-	`jk` = '$jk', 
-	`agama` = '$agama', 
-	`status_kawin` = '$status_kawin', 
-	`alamat` = '$alamat', 
-	`no_telp` = '$no_telp', 
-	`nik` = '$nik', 
-	`npwp` = '$npwp', 
-	`email` = '$email', 
-	`nama_kontak` = '$nama_kontak', 
-	`hubungan` = '$hubungan', 
-	`no_hp_kontak` = '$no_hp_kontak', 
-	`tmt_cpns` = '$tmt_cpns', 
-	`tmt_pns` = '$tmt_pns', 
-	`status_kepegawaian` = '$status_kepegawaian', 
-	`jenis_kepegawaian` = '$jenis_kepegawaian', 
-	`status_hukuman_disiplin` = '$status_hukuman_disiplin', 
-	`pendidikan_terakhir` = '$pendidikan_terakhir', 
-	`jabatan_saat_ini` = '$jabatan_saat_ini', 
-	`tmt_jabatan_saat_ini` = '$tmt_jabatan_saat_ini', 
-	`masa_kerja_golongan` = '$masa_kerja_golongan', 
-	`eselon` = '$eselon', 
-	`organisasi` = '$organisasi', 
-	`satuan_kerja` = '$satuan_kerja', 
-	`satuan_organisasi` = '$satuan_organisasi', 
-	`unit_organisasi` = '$unit_organisasi', 
-	`unit_kerja` = '$unit_kerja', 
-	`username` = '$username', 
-	`password` = '$password', 
-	`nama_suami_istri` = '$nama_suami_istri', 
-	`tgl_lahir_suami_istri` = '$tgl_lahir_suami_istri', 
-	`pekerjaan_suami_istri` = '$pekerjaan_suami_istri', 
-	`no_seri` = '$no_seri', 
-	`gaji` = '$gaji', 
-	`pajak` = '$pajak'
-	
+	`no_surat` = '$no_surat', 
+	`perihal` = '$perihal', 
+	`lampiran` = '$lampiran', 
+	`tgl_surat` = '$tgl_surat', 
+	`judul_surat` = '$judul_surat', 
+	`isi_surat` = '$isi_surat'
 	WHERE
-	`id_pegawai_pns` = '$id_pegawai_pns' ;
+	`id_surat_permohonan` = '$id_surat_permohonan' ;
+
   ") or die ("gagal update ");
     echo '<script type="text/javascript">
         //<![CDATA[
@@ -671,8 +247,8 @@ UPDATE `pegawai_pns`
 								</div>
 								<div class="card-body">      
 <?php
-$id_pegawai_pns=$_GET['id_pegawai_pns'];
-$det=mysqli_query($koneksi,"SELECT * FROM pegawai_pns where id_pegawai_pns='$id_pegawai_pns' ")or die(mysql_error());
+$id_surat_permohonan=$_GET['id_surat_permohonan'];
+$det=mysqli_query($koneksi,"SELECT * FROM surat_permohonan where id_surat_permohonan='$id_surat_permohonan' ")or die(mysql_error());
 while($d=mysqli_fetch_array($det)){
 ?>  
 
@@ -685,29 +261,29 @@ while($d=mysqli_fetch_array($det)){
 		<td colspan="3"><label><b><i>I. IDENTITAS PRIBADI</i></b></label></td>
 	</tr>
 	<tr>
-		<td><label><font color="">Nama</font></label></td>
+		<td><label><font color="">no_surat</font></label></td>
 		<td>:</td>
-		<td><label><font color=""><?php echo $d['nama']?></font></label></td>
+		<td><label><font color=""><?php echo $d['no_surat']?></font></label></td>
 	</tr>
 	<tr>
 		<td><label><font color="">NIP/NRP Baru</font></label></td>
 		<td>:</td>
-		<td><label><font color=""><?php echo $d['nip_baru']?></font></label></td>
+		<td><label><font color=""><?php echo $d['perihal']?></font></label></td>
 	</tr>
 	<tr>
 		<td><label><font color="">NIP/NRP Lama</font></label></td>
 		<td>:</td>
-		<td><label><font color=""><?php echo $d['nip_lama']?></font></label></td>
+		<td><label><font color=""><?php echo $d['lampiran']?></font></label></td>
 	</tr>
 	<tr>
 		<td><label><font color="">No. Kartu Pegawai</font></label></td>
 		<td>:</td>
-		<td><label><font color=""><?php echo $d['no_karpeg']?></font></label></td>
+		<td><label><font color=""><?php echo $d['tgl_surat']?></font></label></td>
 	</tr>
 	<tr>
 		<td><label><font color="">Tempat/Tanggal Lahir</font></label></td>
 		<td>:</td>
-		<td><label><font color=""><?php echo $d['tempat_lahir']?>, <?php echo $d['tgl_lahir']?></font></label></td>
+		<td><label><font color=""><?php echo $d['judul_surat']?>, <?php echo $d['isi_surat']?></font></label></td>
 	</tr>
 	<tr>
 		<td><label><font color="">Jenis Kelamin</font></label></td>
@@ -753,9 +329,9 @@ while($d=mysqli_fetch_array($det)){
 		<td colspan="3"><label><font color="red">Kontak yang bisa dihubungi dalam keadaan darurat</font></label></td>
 	</tr>
 	<tr>
-		<td><label><font color="">Nama</font></label></td>
+		<td><label><font color="">no_surat</font></label></td>
 		<td>:</td>
-		<td><label><font color=""><?php echo $d['nama_kontak']?></font></label></td>
+		<td><label><font color=""><?php echo $d['no_surat_kontak']?></font></label></td>
 	</tr>
 	<tr>
 		<td><label><font color="">Hubungan</font></label></td>
@@ -865,8 +441,8 @@ while($d=mysqli_fetch_array($det)){
 
 												<tbody>
 													<?php
-		$id_pegawai_pns = $_GET['id_pegawai_pns'];
-        $sql = "SELECT * FROM riwayat_pangkat where id_pegawai_pns='$id_pegawai_pns'";
+		$id_surat_permohonan = $_GET['id_surat_permohonan'];
+        $sql = "SELECT * FROM riwayat_pangkat where id_surat_permohonan='$id_surat_permohonan'";
         $query = mysqli_query($koneksi,$sql);
         $no=1;
         while ($a = mysqli_fetch_array($query)) :?>
@@ -888,22 +464,22 @@ while($d=mysqli_fetch_array($det)){
 			<tr>
 				<th>No</th>
 				<th>Pendidikan</th>
-				<th>Nama Sekolah</th>
+				<th>no_surat Sekolah</th>
 				<th>Tahun</th>
 			</tr>
 		</thead>
 
 		<tbody>
 			<?php
-		$id_pegawai_pns=$_GET['id_pegawai_pns'];
-        $sql = "SELECT * FROM riwayat_pendidikan where id_pegawai_pns='$id_pegawai_pns'";
+		$id_surat_permohonan=$_GET['id_surat_permohonan'];
+        $sql = "SELECT * FROM riwayat_pendidikan where id_surat_permohonan='$id_surat_permohonan'";
         $query = mysqli_query($koneksi,$sql);
         $no=1;
         while ($a = mysqli_fetch_array($query)) :?>
 	<tr>
 		<td><?php echo $no++; ?></td>
 		<td><?php echo $a['pendidikan'] ?></td>
-		<td><?php echo $a['nama_sekolah'] ?></td>
+		<td><?php echo $a['no_surat_sekolah'] ?></td>
 		<td><?php echo $a['tahun'] ?></td>
 	</tr>
 <?php endwhile;?>
@@ -928,8 +504,8 @@ while($d=mysqli_fetch_array($det)){
 
 		<tbody>
 			<?php
-		$id_pegawai_pns = $_GET['id_pegawai_pns'];
-        $sql = "SELECT * FROM riwayat_jabatan where id_pegawai_pns='$id_pegawai_pns'";
+		$id_surat_permohonan = $_GET['id_surat_permohonan'];
+        $sql = "SELECT * FROM riwayat_jabatan where id_surat_permohonan='$id_surat_permohonan'";
         $query = mysqli_query($koneksi,$sql);
         $no=1;
         while ($a = mysqli_fetch_array($query)) :?>
@@ -952,7 +528,7 @@ while($d=mysqli_fetch_array($det)){
 		<thead>
 			<tr>
 				<th>No</th>
-				<th>Nama Pelatihan</th>
+				<th>no_surat Pelatihan</th>
 				<th>Lembaga Pelaksana</th>
 				<th>Tahun Pelatihan</th>
 			</tr>
@@ -960,14 +536,14 @@ while($d=mysqli_fetch_array($det)){
 
 		<tbody>
 			<?php
-		$id_pegawai_pns = $_GET['id_pegawai_pns'];
-        $sql = "SELECT * FROM riwayat_pelatihan_jabatan where id_pegawai_pns='$id_pegawai_pns'";
+		$id_surat_permohonan = $_GET['id_surat_permohonan'];
+        $sql = "SELECT * FROM riwayat_pelatihan_jabatan where id_surat_permohonan='$id_surat_permohonan'";
         $query = mysqli_query($koneksi,$sql);
         $no=1;
         while ($a = mysqli_fetch_array($query)) :?>
 	<tr>
 		<td><?php echo $no++; ?></td>
-		<td><?php echo $a['nama_pelatihan'] ?></td>
+		<td><?php echo $a['no_surat_pelatihan'] ?></td>
 		<td><?php echo $a['lembaga_pelaksana'] ?></td>
 		<td><?php echo $a['tahun_pelatihan'] ?></td>
 	</tr>
@@ -980,7 +556,7 @@ while($d=mysqli_fetch_array($det)){
 		<thead>
 			<tr>
 				<th>No</th>
-				<th>Nama Pelatihan</th>
+				<th>no_surat Pelatihan</th>
 				<th>Lembaga Pelaksana</th>
 				<th>Negara</th>
 				<th>Tahun Pelatihan</th>
@@ -989,8 +565,8 @@ while($d=mysqli_fetch_array($det)){
 
 		<tbody>
 			<?php
-		$id_pegawai_pns=$_GET['id_pegawai_pns'];
-        $sql = "SELECT * FROM riwayat_pelatihan_teknis where id_pegawai_pns='$id_pegawai_pns'";
+		$id_surat_permohonan=$_GET['id_surat_permohonan'];
+        $sql = "SELECT * FROM riwayat_pelatihan_teknis where id_surat_permohonan='$id_surat_permohonan'";
         $query = mysqli_query($koneksi,$sql);
         $no=1;
         while ($a = mysqli_fetch_array($query)) :?>
@@ -1011,7 +587,7 @@ while($d=mysqli_fetch_array($det)){
 		<thead>
 			<tr>
 				<th>No</th>
-				<th>Nama Penghargaan</th>
+				<th>no_surat Penghargaan</th>
 				<th>No & Tanggal SK</th>
 				<th>Instansi Pemberi</th>
 			</tr>
@@ -1019,14 +595,14 @@ while($d=mysqli_fetch_array($det)){
 
 		<tbody>
 			<?php
-		$id_pegawai_pns = $_GET['id_pegawai_pns'];
-        $sql = "SELECT * FROM riwayat_penghargaan where id_pegawai_pns='$id_pegawai_pns'";
+		$id_surat_permohonan = $_GET['id_surat_permohonan'];
+        $sql = "SELECT * FROM riwayat_penghargaan where id_surat_permohonan='$id_surat_permohonan'";
         $query = mysqli_query($koneksi,$sql);
         $no=1;
         while ($a = mysqli_fetch_array($query)) :?>
 	<tr>
 		<td><?php echo $no++; ?></td>
-		<td><?php echo $a['nama_penghargaan'] ?></td>
+		<td><?php echo $a['no_surat_penghargaan'] ?></td>
 		<td><?php echo $a['no_sk'] ?><br><?php echo $a['tgl_sk'] ?></td>
 		<td><?php echo $a['instansi_pemberi'] ?></td>
 	</tr>
@@ -1040,7 +616,7 @@ while($d=mysqli_fetch_array($det)){
 		<thead>
 			<tr>
 				<th>No</th>
-				<th>Nama Jabatan</th>
+				<th>no_surat Jabatan</th>
 				<th>Tahun Penilaian</th>
 				<th>Nilai PPKPNS</th>
 				<th>Instansi</th>
@@ -1051,14 +627,14 @@ while($d=mysqli_fetch_array($det)){
 
 		<tbody>
 			<?php
-		$id_pegawai_pns =$_GET['id_pegawai_pns'];
-        $sql = "SELECT * FROM riwayat_kinerja where id_pegawai_pns='$id_pegawai_pns'";
+		$id_surat_permohonan =$_GET['id_surat_permohonan'];
+        $sql = "SELECT * FROM riwayat_kinerja where id_surat_permohonan='$id_surat_permohonan'";
         $query = mysqli_query($koneksi,$sql);
         $no=1;
         while ($a = mysqli_fetch_array($query)) :?>
 	<tr>
 		<td><?php echo $no++; ?></td>
-		<td><?php echo $a['nama_jabatan'] ?></td>
+		<td><?php echo $a['no_surat_jabatan'] ?></td>
 		<td><?php echo $a['tahun_penilaian'] ?></td>
 		<td><?php echo $a['nilai_ppkpns'] ?></td>
 		<td><?php echo $a['instansi'] ?></td>
@@ -1073,14 +649,14 @@ while($d=mysqli_fetch_array($det)){
 <h5><b><i>VI. RIWAYAT KELUARGA</i></b></h5>
 <table class="tabel table-responsive">
 	<tr>
-		<td><label><font color="">Nama</font></label></td>
+		<td><label><font color="">no_surat</font></label></td>
 		<td>:</td>
-		<td><label><font color=""><?php echo $d['nama_suami_istri']?></font></label></td>
+		<td><label><font color=""><?php echo $d['no_surat_suami_istri']?></font></label></td>
 	</tr>
 	<tr>
 		<td><label><font color="">Tanggal Lahir</font></label></td>
 		<td>:</td>
-		<td><label><font color=""><?php echo $d['tgl_lahir_suami_istri']?></font></label></td>
+		<td><label><font color=""><?php echo $d['isi_surat_suami_istri']?></font></label></td>
 	</tr>
 	<tr>
 		<td><label><font color="">Pekerjaan</font></label></td>
@@ -1097,7 +673,7 @@ while($d=mysqli_fetch_array($det)){
 		<thead>
 			<tr>
 				<th>No</th>
-				<th>Nama</th>
+				<th>no_surat</th>
 				<th>Tanggal Lahir</th>
 				<th>Jenis Kelamin</th>
 				<th>Status</th>
@@ -1106,14 +682,14 @@ while($d=mysqli_fetch_array($det)){
 
 		<tbody>
 			<?php
-        $sql = "SELECT * FROM riwayat_keluarga where id_pegawai_pns='$id_pegawai_pns'";
+        $sql = "SELECT * FROM riwayat_keluarga where id_surat_permohonan='$id_surat_permohonan'";
         $query = mysqli_query($koneksi,$sql);
         $no=1;
         while ($a = mysqli_fetch_array($query)) :?>
 	<tr>
 		<td><?php echo $no++; ?></td>
-		<td><?php echo $a['nama'] ?></td>
-		<td><?php echo $a['tgl_lahir'] ?></td>
+		<td><?php echo $a['no_surat'] ?></td>
+		<td><?php echo $a['isi_surat'] ?></td>
 		<td><?php echo $a['jk'] ?></td>
 		<td><?php echo $a['status'] ?></td>
 	</tr>
@@ -1129,16 +705,16 @@ while($d=mysqli_fetch_array($det)){
 
 
 <?php if(isset($_GET['lengkapidata'])){ ?>
-<?php $id_pegawai_pns = $_GET['id_pegawai_pns']; ?>
-<a href="?lengkapidata&id_pegawai_pns=<?=$id_pegawai_pns?>"><button class="btn btn-info">Semua Data</button></a>
-<a href="?pangkat&id_pegawai_pns=<?=$id_pegawai_pns?>"><button class="btn btn-info">Pangkat</button></a>
-<a href="?pendidikan&id_pegawai_pns=<?=$id_pegawai_pns?>"><button class="btn btn-primary">Pendidikan</button></a>
-<a href="?jabatan&id_pegawai_pns=<?=$id_pegawai_pns?>"><button class="btn btn-success">Jabatan</button></a>
-<a href="?pelatihanjabatan&id_pegawai_pns=<?=$id_pegawai_pns?>"><button class="btn btn-warning">Riwayat Pelatihan Jabatan</button></a>
-<a href="?pelatihanteknis&id_pegawai_pns=<?=$id_pegawai_pns?>"><button class="btn btn-danger">Riwayat Pelatihan Teknis</button></a>
-<a href="?penghargaan&id_pegawai_pns=<?=$id_pegawai_pns?>"><button class="btn btn-info">Riwayat Penghargaan</button></a>
-<a href="?kinerja&id_pegawai_pns=<?=$id_pegawai_pns?>"><button class="btn btn-primary">Riwayat Kinerja</button></a>
-<a href="?keluarga&id_pegawai_pns=<?=$id_pegawai_pns?>"><button class="btn btn-success">Riwayat Keluarga</button></a>
+<?php $id_surat_permohonan = $_GET['id_surat_permohonan']; ?>
+<a href="?lengkapidata&id_surat_permohonan=<?=$id_surat_permohonan?>"><button class="btn btn-info">Semua Data</button></a>
+<a href="?pangkat&id_surat_permohonan=<?=$id_surat_permohonan?>"><button class="btn btn-info">Pangkat</button></a>
+<a href="?pendidikan&id_surat_permohonan=<?=$id_surat_permohonan?>"><button class="btn btn-primary">Pendidikan</button></a>
+<a href="?jabatan&id_surat_permohonan=<?=$id_surat_permohonan?>"><button class="btn btn-success">Jabatan</button></a>
+<a href="?pelatihanjabatan&id_surat_permohonan=<?=$id_surat_permohonan?>"><button class="btn btn-warning">Riwayat Pelatihan Jabatan</button></a>
+<a href="?pelatihanteknis&id_surat_permohonan=<?=$id_surat_permohonan?>"><button class="btn btn-danger">Riwayat Pelatihan Teknis</button></a>
+<a href="?penghargaan&id_surat_permohonan=<?=$id_surat_permohonan?>"><button class="btn btn-info">Riwayat Penghargaan</button></a>
+<a href="?kinerja&id_surat_permohonan=<?=$id_surat_permohonan?>"><button class="btn btn-primary">Riwayat Kinerja</button></a>
+<a href="?keluarga&id_surat_permohonan=<?=$id_surat_permohonan?>"><button class="btn btn-success">Riwayat Keluarga</button></a>
 
 <br>
 <br>
@@ -1158,8 +734,8 @@ while($d=mysqli_fetch_array($det)){
 
 												<tbody>
 													<?php
-		$id_pegawai_pns = $_GET['id_pegawai_pns'];
-        $sql = "SELECT * FROM riwayat_pangkat where id_pegawai_pns='$id_pegawai_pns'";
+		$id_surat_permohonan = $_GET['id_surat_permohonan'];
+        $sql = "SELECT * FROM riwayat_pangkat where id_surat_permohonan='$id_surat_permohonan'";
         $query = mysqli_query($koneksi,$sql);
         $no=1;
         while ($a = mysqli_fetch_array($query)) :?>
@@ -1181,22 +757,22 @@ while($d=mysqli_fetch_array($det)){
 			<tr>
 				<th>No</th>
 				<th>Pendidikan</th>
-				<th>Nama Sekolah</th>
+				<th>no_surat Sekolah</th>
 				<th>Tahun</th>
 			</tr>
 		</thead>
 
 		<tbody>
 			<?php
-		$id_pegawai_pns=$_GET['id_pegawai_pns'];
-        $sql = "SELECT * FROM riwayat_pendidikan where id_pegawai_pns='$id_pegawai_pns'";
+		$id_surat_permohonan=$_GET['id_surat_permohonan'];
+        $sql = "SELECT * FROM riwayat_pendidikan where id_surat_permohonan='$id_surat_permohonan'";
         $query = mysqli_query($koneksi,$sql);
         $no=1;
         while ($a = mysqli_fetch_array($query)) :?>
 	<tr>
 		<td><?php echo $no++; ?></td>
 		<td><?php echo $a['pendidikan'] ?></td>
-		<td><?php echo $a['nama_sekolah'] ?></td>
+		<td><?php echo $a['no_surat_sekolah'] ?></td>
 		<td><?php echo $a['tahun'] ?></td>
 	</tr>
 <?php endwhile;?>
@@ -1221,8 +797,8 @@ while($d=mysqli_fetch_array($det)){
 
 		<tbody>
 			<?php
-		$id_pegawai_pns = $_GET['id_pegawai_pns'];
-        $sql = "SELECT * FROM riwayat_jabatan where id_pegawai_pns='$id_pegawai_pns'";
+		$id_surat_permohonan = $_GET['id_surat_permohonan'];
+        $sql = "SELECT * FROM riwayat_jabatan where id_surat_permohonan='$id_surat_permohonan'";
         $query = mysqli_query($koneksi,$sql);
         $no=1;
         while ($a = mysqli_fetch_array($query)) :?>
@@ -1245,7 +821,7 @@ while($d=mysqli_fetch_array($det)){
 		<thead>
 			<tr>
 				<th>No</th>
-				<th>Nama Pelatihan</th>
+				<th>no_surat Pelatihan</th>
 				<th>Lembaga Pelaksana</th>
 				<th>Tahun Pelatihan</th>
 			</tr>
@@ -1253,14 +829,14 @@ while($d=mysqli_fetch_array($det)){
 
 		<tbody>
 			<?php
-		$id_pegawai_pns = $_GET['id_pegawai_pns'];
-        $sql = "SELECT * FROM riwayat_pelatihan_jabatan where id_pegawai_pns='$id_pegawai_pns'";
+		$id_surat_permohonan = $_GET['id_surat_permohonan'];
+        $sql = "SELECT * FROM riwayat_pelatihan_jabatan where id_surat_permohonan='$id_surat_permohonan'";
         $query = mysqli_query($koneksi,$sql);
         $no=1;
         while ($a = mysqli_fetch_array($query)) :?>
 	<tr>
 		<td><?php echo $no++; ?></td>
-		<td><?php echo $a['nama_pelatihan'] ?></td>
+		<td><?php echo $a['no_surat_pelatihan'] ?></td>
 		<td><?php echo $a['lembaga_pelaksana'] ?></td>
 		<td><?php echo $a['tahun_pelatihan'] ?></td>
 	</tr>
@@ -1274,7 +850,7 @@ while($d=mysqli_fetch_array($det)){
 		<thead>
 			<tr>
 				<th>No</th>
-				<th>Nama Pelatihan</th>
+				<th>no_surat Pelatihan</th>
 				<th>Lembaga Pelaksana</th>
 				<th>Negara</th>
 				<th>Tahun Pelatihan</th>
@@ -1283,8 +859,8 @@ while($d=mysqli_fetch_array($det)){
 
 		<tbody>
 			<?php
-		$id_pegawai_pns=$_GET['id_pegawai_pns'];
-        $sql = "SELECT * FROM riwayat_pelatihan_teknis where id_pegawai_pns='$id_pegawai_pns'";
+		$id_surat_permohonan=$_GET['id_surat_permohonan'];
+        $sql = "SELECT * FROM riwayat_pelatihan_teknis where id_surat_permohonan='$id_surat_permohonan'";
         $query = mysqli_query($koneksi,$sql);
         $no=1;
         while ($a = mysqli_fetch_array($query)) :?>
@@ -1305,7 +881,7 @@ while($d=mysqli_fetch_array($det)){
 		<thead>
 			<tr>
 				<th>No</th>
-				<th>Nama Penghargaan</th>
+				<th>no_surat Penghargaan</th>
 				<th>No & Tanggal SK</th>
 				<th>Instansi Pemberi</th>
 			</tr>
@@ -1313,14 +889,14 @@ while($d=mysqli_fetch_array($det)){
 
 		<tbody>
 			<?php
-		$id_pegawai_pns = $_GET['id_pegawai_pns'];
-        $sql = "SELECT * FROM riwayat_penghargaan where id_pegawai_pns='$id_pegawai_pns'";
+		$id_surat_permohonan = $_GET['id_surat_permohonan'];
+        $sql = "SELECT * FROM riwayat_penghargaan where id_surat_permohonan='$id_surat_permohonan'";
         $query = mysqli_query($koneksi,$sql);
         $no=1;
         while ($a = mysqli_fetch_array($query)) :?>
 	<tr>
 		<td><?php echo $no++; ?></td>
-		<td><?php echo $a['nama_penghargaan'] ?></td>
+		<td><?php echo $a['no_surat_penghargaan'] ?></td>
 		<td><?php echo $a['no_sk'] ?><br><?php echo $a['tgl_sk'] ?></td>
 		<td><?php echo $a['instansi_pemberi'] ?></td>
 	</tr>
@@ -1334,7 +910,7 @@ while($d=mysqli_fetch_array($det)){
 		<thead>
 			<tr>
 				<th>No</th>
-				<th>Nama Jabatan</th>
+				<th>no_surat Jabatan</th>
 				<th>Tahun Penilaian</th>
 				<th>Nilai PPKPNS</th>
 				<th>Instansi</th>
@@ -1345,14 +921,14 @@ while($d=mysqli_fetch_array($det)){
 
 		<tbody>
 			<?php
-		$id_pegawai_pns =$_GET['id_pegawai_pns'];
-        $sql = "SELECT * FROM riwayat_kinerja where id_pegawai_pns='$id_pegawai_pns'";
+		$id_surat_permohonan =$_GET['id_surat_permohonan'];
+        $sql = "SELECT * FROM riwayat_kinerja where id_surat_permohonan='$id_surat_permohonan'";
         $query = mysqli_query($koneksi,$sql);
         $no=1;
         while ($a = mysqli_fetch_array($query)) :?>
 	<tr>
 		<td><?php echo $no++; ?></td>
-		<td><?php echo $a['nama_jabatan'] ?></td>
+		<td><?php echo $a['no_surat_jabatan'] ?></td>
 		<td><?php echo $a['tahun_penilaian'] ?></td>
 		<td><?php echo $a['nilai_ppkpns'] ?></td>
 		<td><?php echo $a['instansi'] ?></td>
@@ -1369,7 +945,7 @@ while($d=mysqli_fetch_array($det)){
 		<thead>
 			<tr>
 				<th>No</th>
-				<th>Nama</th>
+				<th>no_surat</th>
 				<th>Tanggal Lahir</th>
 				<th>Jenis Kelamin</th>
 				<th>Status</th>
@@ -1378,14 +954,14 @@ while($d=mysqli_fetch_array($det)){
 
 		<tbody>
 			<?php
-        $sql = "SELECT * FROM riwayat_keluarga where id_pegawai_pns='$id_pegawai_pns'";
+        $sql = "SELECT * FROM riwayat_keluarga where id_surat_permohonan='$id_surat_permohonan'";
         $query = mysqli_query($koneksi,$sql);
         $no=1;
         while ($a = mysqli_fetch_array($query)) :?>
 	<tr>
 		<td><?php echo $no++; ?></td>
-		<td><?php echo $a['nama'] ?></td>
-		<td><?php echo $a['tgl_lahir'] ?></td>
+		<td><?php echo $a['no_surat'] ?></td>
+		<td><?php echo $a['isi_surat'] ?></td>
 		<td><?php echo $a['jk'] ?></td>
 		<td><?php echo $a['status'] ?></td>
 	</tr>
@@ -1398,16 +974,16 @@ while($d=mysqli_fetch_array($det)){
 
 
 <?php if(isset($_GET['pangkat'])){ ?>
-	<?php $id_pegawai_pns = $_GET['id_pegawai_pns']; ?>
-<a href="?lengkapidata&id_pegawai_pns=<?=$id_pegawai_pns?>"><button class="btn btn-info">Semua Data</button></a>
-<a href="?pangkat&id_pegawai_pns=<?=$id_pegawai_pns?>"><button class="btn btn-info">Pangkat</button></a>
-<a href="?pendidikan&id_pegawai_pns=<?=$id_pegawai_pns?>"><button class="btn btn-primary">Pendidikan</button></a>
-<a href="?jabatan&id_pegawai_pns=<?=$id_pegawai_pns?>"><button class="btn btn-success">Jabatan</button></a>
-<a href="?pelatihanjabatan&id_pegawai_pns=<?=$id_pegawai_pns?>"><button class="btn btn-warning">Riwayat Pelatihan Jabatan</button></a>
-<a href="?pelatihanteknis&id_pegawai_pns=<?=$id_pegawai_pns?>"><button class="btn btn-danger">Riwayat Pelatihan Teknis</button></a>
-<a href="?penghargaan&id_pegawai_pns=<?=$id_pegawai_pns?>"><button class="btn btn-info">Riwayat Penghargaan</button></a>
-<a href="?kinerja&id_pegawai_pns=<?=$id_pegawai_pns?>"><button class="btn btn-primary">Riwayat Kinerja</button></a>
-<a href="?keluarga&id_pegawai_pns=<?=$id_pegawai_pns?>"><button class="btn btn-success">Riwayat Keluarga</button></a>
+	<?php $id_surat_permohonan = $_GET['id_surat_permohonan']; ?>
+<a href="?lengkapidata&id_surat_permohonan=<?=$id_surat_permohonan?>"><button class="btn btn-info">Semua Data</button></a>
+<a href="?pangkat&id_surat_permohonan=<?=$id_surat_permohonan?>"><button class="btn btn-info">Pangkat</button></a>
+<a href="?pendidikan&id_surat_permohonan=<?=$id_surat_permohonan?>"><button class="btn btn-primary">Pendidikan</button></a>
+<a href="?jabatan&id_surat_permohonan=<?=$id_surat_permohonan?>"><button class="btn btn-success">Jabatan</button></a>
+<a href="?pelatihanjabatan&id_surat_permohonan=<?=$id_surat_permohonan?>"><button class="btn btn-warning">Riwayat Pelatihan Jabatan</button></a>
+<a href="?pelatihanteknis&id_surat_permohonan=<?=$id_surat_permohonan?>"><button class="btn btn-danger">Riwayat Pelatihan Teknis</button></a>
+<a href="?penghargaan&id_surat_permohonan=<?=$id_surat_permohonan?>"><button class="btn btn-info">Riwayat Penghargaan</button></a>
+<a href="?kinerja&id_surat_permohonan=<?=$id_surat_permohonan?>"><button class="btn btn-primary">Riwayat Kinerja</button></a>
+<a href="?keluarga&id_surat_permohonan=<?=$id_surat_permohonan?>"><button class="btn btn-success">Riwayat Keluarga</button></a>
 
 <br>
 <br>
@@ -1517,7 +1093,7 @@ while($d=mysqli_fetch_array($det)){
 </form>
 <?php
 if(isset($_POST['actpangkat'])){
-$id_pegawai_pns = $_GET['id_pegawai_pns'];
+$id_surat_permohonan = $_GET['id_surat_permohonan'];
 $pangkat = $_POST['pangkat'];
 $golongan = $_POST['golongan'];
 $tmt = $_POST['tmt'];
@@ -1528,7 +1104,7 @@ $pejabat_penandatangan = $_POST['pejabat_penandatangan'];
 
 $query = "INSERT INTO `riwayat_pangkat` (
   `id_riwayat_pangkat`,
-  `id_pegawai_pns`,
+  `id_surat_permohonan`,
   `pangkat`,
   `golongan`,
   `tmt`,
@@ -1539,7 +1115,7 @@ $query = "INSERT INTO `riwayat_pangkat` (
 VALUES
   (
     '',
-    '$id_pegawai_pns',
+    '$id_surat_permohonan',
     '$pangkat',
     '$golongan',
     '$tmt',
@@ -1556,7 +1132,7 @@ if($sql){ // Cek jika proses simpan ke database sukses atau tidak    // Jika Suk
 	<script type="text/javascript">
     //<![CDATA[
     alert ("Data Berhasil Dinput");
-    window.location="pegawai_pns.php?pangkat&id_pegawai_pns=<?php echo $id_pegawai_pns?>";
+    window.location="surat_permohonan.php?pangkat&id_surat_permohonan=<?php echo $id_surat_permohonan?>";
     //]]>
   </script>
 
@@ -1588,8 +1164,8 @@ echo "<br><a href='?data'>Kembali Ke Form</a>";
 
 												<tbody>
 													<?php
-		$id_pegawai_pns = $_GET['id_pegawai_pns'];
-        $sql = "SELECT * FROM riwayat_pangkat where id_pegawai_pns='$id_pegawai_pns'";
+		$id_surat_permohonan = $_GET['id_surat_permohonan'];
+        $sql = "SELECT * FROM riwayat_pangkat where id_surat_permohonan='$id_surat_permohonan'";
         $query = mysqli_query($koneksi,$sql);
         $no=1;
         while ($a = mysqli_fetch_array($query)) :?>
@@ -1616,7 +1192,7 @@ echo "<br><a href='?data'>Kembali Ke Form</a>";
 																	<i class="ace-icon fa fa-pencil bigger-130"></i>
 																</a>
 
-																<a onclick="if(confirm('Apakah anda yakin ingin menghapus data ini ??')){ location.href='?hapuspangkat&id_riwayat_pangkat=<?php echo $a['id_riwayat_pangkat']; ?>&id_pegawai_pns=<?php echo $a['id_pegawai_pns']; ?>' }" class="red"><i class="ace-icon fa fa-trash-o bigger-130"></i></a>
+																<a onclick="if(confirm('Apakah anda yakin ingin menghapus data ini ??')){ location.href='?hapuspangkat&id_riwayat_pangkat=<?php echo $a['id_riwayat_pangkat']; ?>&id_surat_permohonan=<?php echo $a['id_surat_permohonan']; ?>' }" class="red"><i class="ace-icon fa fa-trash-o bigger-130"></i></a>
 
 															</div>
 
@@ -1636,7 +1212,7 @@ echo "<br><a href='?data'>Kembali Ke Form</a>";
 																			</a>
 																		</li>
 
-																		<li><a onclick="if(confirm('Apakah anda yakin ingin menghapus data ini ??')){ location.href='?hapuspangkat&id_riwayat_pangkat=<?php echo $a['id_riwayat_pangkat']; ?>&id_pegawai_pns=<?php echo $a['id_pegawai_pns']; ?>' }" class="tooltip-error" data-rel="tooltip" title="Delete"><span class="red">
+																		<li><a onclick="if(confirm('Apakah anda yakin ingin menghapus data ini ??')){ location.href='?hapuspangkat&id_riwayat_pangkat=<?php echo $a['id_riwayat_pangkat']; ?>&id_surat_permohonan=<?php echo $a['id_surat_permohonan']; ?>' }" class="tooltip-error" data-rel="tooltip" title="Delete"><span class="red">
 																					<i class="ace-icon fa fa-trash-o bigger-120"></i>
 																				</span></a>
 
@@ -1662,14 +1238,14 @@ echo "<br><a href='?data'>Kembali Ke Form</a>";
 <?php
   if(isset($_GET['hapuspangkat'])){
     $id_riwayat_pangkat=$_GET['id_riwayat_pangkat'];
-    $id_pegawai_pns=$_GET['id_pegawai_pns'];
+    $id_surat_permohonan=$_GET['id_surat_permohonan'];
 $query2 = "DELETE FROM riwayat_pangkat WHERE id_riwayat_pangkat='$id_riwayat_pangkat'";
 $sql2 = mysqli_query($koneksi,$query2); // Eksekusi/Jalankan query dari variabel $query
 if($sql2){ ?>
 <script type="text/javascript">
     //<![CDATA[
     alert ("Berhasil Hapus");
-    window.location="?pangkat&id_pegawai_pns=<?=$id_pegawai_pns?>";
+    window.location="?pangkat&id_surat_permohonan=<?=$id_surat_permohonan?>";
     //]]>
   </script>
 <?php } else {  // Jika Gagal, Lakukan :  
@@ -1697,7 +1273,7 @@ while($d=mysqli_fetch_array($det)){
 ?>  
  
   <form action="" method="post" enctype="multipart/form-data">
-  	<input type="hidden" id="form-field-1" placeholder="" name="id_pegawai_pns" value="<?=$d['id_pegawai_pns']?>" class="form-control col-xs-10 col-sm-6" />
+  	<input type="hidden" id="form-field-1" placeholder="" name="id_surat_permohonan" value="<?=$d['id_surat_permohonan']?>" class="form-control col-xs-10 col-sm-6" />
     <div class="form-group">
 		<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Pangkat </label>
 
@@ -1762,7 +1338,7 @@ while($d=mysqli_fetch_array($det)){
 ?>
 <?php  if(isset($_POST['acteditpangkat'])){
 $id_riwayat_pangkat=$_GET['id_riwayat_pangkat'];
-$id_pegawai_pns = $_POST['id_pegawai_pns'];
+$id_surat_permohonan = $_POST['id_surat_permohonan'];
 $pangkat = $_POST['pangkat'];
 $golongan = $_POST['golongan'];
 $tmt = $_POST['tmt'];
@@ -1773,7 +1349,7 @@ $pejabat_penandatangan = $_POST['pejabat_penandatangan'];
     $update=mysqli_query($koneksi,"UPDATE
  `riwayat_pangkat`
 SET
-  `id_pegawai_pns` = '$id_pegawai_pns',
+  `id_surat_permohonan` = '$id_surat_permohonan',
   `pangkat` = '$pangkat',
   `golongan` = '$golongan',
   `tmt` = '$tmt',
@@ -1786,7 +1362,7 @@ WHERE `id_riwayat_pangkat` = '$id_riwayat_pangkat';
     <script type="text/javascript">
         //<![CDATA[
         alert ("Edit Success");
-        window.location="?pangkat&id_pegawai_pns=<?=$id_pegawai_pns?>";
+        window.location="?pangkat&id_surat_permohonan=<?=$id_surat_permohonan?>";
         //]]>
     </script>
     
@@ -1796,16 +1372,16 @@ WHERE `id_riwayat_pangkat` = '$id_riwayat_pangkat';
 
 
 <?php if(isset($_GET['pendidikan'])){ ?>
-	<?php $id_pegawai_pns = $_GET['id_pegawai_pns']; ?>
-<a href="?lengkapidata&id_pegawai_pns=<?=$id_pegawai_pns?>"><button class="btn btn-info">Semua Data</button></a>
-<a href="?pangkat&id_pegawai_pns=<?=$id_pegawai_pns?>"><button class="btn btn-info">Pangkat</button></a>
-<a href="?pendidikan&id_pegawai_pns=<?=$id_pegawai_pns?>"><button class="btn btn-primary">Pendidikan</button></a>
-<a href="?jabatan&id_pegawai_pns=<?=$id_pegawai_pns?>"><button class="btn btn-success">Jabatan</button></a>
-<a href="?pelatihanjabatan&id_pegawai_pns=<?=$id_pegawai_pns?>"><button class="btn btn-warning">Riwayat Pelatihan Jabatan</button></a>
-<a href="?pelatihanteknis&id_pegawai_pns=<?=$id_pegawai_pns?>"><button class="btn btn-danger">Riwayat Pelatihan Teknis</button></a>
-<a href="?penghargaan&id_pegawai_pns=<?=$id_pegawai_pns?>"><button class="btn btn-info">Riwayat Penghargaan</button></a>
-<a href="?kinerja&id_pegawai_pns=<?=$id_pegawai_pns?>"><button class="btn btn-primary">Riwayat Kinerja</button></a>
-<a href="?keluarga&id_pegawai_pns=<?=$id_pegawai_pns?>"><button class="btn btn-success">Riwayat Keluarga</button></a>
+	<?php $id_surat_permohonan = $_GET['id_surat_permohonan']; ?>
+<a href="?lengkapidata&id_surat_permohonan=<?=$id_surat_permohonan?>"><button class="btn btn-info">Semua Data</button></a>
+<a href="?pangkat&id_surat_permohonan=<?=$id_surat_permohonan?>"><button class="btn btn-info">Pangkat</button></a>
+<a href="?pendidikan&id_surat_permohonan=<?=$id_surat_permohonan?>"><button class="btn btn-primary">Pendidikan</button></a>
+<a href="?jabatan&id_surat_permohonan=<?=$id_surat_permohonan?>"><button class="btn btn-success">Jabatan</button></a>
+<a href="?pelatihanjabatan&id_surat_permohonan=<?=$id_surat_permohonan?>"><button class="btn btn-warning">Riwayat Pelatihan Jabatan</button></a>
+<a href="?pelatihanteknis&id_surat_permohonan=<?=$id_surat_permohonan?>"><button class="btn btn-danger">Riwayat Pelatihan Teknis</button></a>
+<a href="?penghargaan&id_surat_permohonan=<?=$id_surat_permohonan?>"><button class="btn btn-info">Riwayat Penghargaan</button></a>
+<a href="?kinerja&id_surat_permohonan=<?=$id_surat_permohonan?>"><button class="btn btn-primary">Riwayat Kinerja</button></a>
+<a href="?keluarga&id_surat_permohonan=<?=$id_surat_permohonan?>"><button class="btn btn-success">Riwayat Keluarga</button></a>
 
 <br>
 <br>
@@ -1820,10 +1396,10 @@ WHERE `id_riwayat_pangkat` = '$id_riwayat_pangkat';
 	</div>
 
 	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Nama Sekolah </label>
+		<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> no_surat Sekolah </label>
 
 		<div class="col-sm-9">
-			<input type="text" id="form-field-1" placeholder="" name="nama_sekolah" class="form-control col-xs-10 col-sm-6" />
+			<input type="text" id="form-field-1" placeholder="" name="no_surat_sekolah" class="form-control col-xs-10 col-sm-6" />
 		</div>
 	</div>
 
@@ -1856,24 +1432,24 @@ WHERE `id_riwayat_pangkat` = '$id_riwayat_pangkat';
 </form>
 <?php
 if(isset($_POST['actpendidikan'])){
-$id_pegawai_pns = $_GET['id_pegawai_pns'];
+$id_surat_permohonan = $_GET['id_surat_permohonan'];
 $pendidikan = $_POST['pendidikan'];
-$nama_sekolah = $_POST['nama_sekolah'];
+$no_surat_sekolah = $_POST['no_surat_sekolah'];
 $tahun = $_POST['tahun'];
 
 $query = "INSERT INTO `riwayat_pendidikan` (
   `id_riwayat_pendidikan`,
-  `id_pegawai_pns`,
+  `id_surat_permohonan`,
   `pendidikan`,
-  `nama_sekolah`,
+  `no_surat_sekolah`,
   `tahun`
 )
 VALUES
   (
     '',
-    '$id_pegawai_pns',
+    '$id_surat_permohonan',
     '$pendidikan',
-    '$nama_sekolah',
+    '$no_surat_sekolah',
     '$tahun'
   );
 
@@ -1885,7 +1461,7 @@ if($sql){ // Cek jika proses simpan ke database sukses atau tidak    // Jika Suk
 <script type="text/javascript">
     //<![CDATA[
     alert ("Data Berhasil Dinput");
-    window.location="pegawai_pns.php?pendidikan&id_pegawai_pns=<?php echo $id_pegawai_pns?>";
+    window.location="surat_permohonan.php?pendidikan&id_surat_permohonan=<?php echo $id_surat_permohonan?>";
     //]]>
   </script>
 <?php }else{    // Jika Gagal, Lakukan :    
@@ -1906,7 +1482,7 @@ echo "<br><a href='?data'>Kembali Ke Form</a>";
 				</th>
 				<th>No</th>
 				<th>Pendidikan</th>
-				<th>Nama Sekolah</th>
+				<th>no_surat Sekolah</th>
 				<th>Tahun</th>
 				<th>Opsi</th>
 			</tr>
@@ -1914,8 +1490,8 @@ echo "<br><a href='?data'>Kembali Ke Form</a>";
 
 		<tbody>
 			<?php
-		$id_pegawai_pns=$_GET['id_pegawai_pns'];
-        $sql = "SELECT * FROM riwayat_pendidikan where id_pegawai_pns='$id_pegawai_pns'";
+		$id_surat_permohonan=$_GET['id_surat_permohonan'];
+        $sql = "SELECT * FROM riwayat_pendidikan where id_surat_permohonan='$id_surat_permohonan'";
         $query = mysqli_query($koneksi,$sql);
         $no=1;
         while ($a = mysqli_fetch_array($query)) :?>
@@ -1931,7 +1507,7 @@ echo "<br><a href='?data'>Kembali Ke Form</a>";
 			<?php echo $no++; ?>
 		</td>
 		<td><?php echo $a['pendidikan'] ?></td>
-		<td><?php echo $a['nama_sekolah'] ?></td>
+		<td><?php echo $a['no_surat_sekolah'] ?></td>
 		<td><?php echo $a['tahun'] ?></td>
 		<td>
 			<div class="hidden-sm hidden-xs action-buttons">
@@ -1940,7 +1516,7 @@ echo "<br><a href='?data'>Kembali Ke Form</a>";
 					<i class="ace-icon fa fa-pencil bigger-130"></i>
 				</a>
 
-				<a onclick="if(confirm('Apakah anda yakin ingin menghapus data ini ??')){ location.href='?hapuspendidikan&id_riwayat_pendidikan=<?php echo $a['id_riwayat_pendidikan']; ?>&id_pegawai_pns=<?php echo $a['id_pegawai_pns']; ?>' }" class="red"><i class="ace-icon fa fa-trash-o bigger-130"></i></a>
+				<a onclick="if(confirm('Apakah anda yakin ingin menghapus data ini ??')){ location.href='?hapuspendidikan&id_riwayat_pendidikan=<?php echo $a['id_riwayat_pendidikan']; ?>&id_surat_permohonan=<?php echo $a['id_surat_permohonan']; ?>' }" class="red"><i class="ace-icon fa fa-trash-o bigger-130"></i></a>
 
 			</div>
 
@@ -1960,7 +1536,7 @@ echo "<br><a href='?data'>Kembali Ke Form</a>";
 							</a>
 						</li>
 
-						<li><a onclick="if(confirm('Apakah anda yakin ingin menghapus data ini ??')){ location.href='?hapuspendidikan&id_riwayat_pendidikan=<?php echo $a['id_riwayat_pendidikan']; ?>&id_pegawai_pns=<?php echo $a['id_pegawai_pns']; ?>' }" class="tooltip-error" data-rel="tooltip" title="Delete"><span class="red">
+						<li><a onclick="if(confirm('Apakah anda yakin ingin menghapus data ini ??')){ location.href='?hapuspendidikan&id_riwayat_pendidikan=<?php echo $a['id_riwayat_pendidikan']; ?>&id_surat_permohonan=<?php echo $a['id_surat_permohonan']; ?>' }" class="tooltip-error" data-rel="tooltip" title="Delete"><span class="red">
 									<i class="ace-icon fa fa-trash-o bigger-120"></i>
 								</span></a>
 
@@ -1983,14 +1559,14 @@ echo "<br><a href='?data'>Kembali Ke Form</a>";
 <?php
   if(isset($_GET['hapuspendidikan'])){
     $id_riwayat_pendidikan=$_GET['id_riwayat_pendidikan'];
-    $id_pegawai_pns=$_GET['id_pegawai_pns'];
+    $id_surat_permohonan=$_GET['id_surat_permohonan'];
 $query2 = "DELETE FROM riwayat_pendidikan WHERE id_riwayat_pendidikan='$id_riwayat_pendidikan'";
 $sql2 = mysqli_query($koneksi,$query2); // Eksekusi/Jalankan query dari variabel $query
 if($sql2){ ?>
 <script type="text/javascript">
     //<![CDATA[
     alert ("Berhasil Hapus");
-    window.location="?pendidikan&id_pegawai_pns=<?=$id_pegawai_pns?>";
+    window.location="?pendidikan&id_surat_permohonan=<?=$id_surat_permohonan?>";
     //]]>
   </script>
 <?php } else {  // Jika Gagal, Lakukan :  
@@ -2018,7 +1594,7 @@ while($d=mysqli_fetch_array($det)){
 ?>  
  
   <form action="" method="post" enctype="multipart/form-data">
-  	<input type="hidden" id="form-field-1" placeholder="" name="id_pegawai_pns" value="<?=$d['id_pegawai_pns']?>" class="form-control col-xs-10 col-sm-6" />
+  	<input type="hidden" id="form-field-1" placeholder="" name="id_surat_permohonan" value="<?=$d['id_surat_permohonan']?>" class="form-control col-xs-10 col-sm-6" />
     <div class="form-group">
 		<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Pendidikan </label>
 
@@ -2028,10 +1604,10 @@ while($d=mysqli_fetch_array($det)){
 	</div>
 
 	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Nama Sekolah </label>
+		<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> no_surat Sekolah </label>
 
 		<div class="col-sm-9">
-			<input type="text" id="form-field-1" placeholder="" name="nama_sekolah" value="<?=$d['nama_sekolah']?>" class="form-control col-xs-10 col-sm-6" />
+			<input type="text" id="form-field-1" placeholder="" name="no_surat_sekolah" value="<?=$d['no_surat_sekolah']?>" class="form-control col-xs-10 col-sm-6" />
 		</div>
 	</div>
 
@@ -2059,18 +1635,18 @@ while($d=mysqli_fetch_array($det)){
 ?>
 <?php  if(isset($_POST['acteditpendidikan'])){
 $id_riwayat_pendidikan=$_GET['id_riwayat_pendidikan'];
-$id_pegawai_pns = $_POST['id_pegawai_pns'];
+$id_surat_permohonan = $_POST['id_surat_permohonan'];
 $pendidikan = $_POST['pendidikan'];
-$nama_sekolah = $_POST['nama_sekolah'];
+$no_surat_sekolah = $_POST['no_surat_sekolah'];
 $tahun = $_POST['tahun'];
 
 
     $update=mysqli_query($koneksi,"UPDATE
  `riwayat_pendidikan`
 SET
-  `id_pegawai_pns` = '$id_pegawai_pns',
+  `id_surat_permohonan` = '$id_surat_permohonan',
   `pendidikan` = '$pendidikan',
-  `nama_sekolah` = '$nama_sekolah',
+  `no_surat_sekolah` = '$no_surat_sekolah',
   `tahun` = '$tahun'
 WHERE `id_riwayat_pendidikan` = '$id_riwayat_pendidikan';
 
@@ -2078,7 +1654,7 @@ WHERE `id_riwayat_pendidikan` = '$id_riwayat_pendidikan';
     <script type="text/javascript">
         //<![CDATA[
         alert ("Edit Success");
-        window.location="?pendidikan&id_pegawai_pns=<?=$id_pegawai_pns?>";
+        window.location="?pendidikan&id_surat_permohonan=<?=$id_surat_permohonan?>";
         //]]>
     </script>
     
@@ -2088,16 +1664,16 @@ WHERE `id_riwayat_pendidikan` = '$id_riwayat_pendidikan';
 
 
 <?php if(isset($_GET['jabatan'])){ ?>
-	<?php $id_pegawai_pns = $_GET['id_pegawai_pns']; ?>
-<a href="?lengakapidata&id_pegawai_pns=<?=$id_pegawai_pns?>"><button class="btn btn-info">Semua Data</button></a>	
-<a href="?pangkat&id_pegawai_pns=<?=$id_pegawai_pns?>"><button class="btn btn-info">Pangkat</button></a>
-<a href="?pendidikan&id_pegawai_pns=<?=$id_pegawai_pns?>"><button class="btn btn-primary">Pendidikan</button></a>
-<a href="?jabatan&id_pegawai_pns=<?=$id_pegawai_pns?>"><button class="btn btn-success">Jabatan</button></a>
-<a href="?pelatihanjabatan&id_pegawai_pns=<?=$id_pegawai_pns?>"><button class="btn btn-warning">Riwayat Pelatihan Jabatan</button></a>
-<a href="?pelatihanteknis&id_pegawai_pns=<?=$id_pegawai_pns?>"><button class="btn btn-danger">Riwayat Pelatihan Teknis</button></a>
-<a href="?penghargaan&id_pegawai_pns=<?=$id_pegawai_pns?>"><button class="btn btn-info">Riwayat Penghargaan</button></a>
-<a href="?kinerja&id_pegawai_pns=<?=$id_pegawai_pns?>"><button class="btn btn-primary">Riwayat Kinerja</button></a>
-<a href="?keluarga&id_pegawai_pns=<?=$id_pegawai_pns?>"><button class="btn btn-success">Riwayat Keluarga</button></a>
+	<?php $id_surat_permohonan = $_GET['id_surat_permohonan']; ?>
+<a href="?lengakapidata&id_surat_permohonan=<?=$id_surat_permohonan?>"><button class="btn btn-info">Semua Data</button></a>	
+<a href="?pangkat&id_surat_permohonan=<?=$id_surat_permohonan?>"><button class="btn btn-info">Pangkat</button></a>
+<a href="?pendidikan&id_surat_permohonan=<?=$id_surat_permohonan?>"><button class="btn btn-primary">Pendidikan</button></a>
+<a href="?jabatan&id_surat_permohonan=<?=$id_surat_permohonan?>"><button class="btn btn-success">Jabatan</button></a>
+<a href="?pelatihanjabatan&id_surat_permohonan=<?=$id_surat_permohonan?>"><button class="btn btn-warning">Riwayat Pelatihan Jabatan</button></a>
+<a href="?pelatihanteknis&id_surat_permohonan=<?=$id_surat_permohonan?>"><button class="btn btn-danger">Riwayat Pelatihan Teknis</button></a>
+<a href="?penghargaan&id_surat_permohonan=<?=$id_surat_permohonan?>"><button class="btn btn-info">Riwayat Penghargaan</button></a>
+<a href="?kinerja&id_surat_permohonan=<?=$id_surat_permohonan?>"><button class="btn btn-primary">Riwayat Kinerja</button></a>
+<a href="?keluarga&id_surat_permohonan=<?=$id_surat_permohonan?>"><button class="btn btn-success">Riwayat Keluarga</button></a>
 
 <br>
 <br>
@@ -2180,7 +1756,7 @@ WHERE `id_riwayat_pendidikan` = '$id_riwayat_pendidikan';
 </form>
 <?php
 if(isset($_POST['actjabatan'])){
-$id_pegawai_pns = $_GET['id_pegawai_pns'];
+$id_surat_permohonan = $_GET['id_surat_permohonan'];
 $jabatan_eselon = $_POST['jabatan_eselon'];
 $tmt_jabatan = $_POST['tmt_jabatan'];
 $no_sk = $_POST['no_sk'];
@@ -2191,7 +1767,7 @@ $keterangan = $_POST['keterangan'];
 
 $query = "INSERT INTO `riwayat_jabatan` (
   `id_riwayat_jabatan`,
-  `id_pegawai_pns`,
+  `id_surat_permohonan`,
   `jabatan_eselon`,
   `tmt_jabatan`,
   `no_sk`,
@@ -2203,7 +1779,7 @@ $query = "INSERT INTO `riwayat_jabatan` (
 VALUES
   (
     '',
-    '$id_pegawai_pns',
+    '$id_surat_permohonan',
     '$jabatan_eselon',
     '$tmt_jabatan',
     '$no_sk',
@@ -2221,7 +1797,7 @@ if($sql){ // Cek jika proses simpan ke database sukses atau tidak    // Jika Suk
 <script type="text/javascript">
     //<![CDATA[
     alert ("Data Berhasil Dinput");
-    window.location="pegawai_pns.php?jabatan&id_pegawai_pns=<?php echo $id_pegawai_pns?>";
+    window.location="surat_permohonan.php?jabatan&id_surat_permohonan=<?php echo $id_surat_permohonan?>";
     //]]>
   </script>
 <?php }else{    // Jika Gagal, Lakukan :    
@@ -2253,8 +1829,8 @@ echo "<br><a href='?data'>Kembali Ke Form</a>";
 
 		<tbody>
 			<?php
-		$id_pegawai_pns = $_GET['id_pegawai_pns'];
-        $sql = "SELECT * FROM riwayat_jabatan where id_pegawai_pns='$id_pegawai_pns'";
+		$id_surat_permohonan = $_GET['id_surat_permohonan'];
+        $sql = "SELECT * FROM riwayat_jabatan where id_surat_permohonan='$id_surat_permohonan'";
         $query = mysqli_query($koneksi,$sql);
         $no=1;
         while ($a = mysqli_fetch_array($query)) :?>
@@ -2282,7 +1858,7 @@ echo "<br><a href='?data'>Kembali Ke Form</a>";
 					<i class="ace-icon fa fa-pencil bigger-130"></i>
 				</a>
 
-				<a onclick="if(confirm('Apakah anda yakin ingin menghapus data ini ??')){ location.href='?hapusjabatan&id_riwayat_jabatan=<?php echo $a['id_riwayat_jabatan']; ?>&id_pegawai_pns=<?php echo $a['id_pegawai_pns']; ?>' }" class="red"><i class="ace-icon fa fa-trash-o bigger-130"></i></a>
+				<a onclick="if(confirm('Apakah anda yakin ingin menghapus data ini ??')){ location.href='?hapusjabatan&id_riwayat_jabatan=<?php echo $a['id_riwayat_jabatan']; ?>&id_surat_permohonan=<?php echo $a['id_surat_permohonan']; ?>' }" class="red"><i class="ace-icon fa fa-trash-o bigger-130"></i></a>
 
 			</div>
 
@@ -2302,7 +1878,7 @@ echo "<br><a href='?data'>Kembali Ke Form</a>";
 							</a>
 						</li>
 
-						<li><a onclick="if(confirm('Apakah anda yakin ingin menghapus data ini ??')){ location.href='?hapusjabatan&id_riwayat_jabatan=<?php echo $a['id_riwayat_jabatan']; ?>&id_pegawai_pns=<?php echo $a['id_pegawai_pns']; ?>' }" class="tooltip-error" data-rel="tooltip" title="Delete"><span class="red">
+						<li><a onclick="if(confirm('Apakah anda yakin ingin menghapus data ini ??')){ location.href='?hapusjabatan&id_riwayat_jabatan=<?php echo $a['id_riwayat_jabatan']; ?>&id_surat_permohonan=<?php echo $a['id_surat_permohonan']; ?>' }" class="tooltip-error" data-rel="tooltip" title="Delete"><span class="red">
 									<i class="ace-icon fa fa-trash-o bigger-120"></i>
 								</span></a>
 
@@ -2325,14 +1901,14 @@ echo "<br><a href='?data'>Kembali Ke Form</a>";
 <?php
   if(isset($_GET['hapusjabatan'])){
     $id_riwayat_jabatan=$_GET['id_riwayat_jabatan'];
-    $id_pegawai_pns=$_GET['id_pegawai_pns'];
+    $id_surat_permohonan=$_GET['id_surat_permohonan'];
 $query2 = "DELETE FROM riwayat_jabatan WHERE id_riwayat_jabatan='$id_riwayat_jabatan'";
 $sql2 = mysqli_query($koneksi,$query2); // Eksekusi/Jalankan query dari variabel $query
 if($sql2){ ?>
 <script type="text/javascript">
     //<![CDATA[
     alert ("Berhasil Hapus");
-    window.location="?jabatan&id_pegawai_pns=<?=$id_pegawai_pns?>";
+    window.location="?jabatan&id_surat_permohonan=<?=$id_surat_permohonan?>";
     //]]>
   </script>
 <?php } else {  // Jika Gagal, Lakukan :  
@@ -2360,7 +1936,7 @@ while($d=mysqli_fetch_array($det)){
 ?>  
  
   <form action="" method="post" enctype="multipart/form-data">
-  	<input type="hidden" id="form-field-1" placeholder="" name="id_pegawai_pns" value="<?=$d['id_pegawai_pns']?>" class="form-control col-xs-10 col-sm-6" />
+  	<input type="hidden" id="form-field-1" placeholder="" name="id_surat_permohonan" value="<?=$d['id_surat_permohonan']?>" class="form-control col-xs-10 col-sm-6" />
    <div class="form-group">
 		<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Jabatan/Eselon </label>
 
@@ -2433,7 +2009,7 @@ while($d=mysqli_fetch_array($det)){
 ?>
 <?php  if(isset($_POST['acteditjabatan'])){
 $id_riwayat_jabatan=$_GET['id_riwayat_jabatan'];
-$id_pegawai_pns = $_POST['id_pegawai_pns'];
+$id_surat_permohonan = $_POST['id_surat_permohonan'];
 $jabatan_eselon = $_POST['jabatan_eselon'];
 $tmt_jabatan = $_POST['tmt_jabatan'];
 $no_sk = $_POST['no_sk'];
@@ -2445,7 +2021,7 @@ $keterangan = $_POST['keterangan'];
     $update=mysqli_query($koneksi,"UPDATE
   `riwayat_jabatan`
 SET
-  `id_pegawai_pns` = '$id_pegawai_pns',
+  `id_surat_permohonan` = '$id_surat_permohonan',
   `jabatan_eselon` = '$jabatan_eselon',
   `tmt_jabatan` = '$tmt_jabatan',
   `no_sk` = '$no_sk',
@@ -2460,7 +2036,7 @@ WHERE `id_riwayat_jabatan` = '$id_riwayat_jabatan';
     <script type="text/javascript">
         //<![CDATA[
         alert ("Edit Success");
-        window.location="?jabatan&id_pegawai_pns=<?=$id_pegawai_pns?>";
+        window.location="?jabatan&id_surat_permohonan=<?=$id_surat_permohonan?>";
         //]]>
     </script>
     
@@ -2470,26 +2046,26 @@ WHERE `id_riwayat_jabatan` = '$id_riwayat_jabatan';
 
 
 <?php if(isset($_GET['pelatihanjabatan'])){ ?>
-	<?php $id_pegawai_pns = $_GET['id_pegawai_pns']; ?>
-<a href="?lengkapidata&id_pegawai_pns=<?=$id_pegawai_pns?>"><button class="btn btn-info">Semua Data</button></a>
-<a href="?pangkat&id_pegawai_pns=<?=$id_pegawai_pns?>"><button class="btn btn-info">Pangkat</button></a>
-<a href="?pendidikan&id_pegawai_pns=<?=$id_pegawai_pns?>"><button class="btn btn-primary">Pendidikan</button></a>
-<a href="?jabatan&id_pegawai_pns=<?=$id_pegawai_pns?>"><button class="btn btn-success">Jabatan</button></a>
-<a href="?pelatihanjabatan&id_pegawai_pns=<?=$id_pegawai_pns?>"><button class="btn btn-warning">Riwayat Pelatihan Jabatan</button></a>
-<a href="?pelatihanteknis&id_pegawai_pns=<?=$id_pegawai_pns?>"><button class="btn btn-danger">Riwayat Pelatihan Teknis</button></a>
-<a href="?penghargaan&id_pegawai_pns=<?=$id_pegawai_pns?>"><button class="btn btn-info">Riwayat Penghargaan</button></a>
-<a href="?kinerja&id_pegawai_pns=<?=$id_pegawai_pns?>"><button class="btn btn-primary">Riwayat Kinerja</button></a>
-<a href="?keluarga&id_pegawai_pns=<?=$id_pegawai_pns?>"><button class="btn btn-success">Riwayat Keluarga</button></a>
+	<?php $id_surat_permohonan = $_GET['id_surat_permohonan']; ?>
+<a href="?lengkapidata&id_surat_permohonan=<?=$id_surat_permohonan?>"><button class="btn btn-info">Semua Data</button></a>
+<a href="?pangkat&id_surat_permohonan=<?=$id_surat_permohonan?>"><button class="btn btn-info">Pangkat</button></a>
+<a href="?pendidikan&id_surat_permohonan=<?=$id_surat_permohonan?>"><button class="btn btn-primary">Pendidikan</button></a>
+<a href="?jabatan&id_surat_permohonan=<?=$id_surat_permohonan?>"><button class="btn btn-success">Jabatan</button></a>
+<a href="?pelatihanjabatan&id_surat_permohonan=<?=$id_surat_permohonan?>"><button class="btn btn-warning">Riwayat Pelatihan Jabatan</button></a>
+<a href="?pelatihanteknis&id_surat_permohonan=<?=$id_surat_permohonan?>"><button class="btn btn-danger">Riwayat Pelatihan Teknis</button></a>
+<a href="?penghargaan&id_surat_permohonan=<?=$id_surat_permohonan?>"><button class="btn btn-info">Riwayat Penghargaan</button></a>
+<a href="?kinerja&id_surat_permohonan=<?=$id_surat_permohonan?>"><button class="btn btn-primary">Riwayat Kinerja</button></a>
+<a href="?keluarga&id_surat_permohonan=<?=$id_surat_permohonan?>"><button class="btn btn-success">Riwayat Keluarga</button></a>
 
 <br>
 <br>
 
 <form class="form-horizontal" role="form" method="post" action="">
 	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Nama Pelatihan </label>
+		<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> no_surat Pelatihan </label>
 
 		<div class="col-sm-9">
-			<input type="text" id="form-field-1" placeholder="" name="nama_pelatihan" class="form-control col-xs-10 col-sm-6" />
+			<input type="text" id="form-field-1" placeholder="" name="no_surat_pelatihan" class="form-control col-xs-10 col-sm-6" />
 		</div>
 	</div>
 
@@ -2530,23 +2106,23 @@ WHERE `id_riwayat_jabatan` = '$id_riwayat_jabatan';
 </form>
 <?php
 if(isset($_POST['actpelatihanjabatan'])){
-$id_pegawai_pns = $_GET['id_pegawai_pns'];
-$nama_pelatihan = $_POST['nama_pelatihan'];
+$id_surat_permohonan = $_GET['id_surat_permohonan'];
+$no_surat_pelatihan = $_POST['no_surat_pelatihan'];
 $lembaga_pelaksana = $_POST['lembaga_pelaksana'];
 $tahun_pelatihan = $_POST['tahun_pelatihan'];
 
 $query = "INSERT INTO `riwayat_pelatihan_jabatan` (
   `id_riwayat_pelatihan_jabatan`,
-  `id_pegawai_pns`,
-  `nama_pelatihan`,
+  `id_surat_permohonan`,
+  `no_surat_pelatihan`,
   `lembaga_pelaksana`,
   `tahun_pelatihan`
 )
 VALUES
   (
     '',
-    '$id_pegawai_pns',
-    '$nama_pelatihan',
+    '$id_surat_permohonan',
+    '$no_surat_pelatihan',
     '$lembaga_pelaksana',
     '$tahun_pelatihan'
   );
@@ -2559,7 +2135,7 @@ if($sql){ // Cek jika proses simpan ke database sukses atau tidak    // Jika Suk
 <script type="text/javascript">
     //<![CDATA[
     alert ("Data Berhasil Dinput");
-    window.location="pegawai_pns.php?pelatihanjabatan&id_pegawai_pns=<?php echo $id_pegawai_pns?>";
+    window.location="surat_permohonan.php?pelatihanjabatan&id_surat_permohonan=<?php echo $id_surat_permohonan?>";
     //]]>
   </script>
 <?php }else{    // Jika Gagal, Lakukan :    
@@ -2579,7 +2155,7 @@ echo "<br><a href='?data'>Kembali Ke Form</a>";
 					</label>
 				</th>
 				<th>No</th>
-				<th>Nama Pelatihan</th>
+				<th>no_surat Pelatihan</th>
 				<th>Lembaga Pelaksana</th>
 				<th>Tahun Pelatihan</th>
 				<th>Opsi</th>
@@ -2588,8 +2164,8 @@ echo "<br><a href='?data'>Kembali Ke Form</a>";
 
 		<tbody>
 			<?php
-		$id_pegawai_pns = $_GET['id_pegawai_pns'];
-        $sql = "SELECT * FROM riwayat_pelatihan_jabatan where id_pegawai_pns='$id_pegawai_pns'";
+		$id_surat_permohonan = $_GET['id_surat_permohonan'];
+        $sql = "SELECT * FROM riwayat_pelatihan_jabatan where id_surat_permohonan='$id_surat_permohonan'";
         $query = mysqli_query($koneksi,$sql);
         $no=1;
         while ($a = mysqli_fetch_array($query)) :?>
@@ -2604,7 +2180,7 @@ echo "<br><a href='?data'>Kembali Ke Form</a>";
 		<td>
 			<?php echo $no++; ?>
 		</td>
-		<td><?php echo $a['nama_pelatihan'] ?></td>
+		<td><?php echo $a['no_surat_pelatihan'] ?></td>
 		<td><?php echo $a['lembaga_pelaksana'] ?></td>
 		<td><?php echo $a['tahun_pelatihan'] ?></td>
 		<td>
@@ -2614,7 +2190,7 @@ echo "<br><a href='?data'>Kembali Ke Form</a>";
 					<i class="ace-icon fa fa-pencil bigger-130"></i>
 				</a>
 
-				<a onclick="if(confirm('Apakah anda yakin ingin menghapus data ini ??')){ location.href='?hapuspelatihanjabatan&id_riwayat_pelatihan_jabatan=<?php echo $a['id_riwayat_pelatihan_jabatan']; ?>&id_pegawai_pns=<?php echo $a['id_pegawai_pns']; ?>' }" class="red"><i class="ace-icon fa fa-trash-o bigger-130"></i></a>
+				<a onclick="if(confirm('Apakah anda yakin ingin menghapus data ini ??')){ location.href='?hapuspelatihanjabatan&id_riwayat_pelatihan_jabatan=<?php echo $a['id_riwayat_pelatihan_jabatan']; ?>&id_surat_permohonan=<?php echo $a['id_surat_permohonan']; ?>' }" class="red"><i class="ace-icon fa fa-trash-o bigger-130"></i></a>
 
 			</div>
 
@@ -2634,7 +2210,7 @@ echo "<br><a href='?data'>Kembali Ke Form</a>";
 							</a>
 						</li>
 
-						<li><a onclick="if(confirm('Apakah anda yakin ingin menghapus data ini ??')){ location.href='?hapuspelatihanjabatan&id_riwayat_pelatihan_jabatan=<?php echo $a['id_riwayat_pelatihan_jabatan']; ?>&id_pegawai_pns=<?php echo $a['id_pegawai_pns']; ?>' }" class="tooltip-error" data-rel="tooltip" title="Delete"><span class="red">
+						<li><a onclick="if(confirm('Apakah anda yakin ingin menghapus data ini ??')){ location.href='?hapuspelatihanjabatan&id_riwayat_pelatihan_jabatan=<?php echo $a['id_riwayat_pelatihan_jabatan']; ?>&id_surat_permohonan=<?php echo $a['id_surat_permohonan']; ?>' }" class="tooltip-error" data-rel="tooltip" title="Delete"><span class="red">
 									<i class="ace-icon fa fa-trash-o bigger-120"></i>
 								</span></a>
 
@@ -2657,14 +2233,14 @@ echo "<br><a href='?data'>Kembali Ke Form</a>";
 <?php
   if(isset($_GET['hapuspelatihanjabatan'])){
     $id_riwayat_pelatihan_jabatan=$_GET['id_riwayat_pelatihan_jabatan'];
-    $id_pegawai_pns=$_GET['id_pegawai_pns'];
+    $id_surat_permohonan=$_GET['id_surat_permohonan'];
 $query2 = "DELETE FROM riwayat_pelatihan_jabatan WHERE id_riwayat_pelatihan_jabatan='$id_riwayat_pelatihan_jabatan'";
 $sql2 = mysqli_query($koneksi,$query2); // Eksekusi/Jalankan query dari variabel $query
 if($sql2){ ?>
 <script type="text/javascript">
     //<![CDATA[
     alert ("Berhasil Hapus");
-    window.location="?pelatihanjabatan&id_pegawai_pns=<?=$id_pegawai_pns?>";
+    window.location="?pelatihanjabatan&id_surat_permohonan=<?=$id_surat_permohonan?>";
     //]]>
   </script>
 <?php } else {  // Jika Gagal, Lakukan :  
@@ -2692,12 +2268,12 @@ while($d=mysqli_fetch_array($det)){
 ?>  
  
   <form action="" class="form-horizontal" method="post" enctype="multipart/form-data">
-  	<input type="hidden" id="form-field-1" placeholder="" name="id_pegawai_pns" value="<?=$d['id_pegawai_pns']?>" class="form-control col-xs-10 col-sm-6" />
+  	<input type="hidden" id="form-field-1" placeholder="" name="id_surat_permohonan" value="<?=$d['id_surat_permohonan']?>" class="form-control col-xs-10 col-sm-6" />
   <div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Nama Pelatihan </label>
+		<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> no_surat Pelatihan </label>
 
 		<div class="col-sm-9">
-			<input type="text" id="form-field-1" placeholder="" value="<?=$d['nama_pelatihan']?>" name="nama_pelatihan" class="form-control col-xs-10 col-sm-6" />
+			<input type="text" id="form-field-1" placeholder="" value="<?=$d['no_surat_pelatihan']?>" name="no_surat_pelatihan" class="form-control col-xs-10 col-sm-6" />
 		</div>
 	</div>
 
@@ -2732,16 +2308,16 @@ while($d=mysqli_fetch_array($det)){
 ?>
 <?php  if(isset($_POST['acteditpelatihanjabatan'])){
 $id_riwayat_pelatihan_jabatan=$_GET['id_riwayat_pelatihan_jabatan'];
-$id_pegawai_pns = $_POST['id_pegawai_pns'];
-$nama_pelatihan = $_POST['nama_pelatihan'];
+$id_surat_permohonan = $_POST['id_surat_permohonan'];
+$no_surat_pelatihan = $_POST['no_surat_pelatihan'];
 $lembaga_pelaksana = $_POST['lembaga_pelaksana'];
 $tahun_pelatihan = $_POST['tahun_pelatihan'];
 
     $update=mysqli_query($koneksi,"UPDATE
 `riwayat_pelatihan_jabatan`
 SET
-  `id_pegawai_pns` = '$id_pegawai_pns',
-  `nama_pelatihan` = '$nama_pelatihan',
+  `id_surat_permohonan` = '$id_surat_permohonan',
+  `no_surat_pelatihan` = '$no_surat_pelatihan',
   `lembaga_pelaksana` = '$lembaga_pelaksana',
   `tahun_pelatihan` = '$tahun_pelatihan'
 WHERE `id_riwayat_pelatihan_jabatan` = '$id_riwayat_pelatihan_jabatan';
@@ -2751,7 +2327,7 @@ WHERE `id_riwayat_pelatihan_jabatan` = '$id_riwayat_pelatihan_jabatan';
     <script type="text/javascript">
         //<![CDATA[
         alert ("Edit Success");
-        window.location="?pelatihanjabatan&id_pegawai_pns=<?=$id_pegawai_pns?>";
+        window.location="?pelatihanjabatan&id_surat_permohonan=<?=$id_surat_permohonan?>";
         //]]>
     </script>
     
@@ -2762,16 +2338,16 @@ WHERE `id_riwayat_pelatihan_jabatan` = '$id_riwayat_pelatihan_jabatan';
 
 
 <?php if(isset($_GET['pelatihanteknis'])){ ?>
-	<?php $id_pegawai_pns = $_GET['id_pegawai_pns']; ?>
-<a href="?lengkapidata&id_pegawai_pns=<?=$id_pegawai_pns?>"><button class="btn btn-info">Semua Data</button></a>
-<a href="?pangkat&id_pegawai_pns=<?=$id_pegawai_pns?>"><button class="btn btn-info">Pangkat</button></a>
-<a href="?pendidikan&id_pegawai_pns=<?=$id_pegawai_pns?>"><button class="btn btn-primary">Pendidikan</button></a>
-<a href="?jabatan&id_pegawai_pns=<?=$id_pegawai_pns?>"><button class="btn btn-success">Jabatan</button></a>
-<a href="?pelatihanjabatan&id_pegawai_pns=<?=$id_pegawai_pns?>"><button class="btn btn-warning">Riwayat Pelatihan Jabatan</button></a>
-<a href="?pelatihanteknis&id_pegawai_pns=<?=$id_pegawai_pns?>"><button class="btn btn-danger">Riwayat Pelatihan Teknis</button></a>
-<a href="?penghargaan&id_pegawai_pns=<?=$id_pegawai_pns?>"><button class="btn btn-info">Riwayat Penghargaan</button></a>
-<a href="?kinerja&id_pegawai_pns=<?=$id_pegawai_pns?>"><button class="btn btn-primary">Riwayat Kinerja</button></a>
-<a href="?keluarga&id_pegawai_pns=<?=$id_pegawai_pns?>"><button class="btn btn-success">Riwayat Keluarga</button></a>
+	<?php $id_surat_permohonan = $_GET['id_surat_permohonan']; ?>
+<a href="?lengkapidata&id_surat_permohonan=<?=$id_surat_permohonan?>"><button class="btn btn-info">Semua Data</button></a>
+<a href="?pangkat&id_surat_permohonan=<?=$id_surat_permohonan?>"><button class="btn btn-info">Pangkat</button></a>
+<a href="?pendidikan&id_surat_permohonan=<?=$id_surat_permohonan?>"><button class="btn btn-primary">Pendidikan</button></a>
+<a href="?jabatan&id_surat_permohonan=<?=$id_surat_permohonan?>"><button class="btn btn-success">Jabatan</button></a>
+<a href="?pelatihanjabatan&id_surat_permohonan=<?=$id_surat_permohonan?>"><button class="btn btn-warning">Riwayat Pelatihan Jabatan</button></a>
+<a href="?pelatihanteknis&id_surat_permohonan=<?=$id_surat_permohonan?>"><button class="btn btn-danger">Riwayat Pelatihan Teknis</button></a>
+<a href="?penghargaan&id_surat_permohonan=<?=$id_surat_permohonan?>"><button class="btn btn-info">Riwayat Penghargaan</button></a>
+<a href="?kinerja&id_surat_permohonan=<?=$id_surat_permohonan?>"><button class="btn btn-primary">Riwayat Kinerja</button></a>
+<a href="?keluarga&id_surat_permohonan=<?=$id_surat_permohonan?>"><button class="btn btn-success">Riwayat Keluarga</button></a>
 
 <br>
 <br>
@@ -2780,7 +2356,7 @@ WHERE `id_riwayat_pelatihan_jabatan` = '$id_riwayat_pelatihan_jabatan';
 
 <form class="form-horizontal" role="form" method="post" action="">
 	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Nama Pelatihan</label>
+		<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> no_surat Pelatihan</label>
 
 		<div class="col-sm-9">
 			<input type="text" id="form-field-1" placeholder="" name="pelatihan_teknis" class="form-control col-xs-10 col-sm-6" />
@@ -2832,7 +2408,7 @@ WHERE `id_riwayat_pelatihan_jabatan` = '$id_riwayat_pelatihan_jabatan';
 </form>
 <?php
 if(isset($_POST['actpelatihanteknis'])){
-$id_pegawai_pns = $_GET['id_pegawai_pns'];
+$id_surat_permohonan = $_GET['id_surat_permohonan'];
 $pelatihan_teknis = $_POST['pelatihan_teknis'];
 $lembaga_teknis = $_POST['lembaga_teknis'];
 $negara = $_POST['negara'];
@@ -2840,7 +2416,7 @@ $tahun_teknis = $_POST['tahun_teknis'];
 
 $query = "INSERT into `riwayat_pelatihan_teknis` (
   `id_riwayat_pelatihan_teknis`,
-  `id_pegawai_pns`,
+  `id_surat_permohonan`,
   `pelatihan_teknis`,
   `lembaga_teknis`,
   `negara`,
@@ -2849,7 +2425,7 @@ $query = "INSERT into `riwayat_pelatihan_teknis` (
 values
   (
     '',
-    '$id_pegawai_pns',
+    '$id_surat_permohonan',
     '$pelatihan_teknis',
     '$lembaga_teknis',
     '$negara',
@@ -2864,7 +2440,7 @@ if($sql){ // Cek jika proses simpan ke database sukses atau tidak    // Jika Suk
 <script type="text/javascript">
     //<![CDATA[
     alert ("Data Berhasil Dinput");
-    window.location="pegawai_pns.php?pelatihanteknis&id_pegawai_pns=<?php echo $id_pegawai_pns?>";
+    window.location="surat_permohonan.php?pelatihanteknis&id_surat_permohonan=<?php echo $id_surat_permohonan?>";
     //]]>
   </script>
 <?php }else{    // Jika Gagal, Lakukan :    
@@ -2884,7 +2460,7 @@ echo "<br><a href='?data'>Kembali Ke Form</a>";
 					</label>
 				</th>
 				<th>No</th>
-				<th>Nama Pelatihan</th>
+				<th>no_surat Pelatihan</th>
 				<th>Lembaga Pelaksana</th>
 				<th>Negara</th>
 				<th>Tahun Pelatihan</th>
@@ -2894,8 +2470,8 @@ echo "<br><a href='?data'>Kembali Ke Form</a>";
 
 		<tbody>
 			<?php
-		$id_pegawai_pns=$_GET['id_pegawai_pns'];
-        $sql = "SELECT * FROM riwayat_pelatihan_teknis where id_pegawai_pns='$id_pegawai_pns'";
+		$id_surat_permohonan=$_GET['id_surat_permohonan'];
+        $sql = "SELECT * FROM riwayat_pelatihan_teknis where id_surat_permohonan='$id_surat_permohonan'";
         $query = mysqli_query($koneksi,$sql);
         $no=1;
         while ($a = mysqli_fetch_array($query)) :?>
@@ -2921,7 +2497,7 @@ echo "<br><a href='?data'>Kembali Ke Form</a>";
 					<i class="ace-icon fa fa-pencil bigger-130"></i>
 				</a>
 
-				<a onclick="if(confirm('Apakah anda yakin ingin menghapus data ini ??')){ location.href='?hapuspelatihanteknis&id_riwayat_pelatihan_teknis=<?php echo $a['id_riwayat_pelatihan_teknis']; ?>&id_pegawai_pns=<?php echo $a['id_pegawai_pns']; ?>' }" class="red"><i class="ace-icon fa fa-trash-o bigger-130"></i></a>
+				<a onclick="if(confirm('Apakah anda yakin ingin menghapus data ini ??')){ location.href='?hapuspelatihanteknis&id_riwayat_pelatihan_teknis=<?php echo $a['id_riwayat_pelatihan_teknis']; ?>&id_surat_permohonan=<?php echo $a['id_surat_permohonan']; ?>' }" class="red"><i class="ace-icon fa fa-trash-o bigger-130"></i></a>
 
 			</div>
 
@@ -2941,7 +2517,7 @@ echo "<br><a href='?data'>Kembali Ke Form</a>";
 							</a>
 						</li>
 
-						<li><a onclick="if(confirm('Apakah anda yakin ingin menghapus data ini ??')){ location.href='?hapuspelatihanteknis&id_riwayat_pelatihan_teknis=<?php echo $a['id_riwayat_pelatihan_teknis']; ?>&id_pegawai_pns=<?php echo $a['id_pegawai_pns']; ?>' }" class="tooltip-error" data-rel="tooltip" title="Delete"><span class="red">
+						<li><a onclick="if(confirm('Apakah anda yakin ingin menghapus data ini ??')){ location.href='?hapuspelatihanteknis&id_riwayat_pelatihan_teknis=<?php echo $a['id_riwayat_pelatihan_teknis']; ?>&id_surat_permohonan=<?php echo $a['id_surat_permohonan']; ?>' }" class="tooltip-error" data-rel="tooltip" title="Delete"><span class="red">
 									<i class="ace-icon fa fa-trash-o bigger-120"></i>
 								</span></a>
 
@@ -2964,14 +2540,14 @@ echo "<br><a href='?data'>Kembali Ke Form</a>";
 <?php
   if(isset($_GET['hapuspelatihanteknis'])){
     $id_riwayat_pelatihan_teknis=$_GET['id_riwayat_pelatihan_teknis'];
-    $id_pegawai_pns=$_GET['id_pegawai_pns'];
+    $id_surat_permohonan=$_GET['id_surat_permohonan'];
 $query2 = "DELETE FROM riwayat_pelatihan_teknis WHERE id_riwayat_pelatihan_teknis='$id_riwayat_pelatihan_teknis'";
 $sql2 = mysqli_query($koneksi,$query2); // Eksekusi/Jalankan query dari variabel $query
 if($sql2){ ?>
 <script type="text/javascript">
     //<![CDATA[
     alert ("Berhasil Hapus");
-    window.location="?pelatihanteknis&id_pegawai_pns=<?=$id_pegawai_pns?>";
+    window.location="?pelatihanteknis&id_surat_permohonan=<?=$id_surat_permohonan?>";
     //]]>
   </script>
 <?php } else {  // Jika Gagal, Lakukan :  
@@ -2999,9 +2575,9 @@ while($d=mysqli_fetch_array($det)){
 ?>  
  
   <form action="" method="post" enctype="multipart/form-data">
-  	<input type="hidden" id="form-field-1" placeholder="" name="id_pegawai_pns" value="<?=$d['id_pegawai_pns']?>" class="form-control col-xs-10 col-sm-6" />
+  	<input type="hidden" id="form-field-1" placeholder="" name="id_surat_permohonan" value="<?=$d['id_surat_permohonan']?>" class="form-control col-xs-10 col-sm-6" />
   <div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Nama Pelatihan </label>
+		<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> no_surat Pelatihan </label>
 
 		<div class="col-sm-9">
 			<input type="text" id="form-field-1" placeholder="" value="<?=$d['pelatihan_teknis']?>" name="pelatihan_teknis" class="form-control col-xs-10 col-sm-6" />
@@ -3047,7 +2623,7 @@ while($d=mysqli_fetch_array($det)){
 ?>
 <?php  if(isset($_POST['acteditpelatihanteknis'])){
 $id_riwayat_pelatihan_teknis=$_GET['id_riwayat_pelatihan_teknis'];
-$id_pegawai_pns = $_POST['id_pegawai_pns'];
+$id_surat_permohonan = $_POST['id_surat_permohonan'];
 $pelatihan_teknis = $_POST['pelatihan_teknis'];
 $lembaga_teknis = $_POST['lembaga_teknis'];
 $negara = $_POST['negara'];
@@ -3056,7 +2632,7 @@ $tahun_teknis = $_POST['tahun_teknis'];
     $update=mysqli_query($koneksi,"UPDATE
 `riwayat_pelatihan_teknis`
 SET
-  `id_pegawai_pns` = '$id_pegawai_pns',
+  `id_surat_permohonan` = '$id_surat_permohonan',
   `pelatihan_teknis` = '$pelatihan_teknis',
   `lembaga_teknis` = '$lembaga_teknis',
   `negara` = '$negara',
@@ -3068,7 +2644,7 @@ WHERE `id_riwayat_pelatihan_teknis` = '$id_riwayat_pelatihan_teknis';
     <script type="text/javascript">
         //<![CDATA[
         alert ("Edit Success");
-        window.location="?pelatihanteknis&id_pegawai_pns=<?=$id_pegawai_pns?>";
+        window.location="?pelatihanteknis&id_surat_permohonan=<?=$id_surat_permohonan?>";
         //]]>
     </script>
     
@@ -3078,16 +2654,16 @@ WHERE `id_riwayat_pelatihan_teknis` = '$id_riwayat_pelatihan_teknis';
 
 
 <?php if(isset($_GET['penghargaan'])){ ?>
-	<?php $id_pegawai_pns = $_GET['id_pegawai_pns']; ?>
-<a href="?lengkapidata&id_pegawai_pns=<?=$id_pegawai_pns?>"><button class="btn btn-info">Lengkapi Data</button></a>
-<a href="?pangkat&id_pegawai_pns=<?=$id_pegawai_pns?>"><button class="btn btn-info">Pangkat</button></a>
-<a href="?pendidikan&id_pegawai_pns=<?=$id_pegawai_pns?>"><button class="btn btn-primary">Pendidikan</button></a>
-<a href="?jabatan&id_pegawai_pns=<?=$id_pegawai_pns?>"><button class="btn btn-success">Jabatan</button></a>
-<a href="?pelatihanjabatan&id_pegawai_pns=<?=$id_pegawai_pns?>"><button class="btn btn-warning">Riwayat Pelatihan Jabatan</button></a>
-<a href="?pelatihanteknis&id_pegawai_pns=<?=$id_pegawai_pns?>"><button class="btn btn-danger">Riwayat Pelatihan Teknis</button></a>
-<a href="?penghargaan&id_pegawai_pns=<?=$id_pegawai_pns?>"><button class="btn btn-info">Riwayat Penghargaan</button></a>
-<a href="?kinerja&id_pegawai_pns=<?=$id_pegawai_pns?>"><button class="btn btn-primary">Riwayat Kinerja</button></a>
-<a href="?keluarga&id_pegawai_pns=<?=$id_pegawai_pns?>"><button class="btn btn-success">Riwayat Keluarga</button></a>
+	<?php $id_surat_permohonan = $_GET['id_surat_permohonan']; ?>
+<a href="?lengkapidata&id_surat_permohonan=<?=$id_surat_permohonan?>"><button class="btn btn-info">Lengkapi Data</button></a>
+<a href="?pangkat&id_surat_permohonan=<?=$id_surat_permohonan?>"><button class="btn btn-info">Pangkat</button></a>
+<a href="?pendidikan&id_surat_permohonan=<?=$id_surat_permohonan?>"><button class="btn btn-primary">Pendidikan</button></a>
+<a href="?jabatan&id_surat_permohonan=<?=$id_surat_permohonan?>"><button class="btn btn-success">Jabatan</button></a>
+<a href="?pelatihanjabatan&id_surat_permohonan=<?=$id_surat_permohonan?>"><button class="btn btn-warning">Riwayat Pelatihan Jabatan</button></a>
+<a href="?pelatihanteknis&id_surat_permohonan=<?=$id_surat_permohonan?>"><button class="btn btn-danger">Riwayat Pelatihan Teknis</button></a>
+<a href="?penghargaan&id_surat_permohonan=<?=$id_surat_permohonan?>"><button class="btn btn-info">Riwayat Penghargaan</button></a>
+<a href="?kinerja&id_surat_permohonan=<?=$id_surat_permohonan?>"><button class="btn btn-primary">Riwayat Kinerja</button></a>
+<a href="?keluarga&id_surat_permohonan=<?=$id_surat_permohonan?>"><button class="btn btn-success">Riwayat Keluarga</button></a>
 
 <br>
 <br>
@@ -3095,10 +2671,10 @@ WHERE `id_riwayat_pelatihan_teknis` = '$id_riwayat_pelatihan_teknis';
 <h3>Data Riwayat Penghargaan</h3>
 <form class="form-horizontal" role="form" method="post" action="">
 	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Nama Penghargaan</label>
+		<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> no_surat Penghargaan</label>
 
 		<div class="col-sm-9">
-			<input type="text" id="form-field-1" placeholder="" name="nama_penghargaan" class="form-control col-xs-10 col-sm-6" />
+			<input type="text" id="form-field-1" placeholder="" name="no_surat_penghargaan" class="form-control col-xs-10 col-sm-6" />
 		</div>
 	</div>
 
@@ -3147,16 +2723,16 @@ WHERE `id_riwayat_pelatihan_teknis` = '$id_riwayat_pelatihan_teknis';
 </form>
 <?php
 if(isset($_POST['actpenghargaan'])){
-$id_pegawai_pns = $_GET['id_pegawai_pns'];
-$nama_penghargaan = $_POST['nama_penghargaan'];
+$id_surat_permohonan = $_GET['id_surat_permohonan'];
+$no_surat_penghargaan = $_POST['no_surat_penghargaan'];
 $no_sk = $_POST['no_sk'];
 $tgl_sk = $_POST['tgl_sk'];
 $instansi_pemberi = $_POST['instansi_pemberi'];
 
 $query = "INSERT INTO `riwayat_penghargaan` (
   `id_riwayat_penghargaan`,
-  `id_pegawai_pns`,
-  `nama_penghargaan`,
+  `id_surat_permohonan`,
+  `no_surat_penghargaan`,
   `no_sk`,
   `tgl_sk`,
   `instansi_pemberi`
@@ -3164,8 +2740,8 @@ $query = "INSERT INTO `riwayat_penghargaan` (
 VALUES
   (
     '',
-    '$id_pegawai_pns',
-    '$nama_penghargaan',
+    '$id_surat_permohonan',
+    '$no_surat_penghargaan',
     '$no_sk',
     '$tgl_sk',
     '$instansi_pemberi'
@@ -3179,7 +2755,7 @@ if($sql){ // Cek jika proses simpan ke database sukses atau tidak    // Jika Suk
 <script type="text/javascript">
     //<![CDATA[
     alert ("Data Berhasil Dinput");
-    window.location="pegawai_pns.php?penghargaan&id_pegawai_pns=<?php echo $id_pegawai_pns?>";
+    window.location="surat_permohonan.php?penghargaan&id_surat_permohonan=<?php echo $id_surat_permohonan?>";
     //]]>
   </script>
 <?php }else{    // Jika Gagal, Lakukan :    
@@ -3199,7 +2775,7 @@ echo "<br><a href='?data'>Kembali Ke Form</a>";
 					</label>
 				</th>
 				<th>No</th>
-				<th>Nama Penghargaan</th>
+				<th>no_surat Penghargaan</th>
 				<th>No & Tanggal SK</th>
 				<th>Instansi Pemberi</th>
 				<th>Opsi</th>
@@ -3208,8 +2784,8 @@ echo "<br><a href='?data'>Kembali Ke Form</a>";
 
 		<tbody>
 			<?php
-		$id_pegawai_pns = $_GET['id_pegawai_pns'];
-        $sql = "SELECT * FROM riwayat_penghargaan where id_pegawai_pns='$id_pegawai_pns'";
+		$id_surat_permohonan = $_GET['id_surat_permohonan'];
+        $sql = "SELECT * FROM riwayat_penghargaan where id_surat_permohonan='$id_surat_permohonan'";
         $query = mysqli_query($koneksi,$sql);
         $no=1;
         while ($a = mysqli_fetch_array($query)) :?>
@@ -3224,7 +2800,7 @@ echo "<br><a href='?data'>Kembali Ke Form</a>";
 		<td>
 			<?php echo $no++; ?>
 		</td>
-		<td><?php echo $a['nama_penghargaan'] ?></td>
+		<td><?php echo $a['no_surat_penghargaan'] ?></td>
 		<td><?php echo $a['no_sk'] ?><br><?php echo $a['tgl_sk'] ?></td>
 		<td><?php echo $a['instansi_pemberi'] ?></td>
 		<td>
@@ -3234,7 +2810,7 @@ echo "<br><a href='?data'>Kembali Ke Form</a>";
 					<i class="ace-icon fa fa-pencil bigger-130"></i>
 				</a>
 
-				<a onclick="if(confirm('Apakah anda yakin ingin menghapus data ini ??')){ location.href='?hapuspenghargaan&id_riwayat_penghargaan=<?php echo $a['id_riwayat_penghargaan']; ?>&id_pegawai_pns=<?php echo $a['id_pegawai_pns']; ?>' }" class="red"><i class="ace-icon fa fa-trash-o bigger-130"></i></a>
+				<a onclick="if(confirm('Apakah anda yakin ingin menghapus data ini ??')){ location.href='?hapuspenghargaan&id_riwayat_penghargaan=<?php echo $a['id_riwayat_penghargaan']; ?>&id_surat_permohonan=<?php echo $a['id_surat_permohonan']; ?>' }" class="red"><i class="ace-icon fa fa-trash-o bigger-130"></i></a>
 
 			</div>
 
@@ -3254,7 +2830,7 @@ echo "<br><a href='?data'>Kembali Ke Form</a>";
 							</a>
 						</li>
 
-						<li><a onclick="if(confirm('Apakah anda yakin ingin menghapus data ini ??')){ location.href='?hapuspenghargaan&id_riwayat_penghargaan=<?php echo $a['id_riwayat_penghargaan']; ?>&id_pegawai_pns=<?php echo $a['id_pegawai_pns']; ?>' }" class="tooltip-error" data-rel="tooltip" title="Delete"><span class="red">
+						<li><a onclick="if(confirm('Apakah anda yakin ingin menghapus data ini ??')){ location.href='?hapuspenghargaan&id_riwayat_penghargaan=<?php echo $a['id_riwayat_penghargaan']; ?>&id_surat_permohonan=<?php echo $a['id_surat_permohonan']; ?>' }" class="tooltip-error" data-rel="tooltip" title="Delete"><span class="red">
 									<i class="ace-icon fa fa-trash-o bigger-120"></i>
 								</span></a>
 
@@ -3277,14 +2853,14 @@ echo "<br><a href='?data'>Kembali Ke Form</a>";
 <?php
   if(isset($_GET['hapuspenghargaan'])){
     $id_riwayat_penghargaan=$_GET['id_riwayat_penghargaan'];
-    $id_pegawai_pns=$_GET['id_pegawai_pns'];
+    $id_surat_permohonan=$_GET['id_surat_permohonan'];
 $query2 = "DELETE FROM riwayat_penghargaan WHERE id_riwayat_penghargaan='$id_riwayat_penghargaan'";
 $sql2 = mysqli_query($koneksi,$query2); // Eksekusi/Jalankan query dari variabel $query
 if($sql2){ ?>
 <script type="text/javascript">
     //<![CDATA[
     alert ("Berhasil Hapus");
-    window.location="?penghargaan&id_pegawai_pns=<?=$id_pegawai_pns?>";
+    window.location="?penghargaan&id_surat_permohonan=<?=$id_surat_permohonan?>";
     //]]>
   </script>
 <?php } else {  // Jika Gagal, Lakukan :  
@@ -3312,13 +2888,13 @@ while($d=mysqli_fetch_array($det)){
 ?>  
  
   <form action="" method="post" enctype="multipart/form-data">
-  	<input type="hidden" id="form-field-1" placeholder="" name="id_pegawai_pns" value="<?=$d['id_pegawai_pns']?>" class="form-control col-xs-10 col-sm-6" />
+  	<input type="hidden" id="form-field-1" placeholder="" name="id_surat_permohonan" value="<?=$d['id_surat_permohonan']?>" class="form-control col-xs-10 col-sm-6" />
   <div class="form-group">
 		<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Nama Penghargaan</label>
+		<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> no_surat Penghargaan</label>
 
 		<div class="col-sm-9">
-			<input type="text" id="form-field-1" placeholder="" value="<?=$d['nama_penghargaan']?>" name="nama_penghargaan" class="form-control col-xs-10 col-sm-6" />
+			<input type="text" id="form-field-1" placeholder="" value="<?=$d['no_surat_penghargaan']?>" name="no_surat_penghargaan" class="form-control col-xs-10 col-sm-6" />
 		</div>
 	</div>
 
@@ -3361,8 +2937,8 @@ while($d=mysqli_fetch_array($det)){
 ?>
 <?php  if(isset($_POST['acteditpenghargaan'])){
 $id_riwayat_penghargaan=$_GET['id_riwayat_penghargaan'];
-$id_pegawai_pns = $_POST['id_pegawai_pns'];
-$nama_penghargaan = $_POST['nama_penghargaan'];
+$id_surat_permohonan = $_POST['id_surat_permohonan'];
+$no_surat_penghargaan = $_POST['no_surat_penghargaan'];
 $no_sk = $_POST['no_sk'];
 $tgl_sk = $_POST['tgl_sk'];
 $instansi_pemberi = $_POST['instansi_pemberi'];
@@ -3370,8 +2946,8 @@ $instansi_pemberi = $_POST['instansi_pemberi'];
     $update=mysqli_query($koneksi,"UPDATE
  `riwayat_penghargaan`
 set
-  `id_pegawai_pns` = '$id_pegawai_pns',
-  `nama_penghargaan` = '$nama_penghargaan',
+  `id_surat_permohonan` = '$id_surat_permohonan',
+  `no_surat_penghargaan` = '$no_surat_penghargaan',
   `no_sk` = '$no_sk',
   `tgl_sk` = '$tgl_sk',
   `instansi_pemberi` = '$instansi_pemberi'
@@ -3382,7 +2958,7 @@ where `id_riwayat_penghargaan` = '$id_riwayat_penghargaan';
     <script type="text/javascript">
         //<![CDATA[
         alert ("Edit Success");
-        window.location="?penghargaan&id_pegawai_pns=<?=$id_pegawai_pns?>";
+        window.location="?penghargaan&id_surat_permohonan=<?=$id_surat_permohonan?>";
         //]]>
     </script>
     
@@ -3392,16 +2968,16 @@ where `id_riwayat_penghargaan` = '$id_riwayat_penghargaan';
 
 
 <?php if(isset($_GET['kinerja'])){ ?>
-	<?php $id_pegawai_pns = $_GET['id_pegawai_pns']; ?>
-<a href="?lengkapidata&id_pegawai_pns=<?=$id_pegawai_pns?>"><button class="btn btn-info">Semua Data</button></a>
-<a href="?pangkat&id_pegawai_pns=<?=$id_pegawai_pns?>"><button class="btn btn-info">Pangkat</button></a>
-<a href="?pendidikan&id_pegawai_pns=<?=$id_pegawai_pns?>"><button class="btn btn-primary">Pendidikan</button></a>
-<a href="?jabatan&id_pegawai_pns=<?=$id_pegawai_pns?>"><button class="btn btn-success">Jabatan</button></a>
-<a href="?pelatihanjabatan&id_pegawai_pns=<?=$id_pegawai_pns?>"><button class="btn btn-warning">Riwayat Pelatihan Jabatan</button></a>
-<a href="?pelatihanteknis&id_pegawai_pns=<?=$id_pegawai_pns?>"><button class="btn btn-danger">Riwayat Pelatihan Teknis</button></a>
-<a href="?penghargaan&id_pegawai_pns=<?=$id_pegawai_pns?>"><button class="btn btn-info">Riwayat Penghargaan</button></a>
-<a href="?kinerja&id_pegawai_pns=<?=$id_pegawai_pns?>"><button class="btn btn-primary">Riwayat Kinerja</button></a>
-<a href="?keluarga&id_pegawai_pns=<?=$id_pegawai_pns?>"><button class="btn btn-success">Riwayat Keluarga</button></a>
+	<?php $id_surat_permohonan = $_GET['id_surat_permohonan']; ?>
+<a href="?lengkapidata&id_surat_permohonan=<?=$id_surat_permohonan?>"><button class="btn btn-info">Semua Data</button></a>
+<a href="?pangkat&id_surat_permohonan=<?=$id_surat_permohonan?>"><button class="btn btn-info">Pangkat</button></a>
+<a href="?pendidikan&id_surat_permohonan=<?=$id_surat_permohonan?>"><button class="btn btn-primary">Pendidikan</button></a>
+<a href="?jabatan&id_surat_permohonan=<?=$id_surat_permohonan?>"><button class="btn btn-success">Jabatan</button></a>
+<a href="?pelatihanjabatan&id_surat_permohonan=<?=$id_surat_permohonan?>"><button class="btn btn-warning">Riwayat Pelatihan Jabatan</button></a>
+<a href="?pelatihanteknis&id_surat_permohonan=<?=$id_surat_permohonan?>"><button class="btn btn-danger">Riwayat Pelatihan Teknis</button></a>
+<a href="?penghargaan&id_surat_permohonan=<?=$id_surat_permohonan?>"><button class="btn btn-info">Riwayat Penghargaan</button></a>
+<a href="?kinerja&id_surat_permohonan=<?=$id_surat_permohonan?>"><button class="btn btn-primary">Riwayat Kinerja</button></a>
+<a href="?keluarga&id_surat_permohonan=<?=$id_surat_permohonan?>"><button class="btn btn-success">Riwayat Keluarga</button></a>
 
 <br>
 <br>
@@ -3409,10 +2985,10 @@ where `id_riwayat_penghargaan` = '$id_riwayat_penghargaan';
 <h3>Data Riwayat Kinerja</h3>
 <form class="form-horizontal" role="form" method="post" action="">
 	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Nama Jabatan</label>
+		<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> no_surat Jabatan</label>
 
 		<div class="col-sm-9">
-			<input type="text" id="form-field-1" placeholder="" name="nama_jabatan" class="form-control col-xs-10 col-sm-6" />
+			<input type="text" id="form-field-1" placeholder="" name="no_surat_jabatan" class="form-control col-xs-10 col-sm-6" />
 		</div>
 	</div>
 
@@ -3477,8 +3053,8 @@ where `id_riwayat_penghargaan` = '$id_riwayat_penghargaan';
 </form>
 <?php
 if(isset($_POST['actkinerja'])){
-$id_pegawai_pns = $_GET['id_pegawai_pns'];
-$nama_jabatan = $_POST['nama_jabatan'];
+$id_surat_permohonan = $_GET['id_surat_permohonan'];
+$no_surat_jabatan = $_POST['no_surat_jabatan'];
 $tahun_penilaian = $_POST['tahun_penilaian'];
 $nilai_ppkpns = $_POST['nilai_ppkpns'];
 $instansi = $_POST['instansi'];
@@ -3487,8 +3063,8 @@ $satuan_kerja = $_POST['satuan_kerja'];
 
 $query = "INSERT INTO `riwayat_kinerja` (
   `id_riwayat_kinerja`,
-  `id_pegawai_pns`,
-  `nama_jabatan`,
+  `id_surat_permohonan`,
+  `no_surat_jabatan`,
   `tahun_penilaian`,
   `nilai_ppkpns`,
   `instansi`,
@@ -3498,8 +3074,8 @@ $query = "INSERT INTO `riwayat_kinerja` (
 VALUES
   (
     '',
-    '$id_pegawai_pns',
-    '$nama_jabatan',
+    '$id_surat_permohonan',
+    '$no_surat_jabatan',
     '$tahun_penilaian',
     '$nilai_ppkpns',
     '$instansi',
@@ -3515,7 +3091,7 @@ if($sql){ // Cek jika proses simpan ke database sukses atau tidak    // Jika Suk
 <script type="text/javascript">
     //<![CDATA[
     alert ("Data Berhasil Dinput");
-    window.location="pegawai_pns.php?kinerja&id_pegawai_pns=<?php echo $id_pegawai_pns?>";
+    window.location="surat_permohonan.php?kinerja&id_surat_permohonan=<?php echo $id_surat_permohonan?>";
     //]]>
   </script>
 <?php }else{    // Jika Gagal, Lakukan :    
@@ -3535,7 +3111,7 @@ echo "<br><a href='?data'>Kembali Ke Form</a>";
 					</label>
 				</th>
 				<th>No</th>
-				<th>Nama Jabatan</th>
+				<th>no_surat Jabatan</th>
 				<th>Tahun Penilaian</th>
 				<th>Nilai PPKPNS</th>
 				<th>Instansi</th>
@@ -3547,8 +3123,8 @@ echo "<br><a href='?data'>Kembali Ke Form</a>";
 
 		<tbody>
 			<?php
-		$id_pegawai_pns =$_GET['id_pegawai_pns'];
-        $sql = "SELECT * FROM riwayat_kinerja where id_pegawai_pns='$id_pegawai_pns'";
+		$id_surat_permohonan =$_GET['id_surat_permohonan'];
+        $sql = "SELECT * FROM riwayat_kinerja where id_surat_permohonan='$id_surat_permohonan'";
         $query = mysqli_query($koneksi,$sql);
         $no=1;
         while ($a = mysqli_fetch_array($query)) :?>
@@ -3563,7 +3139,7 @@ echo "<br><a href='?data'>Kembali Ke Form</a>";
 		<td>
 			<?php echo $no++; ?>
 		</td>
-		<td><?php echo $a['nama_jabatan'] ?></td>
+		<td><?php echo $a['no_surat_jabatan'] ?></td>
 		<td><?php echo $a['tahun_penilaian'] ?></td>
 		<td><?php echo $a['nilai_ppkpns'] ?></td>
 		<td><?php echo $a['instansi'] ?></td>
@@ -3576,7 +3152,7 @@ echo "<br><a href='?data'>Kembali Ke Form</a>";
 					<i class="ace-icon fa fa-pencil bigger-130"></i>
 				</a>
 
-				<a onclick="if(confirm('Apakah anda yakin ingin menghapus data ini ??')){ location.href='?hapuskinerja&id_riwayat_kinerja=<?php echo $a['id_riwayat_kinerja']; ?>&id_pegawai_pns=<?php echo $a['id_pegawai_pns']; ?>' }" class="red"><i class="ace-icon fa fa-trash-o bigger-130"></i></a>
+				<a onclick="if(confirm('Apakah anda yakin ingin menghapus data ini ??')){ location.href='?hapuskinerja&id_riwayat_kinerja=<?php echo $a['id_riwayat_kinerja']; ?>&id_surat_permohonan=<?php echo $a['id_surat_permohonan']; ?>' }" class="red"><i class="ace-icon fa fa-trash-o bigger-130"></i></a>
 
 			</div>
 
@@ -3596,7 +3172,7 @@ echo "<br><a href='?data'>Kembali Ke Form</a>";
 							</a>
 						</li>
 
-						<li><a onclick="if(confirm('Apakah anda yakin ingin menghapus data ini ??')){ location.href='?hapuskinerja&id_riwayat_kinerja=<?php echo $a['id_riwayat_kinerja']; ?>&id_pegawai_pns=<?php echo $a['id_pegawai_pns']; ?>' }" class="tooltip-error" data-rel="tooltip" title="Delete"><span class="red">
+						<li><a onclick="if(confirm('Apakah anda yakin ingin menghapus data ini ??')){ location.href='?hapuskinerja&id_riwayat_kinerja=<?php echo $a['id_riwayat_kinerja']; ?>&id_surat_permohonan=<?php echo $a['id_surat_permohonan']; ?>' }" class="tooltip-error" data-rel="tooltip" title="Delete"><span class="red">
 									<i class="ace-icon fa fa-trash-o bigger-120"></i>
 								</span></a>
 
@@ -3619,14 +3195,14 @@ echo "<br><a href='?data'>Kembali Ke Form</a>";
 <?php
   if(isset($_GET['hapuskinerja'])){
     $id_riwayat_kinerja=$_GET['id_riwayat_kinerja'];
-    $id_pegawai_pns=$_GET['id_pegawai_pns'];
+    $id_surat_permohonan=$_GET['id_surat_permohonan'];
 $query2 = "DELETE FROM riwayat_kinerja WHERE id_riwayat_kinerja='$id_riwayat_kinerja'";
 $sql2 = mysqli_query($koneksi,$query2); // Eksekusi/Jalankan query dari variabel $query
 if($sql2){ ?>
 <script type="text/javascript">
     //<![CDATA[
     alert ("Berhasil Hapus");
-    window.location="?kinerja&id_pegawai_pns=<?=$id_pegawai_pns?>";
+    window.location="?kinerja&id_surat_permohonan=<?=$id_surat_permohonan?>";
     //]]>
   </script>
 <?php } else {  // Jika Gagal, Lakukan :  
@@ -3654,12 +3230,12 @@ while($d=mysqli_fetch_array($det)){
 ?>  
  
   <form class="form-horizontal" role="form" method="post" action="">
-  	<input type="hidden" id="form-field-1" placeholder="" value="<?=$d['id_pegawai_pns']?>" name="id_pegawai_pns" class="form-control col-xs-10 col-sm-6" />
+  	<input type="hidden" id="form-field-1" placeholder="" value="<?=$d['id_surat_permohonan']?>" name="id_surat_permohonan" class="form-control col-xs-10 col-sm-6" />
 	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Nama Jabatan</label>
+		<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> no_surat Jabatan</label>
 
 		<div class="col-sm-9">
-			<input type="text" id="form-field-1" placeholder="" value="<?=$d['nama_jabatan']?>" name="nama_jabatan" class="form-control col-xs-10 col-sm-6" />
+			<input type="text" id="form-field-1" placeholder="" value="<?=$d['no_surat_jabatan']?>" name="no_surat_jabatan" class="form-control col-xs-10 col-sm-6" />
 		</div>
 	</div>
 
@@ -3724,9 +3300,9 @@ while($d=mysqli_fetch_array($det)){
 </form>
 <?php
 if(isset($_POST['acteditkinerja'])){
-$id_pegawai_pns = $_POST['id_pegawai_pns'];
+$id_surat_permohonan = $_POST['id_surat_permohonan'];
 $id_riwayat_kinerja = $_GET['id_riwayat_kinerja'];
-$nama_jabatan = $_POST['nama_jabatan'];
+$no_surat_jabatan = $_POST['no_surat_jabatan'];
 $tahun_penilaian = $_POST['tahun_penilaian'];
 $nilai_ppkpns = $_POST['nilai_ppkpns'];
 $instansi = $_POST['instansi'];
@@ -3736,8 +3312,8 @@ $satuan_kerja = $_POST['satuan_kerja'];
 $query = "UPDATE
  `riwayat_kinerja`
 SET
-  `id_pegawai_pns` = '$id_pegawai_pns',
-  `nama_jabatan` = '$nama_jabatan',
+  `id_surat_permohonan` = '$id_surat_permohonan',
+  `no_surat_jabatan` = '$no_surat_jabatan',
   `tahun_penilaian` = '$tahun_penilaian',
   `nilai_ppkpns` = '$nilai_ppkpns',
   `instansi` = '$instansi',
@@ -3752,7 +3328,7 @@ if($sql){ // Cek jika proses simpan ke database sukses atau tidak    // Jika Suk
 <script type="text/javascript">
     //<![CDATA[
     alert ("Data Berhasil Dinput");
-    window.location="pegawai_pns.php?kinerja&id_pegawai_pns=<?php echo $id_pegawai_pns?>";
+    window.location="?data";
     //]]>
   </script>
 <?php }else{    // Jika Gagal, Lakukan :    
@@ -3766,16 +3342,16 @@ echo "<br><a href='?data'>Kembali Ke Form</a>";
 
 
 <?php if(isset($_GET['keluarga'])){ ?>
-	<?php $id_pegawai_pns = $_GET['id_pegawai_pns']; ?>
-<a href="?lengkapidata&id_pegawai_pns=<?=$id_pegawai_pns?>"><button class="btn btn-info">Semua Data</button></a>
-<a href="?pangkat&id_pegawai_pns=<?=$id_pegawai_pns?>"><button class="btn btn-info">Pangkat</button></a>
-<a href="?pendidikan&id_pegawai_pns=<?=$id_pegawai_pns?>"><button class="btn btn-primary">Pendidikan</button></a>
-<a href="?jabatan&id_pegawai_pns=<?=$id_pegawai_pns?>"><button class="btn btn-success">Jabatan</button></a>
-<a href="?pelatihanjabatan&id_pegawai_pns=<?=$id_pegawai_pns?>"><button class="btn btn-warning">Riwayat Pelatihan Jabatan</button></a>
-<a href="?pelatihanteknis&id_pegawai_pns=<?=$id_pegawai_pns?>"><button class="btn btn-danger">Riwayat Pelatihan Teknis</button></a>
-<a href="?penghargaan&id_pegawai_pns=<?=$id_pegawai_pns?>"><button class="btn btn-info">Riwayat Penghargaan</button></a>
-<a href="?kinerja&id_pegawai_pns=<?=$id_pegawai_pns?>"><button class="btn btn-primary">Riwayat Kinerja</button></a>
-<a href="?keluarga&id_pegawai_pns=<?=$id_pegawai_pns?>"><button class="btn btn-success">Riwayat Keluarga</button></a>
+	<?php $id_surat_permohonan = $_GET['id_surat_permohonan']; ?>
+<a href="?lengkapidata&id_surat_permohonan=<?=$id_surat_permohonan?>"><button class="btn btn-info">Semua Data</button></a>
+<a href="?pangkat&id_surat_permohonan=<?=$id_surat_permohonan?>"><button class="btn btn-info">Pangkat</button></a>
+<a href="?pendidikan&id_surat_permohonan=<?=$id_surat_permohonan?>"><button class="btn btn-primary">Pendidikan</button></a>
+<a href="?jabatan&id_surat_permohonan=<?=$id_surat_permohonan?>"><button class="btn btn-success">Jabatan</button></a>
+<a href="?pelatihanjabatan&id_surat_permohonan=<?=$id_surat_permohonan?>"><button class="btn btn-warning">Riwayat Pelatihan Jabatan</button></a>
+<a href="?pelatihanteknis&id_surat_permohonan=<?=$id_surat_permohonan?>"><button class="btn btn-danger">Riwayat Pelatihan Teknis</button></a>
+<a href="?penghargaan&id_surat_permohonan=<?=$id_surat_permohonan?>"><button class="btn btn-info">Riwayat Penghargaan</button></a>
+<a href="?kinerja&id_surat_permohonan=<?=$id_surat_permohonan?>"><button class="btn btn-primary">Riwayat Kinerja</button></a>
+<a href="?keluarga&id_surat_permohonan=<?=$id_surat_permohonan?>"><button class="btn btn-success">Riwayat Keluarga</button></a>
 
 <br>
 <br>
@@ -3783,10 +3359,10 @@ echo "<br><a href='?data'>Kembali Ke Form</a>";
 
 <form class="form-horizontal" role="form" method="post" action="">
 	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Nama </label>
+		<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> no_surat </label>
 
 		<div class="col-sm-9">
-			<input type="text" id="form-field-1" placeholder="" name="nama" class="form-control col-xs-10 col-sm-6" />
+			<input type="text" id="form-field-1" placeholder="" name="no_surat" class="form-control col-xs-10 col-sm-6" />
 		</div>
 	</div>
 
@@ -3794,7 +3370,7 @@ echo "<br><a href='?data'>Kembali Ke Form</a>";
 		<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Tanggal Lahir </label>
 
 		<div class="col-sm-9">
-			<input type="date" id="form-field-1" placeholder="" name="tgl_lahir" class="form-control col-xs-10 col-sm-6" />
+			<input type="date" id="form-field-1" placeholder="" name="isi_surat" class="form-control col-xs-10 col-sm-6" />
 		</div>
 	</div>
 
@@ -3839,26 +3415,26 @@ echo "<br><a href='?data'>Kembali Ke Form</a>";
 </form>
 <?php
 if(isset($_POST['actkeluarga'])){
-$id_pegawai_pns = $_GET['id_pegawai_pns'];
-$nama = $_POST['nama'];
-$tgl_lahir = $_POST['tgl_lahir'];
+$id_surat_permohonan = $_GET['id_surat_permohonan'];
+$no_surat = $_POST['no_surat'];
+$isi_surat = $_POST['isi_surat'];
 $jk = $_POST['jk'];
 $status = $_POST['status'];
 
 $query = "INSERT INTO `riwayat_keluarga` (
   `id_riwayat_keluarga`,
-  `id_pegawai_pns`,
-  `nama`,
-  `tgl_lahir`,
+  `id_surat_permohonan`,
+  `no_surat`,
+  `isi_surat`,
   `jk`,
   `status`
 )
 VALUES
   (
     '',
-    '$id_pegawai_pns',
-    '$nama',
-    '$tgl_lahir',
+    '$id_surat_permohonan',
+    '$no_surat',
+    '$isi_surat',
     '$jk',
     '$status'
   );
@@ -3871,7 +3447,7 @@ if($sql){ // Cek jika proses simpan ke database sukses atau tidak    // Jika Suk
 <script type="text/javascript">
     //<![CDATA[
     alert ("Data Berhasil Dinput");
-    window.location="pegawai_pns.php?keluarga&id_pegawai_pns=<?php echo $id_pegawai_pns?>";
+    window.location="surat_permohonan.php?keluarga&id_surat_permohonan=<?php echo $id_surat_permohonan?>";
     //]]>
   </script>
 <?php }else{    // Jika Gagal, Lakukan :    
@@ -3891,7 +3467,7 @@ echo "<br><a href='?data'>Kembali Ke Form</a>";
 					</label>
 				</th>
 				<th>No</th>
-				<th>Nama</th>
+				<th>no_surat</th>
 				<th>Tanggal Lahir</th>
 				<th>Jenis Kelamin</th>
 				<th>Status</th>
@@ -3901,7 +3477,7 @@ echo "<br><a href='?data'>Kembali Ke Form</a>";
 
 		<tbody>
 			<?php
-        $sql = "SELECT * FROM riwayat_keluarga where id_pegawai_pns='$id_pegawai_pns'";
+        $sql = "SELECT * FROM riwayat_keluarga where id_surat_permohonan='$id_surat_permohonan'";
         $query = mysqli_query($koneksi,$sql);
         $no=1;
         while ($a = mysqli_fetch_array($query)) :?>
@@ -3916,8 +3492,8 @@ echo "<br><a href='?data'>Kembali Ke Form</a>";
 		<td>
 			<?php echo $no++; ?>
 		</td>
-		<td><?php echo $a['nama'] ?></td>
-		<td><?php echo $a['tgl_lahir'] ?></td>
+		<td><?php echo $a['no_surat'] ?></td>
+		<td><?php echo $a['isi_surat'] ?></td>
 		<td><?php echo $a['jk'] ?></td>
 		<td><?php echo $a['status'] ?></td>
 		<td>
@@ -3927,7 +3503,7 @@ echo "<br><a href='?data'>Kembali Ke Form</a>";
 					<i class="ace-icon fa fa-pencil bigger-130"></i>
 				</a>
 
-				<a onclick="if(confirm('Apakah anda yakin ingin menghapus data ini ??')){ location.href='?hapuskeluarga&id_riwayat_keluarga=<?php echo $a['id_riwayat_keluarga']; ?>&id_pegawai_pns=<?php echo $a['id_pegawai_pns']; ?>' }" class="red"><i class="ace-icon fa fa-trash-o bigger-130"></i></a>
+				<a onclick="if(confirm('Apakah anda yakin ingin menghapus data ini ??')){ location.href='?hapuskeluarga&id_riwayat_keluarga=<?php echo $a['id_riwayat_keluarga']; ?>&id_surat_permohonan=<?php echo $a['id_surat_permohonan']; ?>' }" class="red"><i class="ace-icon fa fa-trash-o bigger-130"></i></a>
 
 			</div>
 
@@ -3947,7 +3523,7 @@ echo "<br><a href='?data'>Kembali Ke Form</a>";
 							</a>
 						</li>
 
-						<li><a onclick="if(confirm('Apakah anda yakin ingin menghapus data ini ??')){ location.href='?hapuskeluarga&id_riwayat_keluarga=<?php echo $a['id_riwayat_keluarga']; ?>&id_pegawai_pns=<?php echo $a['id_pegawai_pns']; ?>' }" class="tooltip-error" data-rel="tooltip" title="Delete"><span class="red">
+						<li><a onclick="if(confirm('Apakah anda yakin ingin menghapus data ini ??')){ location.href='?hapuskeluarga&id_riwayat_keluarga=<?php echo $a['id_riwayat_keluarga']; ?>&id_surat_permohonan=<?php echo $a['id_surat_permohonan']; ?>' }" class="tooltip-error" data-rel="tooltip" title="Delete"><span class="red">
 									<i class="ace-icon fa fa-trash-o bigger-120"></i>
 								</span></a>
 
@@ -3970,14 +3546,14 @@ echo "<br><a href='?data'>Kembali Ke Form</a>";
 <?php
   if(isset($_GET['hapuskeluarga'])){
     $id_riwayat_keluarga=$_GET['id_riwayat_keluarga'];
-    $id_pegawai_pns=$_GET['id_pegawai_pns'];
+    $id_surat_permohonan=$_GET['id_surat_permohonan'];
 $query2 = "DELETE FROM riwayat_keluarga WHERE id_riwayat_keluarga='$id_riwayat_keluarga'";
 $sql2 = mysqli_query($koneksi,$query2); // Eksekusi/Jalankan query dari variabel $query
 if($sql2){ ?>
 <script type="text/javascript">
     //<![CDATA[
     alert ("Berhasil Hapus");
-    window.location="?keluarga&id_pegawai_pns=<?=$id_pegawai_pns?>";
+    window.location="?keluarga&id_surat_permohonan=<?=$id_surat_permohonan?>";
     //]]>
   </script>
 <?php } else {  // Jika Gagal, Lakukan :  
@@ -4005,12 +3581,12 @@ while($d=mysqli_fetch_array($det)){
 ?>  
  
   <form class="form-horizontal" role="form" method="post" action="">
-  	<input type="hidden" id="form-field-1" placeholder="" value="<?=$d['id_pegawai_pns']?>" name="id_pegawai_pns" class="form-control col-xs-10 col-sm-6" />
+  	<input type="hidden" id="form-field-1" placeholder="" value="<?=$d['id_surat_permohonan']?>" name="id_surat_permohonan" class="form-control col-xs-10 col-sm-6" />
 	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Nama</label>
+		<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> no_surat</label>
 
 		<div class="col-sm-9">
-			<input type="text" id="form-field-1" placeholder="" value="<?=$d['nama']?>" name="nama" class="form-control col-xs-10 col-sm-6" />
+			<input type="text" id="form-field-1" placeholder="" value="<?=$d['no_surat']?>" name="no_surat" class="form-control col-xs-10 col-sm-6" />
 		</div>
 	</div>
 
@@ -4018,7 +3594,7 @@ while($d=mysqli_fetch_array($det)){
 		<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Tanggal Lahir </label>
 
 		<div class="col-sm-9">
-			<input type="date" id="form-field-1" placeholder="" value="<?=$d['tgl_lahir']?>" name="tgl_lahir" class="form-control col-xs-10 col-sm-6" />
+			<input type="date" id="form-field-1" placeholder="" value="<?=$d['isi_surat']?>" name="isi_surat" class="form-control col-xs-10 col-sm-6" />
 		</div>
 	</div>
 
@@ -4062,19 +3638,19 @@ while($d=mysqli_fetch_array($det)){
 </form>
 <?php
 if(isset($_POST['acteditkeluarga'])){
-$id_pegawai_pns = $_POST['id_pegawai_pns'];
+$id_surat_permohonan = $_POST['id_surat_permohonan'];
 $id_riwayat_keluarga = $_GET['id_riwayat_keluarga'];
-$nama = $_POST['nama'];
-$tgl_lahir = $_POST['tgl_lahir'];
+$no_surat = $_POST['no_surat'];
+$isi_surat = $_POST['isi_surat'];
 $jk = $_POST['jk'];
 $status = $_POST['status'];
 
 $query = "UPDATE
  `riwayat_keluarga`
 set
-  `id_pegawai_pns` = '$id_pegawai_pns',
-  `nama` = '$nama',
-  `tgl_lahir` = '$tgl_lahir',
+  `id_surat_permohonan` = '$id_surat_permohonan',
+  `no_surat` = '$no_surat',
+  `isi_surat` = '$isi_surat',
   `jk` = '$jk',
   `status` = '$status'
 where `id_riwayat_keluarga` = '$id_riwayat_keluarga';
@@ -4087,7 +3663,7 @@ if($sql){ // Cek jika proses simpan ke database sukses atau tidak    // Jika Suk
 <script type="text/javascript">
     //<![CDATA[
     alert ("Data Berhasil Dinput");
-    window.location="pegawai_pns.php?keluarga&id_pegawai_pns=<?php echo $id_pegawai_pns?>";
+    window.location="surat_permohonan.php?keluarga&id_surat_permohonan=<?php echo $id_surat_permohonan?>";
     //]]>
   </script>
 <?php }else{    // Jika Gagal, Lakukan :    
@@ -4110,7 +3686,7 @@ echo "<br><a href='?data'>Kembali Ke Form</a>";
           <div class="modal-dialog modal-lg">
             <div class="modal-content">
               <div class="modal-header">
-                <h4 class="modal-title">Tambah Data User</h4>
+                <h4 class="modal-title">Tambah Data Surat Permohonan</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
                 
@@ -4119,524 +3695,96 @@ echo "<br><a href='?data'>Kembali Ke Form</a>";
                <form action="" method="post" class="niceform" enctype="multipart/form-data">
             <form class="form-horizontal" role="form" method="post" action="">
 
-	<div class="form-group">
-		<label><font color="">Data Identitas</font></label>
-	</div>
+	
+	
 
 	<div class="form-group">
-		<label class="" for="form-field-1"> NIP/NRP Lama* </label>
+		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1">No Surat </label>
 
 		<div class="col-sm-9">
-			<input type="text" placeholder="" name="nip_lama" class="form-control" />
+			<input type="text" placeholder="" name="no_surat" class="form-control" />
 		</div>
 	</div>
 
 	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> NIP/NRP Baru </label>
+		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Perihal</label>
 
 		<div class="col-sm-9">
-			<input type="text" placeholder="" name="nip_baru" class="form-control" />
+			<input type="text" placeholder="" name="perihal" class="form-control" />
 		</div>
 	</div>
 
 	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> No. Kartu Pegawai</label>
+		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Lampiran</label>
 
 		<div class="col-sm-9">
-			<input type="text" placeholder="" name="no_karpeg" class="form-control" />
-		</div>
-	</div>
-
-	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Nama*</label>
-
-		<div class="col-sm-9">
-			<input type="text"  placeholder="" name="nama" class="form-control" />
-		</div>
-	</div>
-
-	<div class="form-group">
-					<label class="col-sm-3 control-label no-padding-right" > Jenis Kelamin </label>
-
-					<div class="col-sm-9">
-						<select name="jk" class="form-control">
-			                <option value="">Pilih</option>
-			                <option value="Laki-laki">Laki-laki</option>
-			                <option value="Perempuan">Perempuan</option>
-		                </select>
-					</div>
-	</div>
-
-	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Tempat Lahir</label>
-
-		<div class="col-sm-9">
-			<input type="text"  placeholder="" name="tempat_lahir" class="form-control" />
-		</div>
-	</div>
-
-	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Tanggal Lahir</label>
-
-		<div class="col-sm-9">
-			<input type="date"  placeholder="" name="tgl_lahir" class="form-control" />
-		</div>
-	</div>
-
-	<div class="form-group">
-					<label class="col-sm-3 control-label no-padding-right" > Agama </label>
-
-					<div class="col-sm-9">
-						<select name="agama" class="form-control">
-			                <option value="" >Pilih</option>
-			                <option value="Islam">Islam</option>
-			                <option value="Kristen">Kristen</option>
-			                <option value="Hindu">Hindu</option>
-			                <option value="Budha">Budha</option>
-			                <option value="Khong Hu Cu">Khong Hu Cu</option>
-			                <option value="Katolik">Katolik</option>
-		                </select>
-					</div>
-	</div>
-
-	<div class="form-group">
-					<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Status Perkawinan </label>
-
-					<div class="col-sm-9">
-						<select name="status_kawin" class="form-control">
-			                <option value="">Pilih</option>
-			                <option value="Belum Menikah">Belum Menikah</option>
-			                <option value="Menikah">Menikah</option>
-			                <option value="Janda/Duda">Janda/Duda</option>
-		                </select>
-					</div>
-	</div>
-
-	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Alamat</label>
-
-		<div class="col-sm-9">
-			<textarea input type="text" id="form-field-1-1" placeholder="" name="alamat" class="form-control" /></textarea>
-		</div>
-	</div>
-
-	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> No. Telp</label>
-
-		<div class="col-sm-9">
-			<input type="text" id="form-field-1-1" placeholder="" name="no_telp" class="form-control" />
-		</div>
-	</div>
-
-	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> NIK</label>
-
-		<div class="col-sm-9">
-			<input type="text" id="form-field-1-1" placeholder="" name="nik" class="form-control" />
-		</div>
-	</div>
-
-	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> NPWP</label>
-
-		<div class="col-sm-9">
-			<input type="text" id="form-field-1-1" placeholder="" name="npwp" class="form-control" />
-		</div>
-	</div>
-
-	<div class="form-group">
-		<label><font color="">Data Kepegawaian</font></label>
-	</div>
-
-	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> TMT CPNS</label>
-
-		<div class="col-sm-9">
-			<input type="date" id="form-field-1-1" placeholder="" name="tmt_cpns" class="form-control" />
-		</div>
-	</div>
-
-	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> TMT PNS</label>
-
-		<div class="col-sm-9">
-			<input type="date" id="form-field-1-1" placeholder="" name="tmt_pns" class="form-control" />
-		</div>
-	</div>
-
-	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Status Kepegawaian</label>
-
-		<div class="col-sm-9">
-			<input type="text" id="form-field-1-1" placeholder="" name="status_kepegawaian" class="form-control" />
-		</div>
-	</div>
-
-	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Jenis Kepegawaian</label>
-
-		<div class="col-sm-9">
-			<input type="text" id="form-field-1-1" placeholder="" name="jenis_kepegawaian" class="form-control" />
-		</div>
-	</div>
-
-	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Status Hukuman Disiplin</label>
-
-		<div class="col-sm-9">
-			<input type="text" id="form-field-1-1" placeholder="" name="status_hukuman_disiplin" class="form-control" />
-		</div>
-	</div>
-
-	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Pendidikan Terakhir</label>
-
-		<div class="col-sm-9">
-			<input type="text" id="form-field-1-1" placeholder="" name="pendidikan_terakhir" class="form-control" />
-		</div>
-	</div>
-
-	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Jabatan Saat Ini</label>
-
-		<div class="col-sm-9">
-			<input type="text" id="form-field-1-1" placeholder="" name="jabatan_saat_ini" class="form-control" />
-		</div>
-	</div>
-
-	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> TMT Jabatan Saat Ini</label>
-
-		<div class="col-sm-9">
-			<input type="date" id="form-field-1-1" placeholder="" name="tmt_jabatan_saat_ini" class="form-control" />
-		</div>
-	</div>
-
-	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Masa Kerja Golongan</label>
-
-		<div class="col-sm-9">
-			<input type="text" id="form-field-1-1" placeholder="" name="masa_kerja_golongan" class="form-control" />
-		</div>
-	</div>
-
-	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Eselon</label>
-
-		<div class="col-sm-9">
-			<input type="text" id="form-field-1-1" placeholder="" name="eselon" class="form-control" />
-		</div>
-	</div>
-
-	<div class="form-group">
-		<label><font color="">Tempat Kerja Sekarang</font></label>
-	</div>
-
-	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Organisasi</label>
-
-		<div class="col-sm-9">
-			<input type="text" id="form-field-1-1" placeholder="" name="organisasi" value="Direktorat Jenderal Pelayanan Kesehatan" class="form-control" />
-		</div>
-	</div>
-
-	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Satuan Kerja</label>
-
-		<div class="col-sm-9">
-			<input type="text" id="form-field-1-1" placeholder="" name="satuan_kerja" value="Balai Besar Laboratorium Kesehatan Palembang" class="form-control" />
-		</div>
-	</div>
-
-	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Satuan Organisasi</label>
-
-		<div class="col-sm-9">
-			<input type="text" id="form-field-1-1" placeholder="" name="satuan_organisasi" class="form-control" />
-		</div>
-	</div>
-
-	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Unit Organisasi</label>
-
-		<div class="col-sm-9">
-			<input type="text" id="form-field-1-1" placeholder="" name="unit_organisasi" class="form-control" />
-		</div>
-	</div>
-
-	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Unit Kerja</label>
-
-		<div class="col-sm-9">
-			<input type="text" id="form-field-1-1" placeholder="" name="unit_kerja" class="form-control" />
+			<input type="text"  placeholder="" name="lampiran" class="form-control" />
 		</div>
 	</div>
 
 
-
-
 	<div class="form-group">
-		<label><font color="">Data Akun</font></label>
-	</div>
-
-	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Email</label>
+		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Tanggal Surat</label>
 
 		<div class="col-sm-9">
-			<input type="text" id="form-field-1-1" placeholder="" name="email" class="form-control" />
-		</div>
-	</div>
-
-	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Username</label>
-
-		<div class="col-sm-9">
-			<input type="text" id="form-field-1-1" placeholder="" name="username" class="form-control" />
-		</div>
-	</div>
-
-	<div class="form-group">
-					<label class="col-sm-3 control-label no-padding-right" for="form-field-2"> Password </label>
-
-					<div class="col-sm-9">
-						<input type="password" id="form-field-2" placeholder="" name="password" class="form-control" />
-					</div>
-				</div>
-
-
-
-	<div class="form-group">
-		<label><font color="">Data Keluarga</font></label>
-	</div>
-
-	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Nama Suami / Istri</label>
-
-		<div class="col-sm-9">
-			<input type="text" id="form-field-1-1" placeholder="" name="nama_suami_istri" class="form-control" />
-		</div>
-	</div>
-
-	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Tanggal Lahir</label>
-
-		<div class="col-sm-9">
-			<input type="text" id="form-field-1-1" placeholder="" name="tgk_lahir_suami_istri" class="form-control" />
-		</div>
-	</div>
-
-	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Pekerjaan</label>
-
-		<div class="col-sm-9">
-			<input type="text" id="form-field-1-1" placeholder="" name="pekerjaan_suami_istri" class="form-control" />
-		</div>
-	</div>
-
-	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> No Seri Karsu / Karis</label>
-
-		<div class="col-sm-9">
-			<input type="text" id="form-field-1-1" placeholder="" name="no_seri" class="form-control" />
-		</div>
-	</div>
-
-	<div class="form-group">
-		<label><font color="">Data Gaji</font></label>
-	</div>
-
-	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Gaji</label>
-
-		<div class="col-sm-9">
-			<input type="text" id="form-field-1-1" placeholder="" name="gaji" class="form-control" />
-		</div>
-	</div>
-
-	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Pajak</label>
-
-		<div class="col-sm-9">
-			<input type="text" id="form-field-1-1" placeholder="" name="pajak" class="form-control" />
+			<input type="date"  placeholder="" name="tgl_surat" class="form-control" />
 		</div>
 	</div>
 
 
-
 	<div class="form-group">
-		<label><font color="red">Kontak yang bisa dihubungi dalam keadaan darurat</font></label>
-	</div>
-
-	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"><font color="red"> Nama</font></label>
+		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Judul Surat</label>
 
 		<div class="col-sm-9">
-			<input type="text" id="form-field-1-1" placeholder="" name="nama_kontak" class="form-control" />
+			<input type="text"  placeholder="" name="judul_surat" class="form-control" />
 		</div>
 	</div>
 
+	
+
 	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"><font color="red"> Hubungan</font></label>
+		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Isi Surat</label>
 
 		<div class="col-sm-9">
-			<input type="text" id="form-field-1-1" placeholder="" name="hubungan" class="form-control" />
+			<textarea input type="text" id="form-field-1-1" placeholder="" name="isi_surat" class="form-control" /></textarea>
 		</div>
 	</div>
 
-	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"><font color="red"> No Handphone</font></label>
-
-		<div class="col-sm-9">
-			<input type="text" id="form-field-1-1" placeholder="" name="no_hp_kontak" class="form-control" />
-		</div>
-	</div>
-
-	<div class="form-group">
-					<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Status KPE </label>
-
-					<div class="col-sm-9">
-						<select name="status_kpe" class="form-control">
-			                <option value="Belum KPE">Belum KPE</option>
-			                <option value="Sudah Foto">Sudah Foto</option>
-			                <option value="Cetak KPE">Cetak KPE</option>
-			                <option value="Terima KPE">Terima KPE</option>
-		                </select>
-					</div>
-	</div>
+	
+	
 
              
 
 <?php
 if(isset($_POST['submit'])){
-$nama = $_POST['nama'];
-$nip_baru = $_POST['nip_baru'];
-$nip_lama = $_POST['nip_lama'];
-$no_karpeg = $_POST['no_karpeg'];
-$tempat_lahir = $_POST['tempat_lahir'];
-$tgl_lahir = $_POST['tgl_lahir'];
-$jk = $_POST['jk'];
-$agama = $_POST['agama'];
-$status_kawin = $_POST['status_kawin'];
-$alamat = $_POST['alamat'];
-$no_telp = $_POST['no_telp'];
-$nik = $_POST['nik'];
-$npwp = $_POST['npwp'];
-$email = $_POST['email'];
-$nama_kontak = $_POST['nama_kontak'];
-$hubungan = $_POST['hubungan'];
-$no_hp_kontak = $_POST['no_hp_kontak'];
-$tmt_cpns = $_POST['tmt_cpns'];
-$tmt_pns = $_POST['tmt_pns'];
-$status_kepegawaian = $_POST['status_kepegawaian'];
-$jenis_kepegawaian = $_POST['jenis_kepegawaian'];
-$status_hukuman_disiplin = $_POST['status_hukuman_disiplin'];
-$pendidikan_terakhir = $_POST['pendidikan_terakhir'];
-$jabatan_saat_ini = $_POST['jabatan_saat_ini'];
-$tmt_jabatan_saat_ini = $_POST['tmt_jabatan_saat_ini'];
-$masa_kerja_golongan = $_POST['masa_kerja_golongan'];
-$eselon = $_POST['eselon'];
-$organisasi = $_POST['organisasi'];
-$satuan_kerja = $_POST['status_kerja'];
-$satuan_organisasi = $_POST['satuan_organisasi'];
-$unit_organisasi = $_POST['unit_organisasi'];
-$unit_kerja = $_POST['unit_kerja'];
-$username = $_POST['username'];
-$password = $_POST['password'];
-$nama_suami_istri = $_POST['nama_suami_istri'];
-$tgl_lahir_suami_istri = $_POST['tgl_lahir_suami_istri'];
-$pekerjaan_suami_istri = $_POST['pekerjaan_suami_istri'];
-$no_seri = $_POST['no_seri'];
-$gaji = $_POST['gaji'];
-$pajak = $_POST['pajak'];
+$no_surat = $_POST['no_surat'];
+$perihal = $_POST['perihal'];
+$lampiran = $_POST['lampiran'];
+$tgl_surat = $_POST['tgl_surat'];
+$judul_surat = $_POST['judul_surat'];
+$isi_surat = $_POST['isi_surat'];
+$status_surat = "Belum di validasi";
 
-$query = "INSERT INTO `pegawai_pns` (
-  `id_pegawai_pns`,
-  `nama`,
-  `nip_baru`,
-  `nip_lama`,
-  `no_karpeg`,
-  `tempat_lahir`,
-  `tgl_lahir`,
-  `jk`,
-  `agama`,
-  `status_kawin`,
-  `alamat`,
-  `no_telp`,
-  `nik`,
-  `npwp`,
-  `email`,
-  `nama_kontak`,
-  `hubungan`,
-  `no_hp_kontak`,
-  `tmt_cpns`,
-  `tmt_pns`,
-  `status_kepegawaian`,
-  `jenis_kepegawaian`,
-  `status_hukuman_disiplin`,
-  `pendidikan_terakhir`,
-  `jabatan_saat_ini`,
-  `tmt_jabatan_saat_ini`,
-  `masa_kerja_golongan`,
-  `eselon`,
-  `organisasi`,
-  `satuan_kerja`,
-  `satuan_organisasi`,
-  `unit_organisasi`,
-  `unit_kerja`,
-  `username`,
-  `password`,
-  `nama_suami_istri`,
-  `tgl_lahir_suami_istri`,
-  `pekerjaan_suami_istri`,
-  `no_seri`,
-   `gaji`,
-    `pajak`
-)
-VALUES
-  (
-    '',
-    '$nama',
-    '$nip_baru',
-    '$nip_lama',
-    '$no_karpeg',
-    '$tempat_lahir',
-    '$tgl_lahir',
-    '$jk',
-    '$agama',
-    '$status_kawin',
-    '$alamat',
-    '$no_telp',
-    '$nik',
-    '$npwp',
-    '$email',
-    '$nama_kontak',
-    '$hubungan',
-    '$no_hp_kontak',
-    '$tmt_cpns',
-    '$tmt_pns',
-    '$status_kepegawaian',
-    '$jenis_kepegawaian',
-    '$status_hukuman_disiplin',
-    '$pendidikan_terakhir',
-    '$jabatan_saat_ini',
-    '$tmt_jabatan_saat_ini',
-    '$masa_kerja_golongan',
-    '$eselon',
-    '$organisasi',
-    '$satuan_kerja',
-    '$satuan_organisasi',
-    '$unit_organisasi',
-    '$unit_kerja',
-    '$username',
-    '$password',
-    '$nama_suami_istri',
-    '$tgl_lahir_suami_istri',
-    '$pekerjaan_suami_istri',
-    '$no_seri',
-     '$gaji',
-      '$pajak'
-  );
-
+$query = "INSERT INTO `surat_permohonan` 
+	(`id_surat_permohonan`, 
+	`no_surat`, 
+	`perihal`, 
+	`lampiran`, 
+	`tgl_surat`, 
+	`judul_surat`, 
+	`isi_surat`, 
+	`status_surat`
+	)
+	VALUES
+	('', 
+	'$no_surat', 
+	'$perihal', 
+	'$lampiran', 
+	'$tgl_surat', 
+	'$judul_surat', 
+	'$isi_surat', 
+	'$status_surat'
+	);
 
 ";
 
@@ -4645,7 +3793,7 @@ if($sql){ // Cek jika proses simpan ke database sukses atau tidak    // Jika Suk
 echo '<script type="text/javascript">
     //<![CDATA[
     alert ("Data Berhasil Dinput");
-    window.location="pegawai_pns.php?data";
+    window.location="surat_permohonan.php?data";
     //]]>
   </script>'; // Redirect ke halaman index.php  
 }else{    // Jika Gagal, Lakukan :    

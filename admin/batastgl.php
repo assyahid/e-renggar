@@ -119,7 +119,7 @@ while($d=mysqli_fetch_array($det)){
       </tr>
       <tr>
         <td>Tanggal</td>
-        <td><input type="number" class="form-control" name="tanggal" value="<?php echo $d['tanggal'] ?>"></td>
+        <td><input type="text" class="form-control" name="tanggal" value="<?php echo $d['tanggal'] ?>"></td>
       </tr>
       <tr>
         <td>Periode</td>
@@ -152,19 +152,21 @@ while($d=mysqli_fetch_array($det)){
 ?>
 <?php  if(isset($_POST['submit1'])){
 $id_batas_tanggal=$_GET['id_batas_tanggal'];
-$nama = $_POST['nama'];
-$batas_tanggalname = $_POST['batas_tanggalname'];
-$password = $_POST['password'];
-$level = $_POST['level'];
+$tanggal = $_POST['tanggal'];
+$periode = $_POST['periode'];
+$tahun = $_POST['tahun'];
 
-    $update=mysqli_query($koneksi,"UPDATE batas_tanggal  SET 
-  nama = '$nama' , 
-  batas_tanggalname = '$batas_tanggalname' , 
-  PASSWORD = '$password' , 
-  LEVEL = '$level'
+
+    $update=mysqli_query($koneksi,"
+UPDATE `batas_tanggal` 
+  SET
+  `tanggal` = '$tanggal', 
+  `periode` = '$periode', 
+  `tahun` = '$tahun'
   
   WHERE
-  id_batas_tanggal = '$id_batas_tanggal'  ") or die ("gagal update ");
+  `id_batas_tanggal` = '$id_batas_tanggal' ;
+  ") or die ("gagal update ");
     echo '<script type="text/javascript">
         //<![CDATA[
         alert ("Edit Success");
@@ -189,47 +191,38 @@ $level = $_POST['level'];
               <div class="modal-body">
                <form action="" method="post" class="niceform" enctype="multipart/form-data">
             <div class="form-group">
-              <label>Nama </label>
-              <input name="nama" type="text" class="form-control" placeholder="nama Lengkap ..">
+              <label>Tanggal </label>
+              <input name="tanggal" type="date" class="form-control" placeholder="nama Lengkap ..">
             </div>
             <div class="form-group">
-              <label>batas_tanggalname </label>
-              <input name="batas_tanggalname" type="text" class="form-control" placeholder="batas_tanggalname ..">
+              <label>Periode </label>
+              <input name="periode" type="text" class="form-control" placeholder="batas_tanggalname ..">
             </div>
             <div class="form-group">
-              <label>Password </label>
-              <input name="password" type="text" class="form-control" placeholder="Password ..">
+              <label>Tahun </label>
+              <input name="tahun" type="text" class="form-control" placeholder="Password ..">
             </div>
-            <div class="form-group">
-              <label>Level </label>
-              <select name="level" class="form-control">
-                <option >.:pilih level:.</option>
-                <option value="admin">admin</option>
-                <option value="kepala">kepala</option>
-              </select>
-            </div>
+           
              
 
 <?php
 if(isset($_POST['submit'])){
-$nama = $_POST['nama'];
-$batas_tanggalname = $_POST['batas_tanggalname'];
-$password = md5($_POST['password']);
-$level = $_POST['level'];
+$tanggal = $_POST['tanggal'];
+$periode = $_POST['periode'];
+$tahun = $_POST['tahun'];
 
-$query = "INSERT INTO batas_tanggal 
-  (id_batas_tanggal, 
-  nama, 
-  batas_tanggalname, 
-  PASSWORD, 
-  LEVEL
+
+$query = "INSERT INTO `batas_tanggal` 
+  (`id_batas_tanggal`, 
+  `tanggal`, 
+  `periode`, 
+  `tahun`
   )
   VALUES
   ('', 
-  '$nama', 
-  '$batas_tanggalname', 
-  '$password', 
-  '$level'
+  '$tanggal', 
+  '$periode', 
+  '$tahun'
   );
 
 ";

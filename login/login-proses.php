@@ -22,6 +22,9 @@ $password = md5($_POST['password']);
 		}
 		else if ($qry['level']=="subbag"){
 			echo "succes-subbag";
+		} 
+		else if ($qry['level']=="operator"){
+			echo "success-operator";
 		}
 	} else {
 		echo "error";
