@@ -112,7 +112,7 @@
       showConfirmButton: false,
       timer: 3000
     });
-
+   
         $(".btn-login").click( function() {
     
           var nama = $("#nama").val();
@@ -148,7 +148,7 @@
               },
 
               success:function(response){
-
+                // alert(response);
                 if (response == "success-admin") {
 
                   Swal.fire({
@@ -194,7 +194,7 @@
                     window.location.href = "../operator";
                   });
 
-                } else if(response == "success-pegawainonpns") {
+                } else if(response == "success-kasubbag") {
 
                   Swal.fire({
                     icon: 'success',
@@ -205,7 +205,21 @@
                     showConfirmButton: false
                   })
                   .then (function() {
-                    window.location.href = "../pegawai_non_pns";
+                    window.location.href = "../kasubbag";
+                  });
+
+                } else if(response == "success-koordinator") {
+
+                  Swal.fire({
+                    icon: 'success',
+                    title: 'Login Berhasil!',
+                    text: 'Anda akan di arahkan dalam 3 Detik',
+                    timer: 3000,
+                    showCancelButton: false,
+                    showConfirmButton: false
+                  })
+                  .then (function() {
+                    window.location.href = "../koordinator";
                   });
 
                 } else {

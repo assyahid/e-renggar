@@ -15,16 +15,19 @@ $password = md5($_POST['password']);
 			echo "success-admin";
 		}
 		else if ($qry['level']=="kepala"){
-			echo "succes-kepala";
+			echo "success-kepala";
 		}
 		else if ($qry['level']=="koordinator"){
-			echo "succes-koordinator";
+			echo "success-koordinator";
 		}
-		else if ($qry['level']=="subbag"){
-			echo "succes-subbag";
+		else if ($qry['level']=="kasubbag"){
+			echo "success-kasubbag";
 		} 
 		else if ($qry['level']=="operator"){
 			echo "success-operator";
+		}
+		else if ($qry['level']=="instalasi"){
+			echo "success-instalasi";
 		}
 	} else {
 		echo "error";

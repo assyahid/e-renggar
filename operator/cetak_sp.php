@@ -39,12 +39,11 @@ $data   = mysqli_fetch_array($query);
   </tr>
 </table>
 
-<p>Kepada Yth,<br>Sdr. Ka. Bagian/Sub.Bagian/Bidang/Seksi/<br>Instalasi.<br>Di Lingkungan Balai Besar Laboratorium Kesehatan Palembang</p>
-
-<p><?=$data['isi_surat']?></p>
+<p>Kepada Yth,<br>Sdr. Ka. Bagian/Sub.Bagian/Bidang/Seksi/<br>&nbsp; &nbsp; &nbsp; &nbsp;Instalasi.<br>&nbsp; &nbsp; &nbsp; &nbsp;Di Lingkungan Balai Besar Laboratorium Kesehatan Palembang</p>
+<?=$data['isi_surat']?>
 
 <p align='right'><b>Kepala BBLK Palembang</b><br>
-<img src='../image/simka.png' width='120'>
+<img src='../image/putih.png' width="10" height="25">
 <br>
 <b><u>dr. Andi Yussianto, M.Epid</u><br>NIP. 197312072002121002</b></p>
 
