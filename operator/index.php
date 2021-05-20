@@ -21,22 +21,12 @@
 						<div class="col-md-6">
 							<div class="card full-height">
 								<div class="card-body">
-									<div class="card-title">Detail Data</div>
-									<div class="card-category">Segera lakukan update data anda</div>
+									<div class="card-title">Surat Permohonan</div>
+									<div class="card-category">Buat Surat Permohonan</div>
 									<div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
 										<div class="px-2 pb-2 pb-md-0 text-center">
 											<h6 class="fw-bold text-uppercase text-success op-8">Data Jabatan</h6>
-											<?php $id_pegawai_pns = $_SESSION['id_pegawai_pns']; 
-											        	$sql=mysqli_query($koneksi,"SELECT * FROM `riwayat_jabatan` where id_pegawai_pns='$id_pegawai_pns' ORDER BY id_riwayat_jabatan DESC");
-											        	$data=mysqli_fetch_array($sql);
-											        	if (isset($data['jabatan_eselon'])!=NULL) {
-											        		echo $data['jabatan_eselon'];
-											        	} else {
-											        		echo "<span class='badge badge-warning'>Data belum di update</span>";
-											        	}
-											        	
-
-											        ?> <br><br>
+											
 											        <a href="pegawai_pns.php?jabatan&id_pegawai_pns=<?=$id_pegawai_pns?>" class="btn btn-primary btn-sm">Update Jabatan</a>
 											
 										</div>

@@ -34,7 +34,7 @@
 			<div class="logo-header" data-background-color="blue">
 				
 				<a href="index.php" class="logo">
-					<img src="../image/simka.png" alt="navbar brand" class="navbar-brand">
+					<img src="../image/logorenggar.png" alt="navbar brand" class="navbar-brand">
 				</a>
 				<button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon">
@@ -125,14 +125,30 @@
 							</span>
 							<h4 class="text-section">Components</h4>
 						</li>
+
+						<li class="nav-item">
+							
+							<a href="barang.php?data">
+								<i class="fas fa-th-list"></i>
+								<span class="sub-item">Data Barang</span>
+							</a>
+						</li>
 				
 						<li class="nav-item">
 							
-										<a href="surat_permohonan.php?data">
-											<i class="fas fa-th-list"></i>
-											<span class="sub-item">Surat Permohonan</span>
-										</a>
-									</li>
+							<a href="surat_permohonan.php?data">
+								<i class="fas fa-th-list"></i>
+								<span class="sub-item">Surat Permohonan</span>
+							</a>
+						</li>
+
+						<li class="nav-item">
+							
+							<a href="perogram_kerja.php?data">
+								<i class="fas fa-th-list"></i>
+								<span class="sub-item">Program Kerja</span>
+							</a>
+						</li>
 									
 						
 						
