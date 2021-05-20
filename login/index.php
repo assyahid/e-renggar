@@ -1,43 +1,46 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="fonts/icomoon/style.css">
-
-    <link rel="stylesheet" href="css/owl.carousel.min.css">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    
-    <!-- Style -->
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="sweetalert2/sweetalert2.min.css">
+<head>
+	<title>E-Renggar BBLK Palembang | Login</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="css/util.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" href="sweetalert2/sweetalert2.min.css">
     <link rel="stylesheet" href="toastr/toastr.min.css">
 
-    <title>E-Renggar | Login</title>
-  </head>
-  <body>
-  
+<?php include'../config.php'; ?>
+</head>
+<body>
+	
+	<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100">
+				<div class="login100-pic js-tilt" data-tilt>
+					<img src="../image/logo.png" alt="IMG" height="300" width="250">
+				</div>
 
-  <div class="d-lg-flex half">
-    <div class="bg order-1 order-md-2" style="background-image: url('../image/coversimka.png');"></div>
-    <div class="contents order-2 order-md-1">
+				<div class="login100-form validate-form">
+					<span class="login100-form-title">
+						E-Renggar
+					</span>
 
-      <div class="container">
-        <div class="row align-items-center justify-content-center">
-          <div class="col-md-7">
-            <div class="mb-4">
-              <h3>Sign In</h3>
-              <p class="mb-4">Login untuk masuk ke halaman utama.</p>
-            </div>
-            
-              <div class="form-group first">
-                <label for="nama">Nama</label>
-                <select name="nama" id="nama" class="select2 form-control">
+					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+						 <select name="nama" id="nama" class="select2 input100">
                             <option disabled="" selected>Pilih Pengguna</option>
                              <?php 
                              include '../config.php';
@@ -49,62 +52,73 @@
                                 <?php }
                                 ?>
                         </select>
+						<span class="focus-input100"></span>
+						<span class="symbol-input100">
+							<i class="fa fa-user" aria-hidden="true"></i>
+						</span>
+					</div>
 
-              </div>
-              <div class="form-group last mb-3">
-                <label for="password">Password</label>
-                <input type="password" class="form-control" id="password">
-                
-              </div>
-              
-              <div class="d-flex mb-5 align-items-center">
-                <label class="control control--checkbox mb-0"><span class="caption">Remember me</span>
-                  <input type="checkbox" checked="checked"/>
-                  <div class="control__indicator"></div>
-                </label>
-                <span class="ml-auto"><a href="#" class="forgot-pass">Forgot Password</a></span> 
-              </div>
+					<div class="wrap-input100 validate-input" data-validate = "Password is required">
+						<input class="input100" type="password" name="password" id="password" placeholder="Password">
+						<span class="focus-input100"></span>
+						<span class="symbol-input100">
+							<i class="fa fa-lock" aria-hidden="true"></i>
+						</span>
+					</div>
+					
+					<div class="container-login100-form-btn">
+						<button type="submit" class="login100-form-btn btn-login">
+							Login
+						</button>
+					</div>
 
-              <input type="submit" value="Log In"  class="btn btn-login btn-block btn-primary">
+					<div class="text-center p-t-12">
+						<!-- <span class="txt1">
+							Forgot
+						</span>
+						<a class="txt2" href="#">
+							Username / Password?
+						</a> -->
+					</div>
 
-              <!-- <span class="d-block text-center my-4 text-muted">&mdash; or &mdash;</span> -->
-             <!--  
-              <div class="social-login">
-                <a href="#" class="facebook btn d-flex justify-content-center align-items-center">
-                  <span class="icon-facebook mr-3"></span> Login with Facebook
-                </a>
-                <a href="#" class="twitter btn d-flex justify-content-center align-items-center">
-                  <span class="icon-twitter mr-3"></span> Login with  Twitter
-                </a>
-                <a href="#" class="google btn d-flex justify-content-center align-items-center">
-                  <span class="icon-google mr-3"></span> Login with  Google
-                </a>
-              </div> -->
-        
-          </div>
-        </div>
-      </div>
-    </div>
+					<div class="text-center p-t-136">
+						<a class="txt2" href="#">
+							jika ada kendala hubungi Tim IT
+							<!-- <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i> -->
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
 
-    
-  </div>
-    
-    
+	
+<!--===============================================================================================-->	
+	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/bootstrap/js/popper.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/tilt/tilt.jquery.min.js"></script>
+	<script >
+		$('.js-tilt').tilt({
+			scale: 1.1
+		})
+	</script>
+<!--===============================================================================================-->
+	<script src="js/main.js"></script>
 
-    <script src="js/jquery-3.3.1.min.js"></script>
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/main.js"></script>
-
-    <script type="text/javascript" src="sweetalert2/sweetalert2.js"></script>
+	<script type="text/javascript" src="sweetalert2/sweetalert2.js"></script>
     <!-- Toastr -->
     <script src="toastr/toastr.min.js"></script>
     <!-- InputMask -->
     <script src="moment/moment.min.js"></script>
 
-   
-
-  <script>
+    <script>
   $(document).ready(function() {
     const Toast = Swal.mixin({
       toast: true,
@@ -252,5 +266,6 @@
 
       });
     </script>
-  </body>
+
+</body>
 </html>
