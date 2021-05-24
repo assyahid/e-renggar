@@ -43,8 +43,13 @@ $data   = mysqli_fetch_array($query);
 <?=$data['isi_surat']?>
 
 <p align='right'><b>Kepala BBLK Palembang</b><br>
+  <?php if ($data['status_surat']=='Telah divalidasi Kepala') { ?>
+<qrcode value="https://simka.bblkpalembang.com" ec="M" style="border: none; width: 30mm;"></qrcode>
+ <?php } else { ?>
 <img src='../image/putih.png' width="10" height="25">
-<br>
+<?php } ?>
+ <br>
+Dokumen ini ditandatangani secara digital
 <b><u>dr. Andi Yussianto, M.Epid</u><br>NIP. 197312072002121002</b></p>
 
 </body>

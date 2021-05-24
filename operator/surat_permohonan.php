@@ -75,10 +75,6 @@
 															<i class="ace-icon fa fa-print bigger-130"></i>
 														</a>
 
-														<a class="blue" href="?lengkapidata&id_surat_permohonan=<?php echo $a['id_surat_permohonan']; ?>" title='Lengkapi Data'>
-															<i class="ace-icon fa fa-plus bigger-130"></i>
-														</a>
-
 														<a class="blue" href="?detail&id_surat_permohonan=<?php echo $a['id_surat_permohonan']; ?>"  title='Detail'>
 															<i class="ace-icon fa fa-search-plus bigger-130"></i>
 														</a>
@@ -252,42 +248,23 @@ if(isset($_POST['submit1'])){
 					while($d=mysqli_fetch_array($det)){
 						?>  
 
-						<center><h3><b>BALAI BESAR LABORATORIUM KESEHATAN PALEMBANG<br> DAFTAR RIWAYAT HIDUP PEGAWAI</b></h3></center>
+				<embed src="cetak_sp.php?id_surat_permohonan=<?php echo $d['id_surat_permohonan']; ?>" type="application/pdf" width="100%" height="600px" />
 
-						<br>
-
-						<table class="table table-responsive">
-							<tr>
-								<td colspan="3"><label><b><i>I. IDENTITAS PRIBADI</i></b></label></td>
-							</tr>
-							<tr>
-								<td><label><font color="">no_surat</font></label></td>
-								<td>:</td>
-								<td><label><font color=""><?php echo $d['no_surat']?></font></label></td>
-							</tr>
-							<tr>
-								<td><label><font color="">NIP/NRP Baru</font></label></td>
-								<td>:</td>
-								<td><label><font color=""><?php echo $d['perihal']?></font></label></td>
-							</tr>
-							<tr>
-								<td><label><font color="">NIP/NRP Lama</font></label></td>
-								<td>:</td>
-								<td><label><font color=""><?php echo $d['lampiran']?></font></label></td>
-							</tr>
-							<tr>
-								<td><label><font color="">No. Kartu Pegawai</font></label></td>
-								<td>:</td>
-								<td><label><font color=""><?php echo $d['tgl_surat']?></font></label></td>
-							</tr>
-							<tr>
-								<td><label><font color="">Tempat/Tanggal Lahir</font></label></td>
-								<td>:</td>
-								<td><label><font color=""><?php echo $d['judul_surat']?>, <?php echo $d['isi_surat']?></font></label></td>
-							</tr>
-							
-							
-						</table>
+<div class="card">
+<div class="card-header">
+	<h4 class="card-title"></h4>
+</div>
+<div class="card-body">   
+<form method="POST" action="">
+	<table class="table">
+		<tr>
+			<td>Status</td>
+			<td><span class="badge badge-warning"><?php echo $d['status_surat']; ?></span></td>
+		</tr>
+	</table>
+</form>
+</div>
+</div>
 					</div>
 				</div>
 			</div>

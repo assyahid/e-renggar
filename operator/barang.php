@@ -43,7 +43,7 @@
 										            <th>Nama Umum</th>
 										            <th>Satuan</th>
 										            <th>Kategori</th>
-													<th width="90px">Opsi</th>
+													<th width="150px">Opsi</th>
 												</tr>
 											</thead>
 											<tfoot>
@@ -53,7 +53,7 @@
 										            <th>Nama Umum</th>
 										            <th>Satuan</th>
 										            <th>Kategori</th>
-													<th width="90px">Opsi</th>
+													<th width="100px">Opsi</th>
 												</tr>
 											</tfoot>
 											<tbody>
@@ -69,19 +69,11 @@
 													<td><?php echo $a['satuan'] ?></td>
 													<td><?php echo $a['kategori'] ?></td>
 													<td>
-														<a class="blue" href="?lengkapidata&id_barang=<?php echo $a['id_barang']; ?>" title='Lengkapi Data'>
-															<i class="ace-icon fa fa-plus bigger-130"></i>
+														<a class="btn btn-warning" href="?edit&id_barang=<?php echo $a['id_barang']; ?>"  title='Edit'>										<i class="fa fa-edit"></i>
 														</a>
 
-														<a class="blue" href="?detail&id_barang=<?php echo $a['id_barang']; ?>"  title='Detail'>
-															<i class="ace-icon fa fa-search-plus bigger-130"></i>
-														</a>
+														<a onclick="if(confirm('Apakah anda yakin ingin menghapus data ini ??')){ location.href='?hapus&id_barang=<?php echo $a['id_barang']; ?>' }" class="btn btn-danger"><i class="fa fa-trash"  title='Hapus'></i></a>
 
-														<a class="green" href="?edit&id_barang=<?php echo $a['id_barang']; ?>"  title='Edit'>
-															<i class="ace-icon fa fa-edit bigger-130"></i>
-														</a>
-
-													
 													</td>
 												</tr>
 												<?php endwhile;?>
@@ -157,7 +149,11 @@ while($d=mysqli_fetch_array($det)){
 		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Kategori</label>
 
 		<div class="col-sm-12">
-			<input type="date" id="form-field-1-1" placeholder="" name="kategori" value="<?php echo $d['kategori']?>" class="form-control col-xs-10 col-sm-6" />
+			<select class="form-control" name="kategori">
+				<option value="Alat Kesehatan" <?php if($d['kategori']=='Alat Kesehatan'){ echo "selected";} ?> >Alat Kesehatan</option>
+				<option value="Pengolah Data" <?php if($d['kategori']=='Pengolah Data'){ echo "selected";} ?>>Pengolah Data</option>
+				<option value="Peralatan Kantor" <?php if($d['kategori']=='Peralatan Kantor'){ echo "selected";} ?>>Peralatan Kantor</option>
+			</select>
 		</div>
 	</div>
 
@@ -212,62 +208,6 @@ $kategori = $_POST['kategori'];
 <?php } ?>
 
 
-<?php if(isset($_GET['detail'])){ ?>
-<div class="row">
-						<div class="col-md-12">
-							<div class="card">
-								<div class="card-header">
-									<h4 class="card-title"></h4>
-								</div>
-								<div class="card-body">      
-<?php
-$id_barang=$_GET['id_barang'];
-$det=mysqli_query($koneksi,"SELECT * FROM barang where id_barang='$id_barang' ")or die(mysql_error());
-while($d=mysqli_fetch_array($det)){
-?>  
-
-<center><h3><b>BALAI BESAR LABORATORIUM KESEHATAN PALEMBANG<br> DAFTAR RIWAYAT HIDUP PEGAWAI</b></h3></center>
-
-<br>
-
-<table class="table table-responsive">
-	<tr>
-		<td colspan="3"><label><b><i>I. IDENTITAS PRIBADI</i></b></label></td>
-	</tr>
-	<tr>
-		<td><label><font color="">nama_barang</font></label></td>
-		<td>:</td>
-		<td><label><font color=""><?php echo $d['nama_barang']?></font></label></td>
-	</tr>
-	<tr>
-		<td><label><font color="">NIP/NRP Baru</font></label></td>
-		<td>:</td>
-		<td><label><font color=""><?php echo $d['nama_umum']?></font></label></td>
-	</tr>
-	<tr>
-		<td><label><font color="">NIP/NRP Lama</font></label></td>
-		<td>:</td>
-		<td><label><font color=""><?php echo $d['satuan']?></font></label></td>
-	</tr>
-	<tr>
-		<td><label><font color="">No. Kartu Pegawai</font></label></td>
-		<td>:</td>
-		<td><label><font color=""><?php echo $d['kategori']?></font></label></td>
-	</tr>
-	<tr>
-		<td><label><font color="">Tempat/Tanggal Lahir</font></label></td>
-		<td>:</td>
-		<td><label><font color=""><?php echo $d['judul_surat']?>, <?php echo $d['isi_surat']?></font></label></td>
-	</tr>
-	
-	
-</table>
-	</div>
-						</div>
-					</div>
-				</div>
-<?php } }
-?>
 
 
 
@@ -314,10 +254,11 @@ while($d=mysqli_fetch_array($det)){
 
 
 	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Kategori</label>
+		<label class="col-sm-3 control-label no-padding-right" for="bird"> Kategori</label>
 
-		<div class="col-sm-12">
-			<select class="form-control" name="kategori">
+		<div class="col-sm-12 select2-input">
+			<select class="form-control select2" name="kategori" style="width: 100%">
+				<option value="" disabled="">Pilih</option>
 				<option value="Alat Kesehatan">Alat Kesehatan</option>
 				<option value="Pengolah Data">Pengolah Data</option>
 				<option value="Peralatan Kantor">Peralatan Kantor</option>
@@ -327,9 +268,6 @@ while($d=mysqli_fetch_array($det)){
 
 
 	
-
-             
-
 <?php
 if(isset($_POST['submit'])){
 $nama_barang = $_POST['nama_barang'];
@@ -381,14 +319,6 @@ echo "<br><a href='?data'>Kembali Ke Form</a>";
           </div>
           <!-- /.modal-dialog -->
         </div>
-
-
-
-
-
-
-
-
 
 
 

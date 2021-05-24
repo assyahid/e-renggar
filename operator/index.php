@@ -1,5 +1,14 @@
 <?php include 'header.php'; ?>
 
+<?php
+$tglnow = date('d-m-Y');
+$sql = "SELECT * FROM surat_permohonan";
+$pns = mysqli_query($koneksi,$sql);
+    //echo "$sql";
+    $jmlsurat = mysqli_num_rows($pns);
+?>
+
+
 		<div class="main-panel">
 			<div class="content">
 				<div class="panel-header bg-primary-gradient">
@@ -24,6 +33,14 @@
 									<div class="card-title">Surat Permohonan</div>
 									<div class="card-category">Buat Surat Permohonan</div>
 									
+									<div class="row py-3">
+										<div class="col-md-4 d-flex flex-column justify-content-around">
+												<b><?=$jmlsurat;?></b>
+										</div>
+										<div class="col-md-8">
+											<a href="surat_permohonan.php?data" class="btn btn-secondary">Buat Surat Permohonan</a>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -47,7 +64,7 @@
 											</table>
 										</div>
 									</div>
-									<a href="pegawai_pns.php?edit&id_pegawai_pns=<?=$_SESSION['id_pegawai_pns']?>" class='btn btn-secondary btn-sm'>Update Akun</a>
+									<a href="user.php?edit&id_user=<?=$_SESSION['id_user']?>" class='btn btn-secondary btn-sm'>Update Akun</a>
 								</div>
 							</div>
 						</div>

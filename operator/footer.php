@@ -49,6 +49,9 @@
 	<!-- Sweet Alert -->
 	<script src="../assets/js/plugin/sweetalert/sweetalert.min.js"></script>
 
+	<!-- Select2 -->
+	<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
 	<!-- Atlantis JS -->
 	<script src="../assets/js/atlantis.min.js"></script>
 
@@ -60,8 +63,11 @@
 			$('#basic-datatables').DataTable({
 			});
 
+			$('.select2').select2({
+			});
+
 			$('#multi-filter-select').DataTable( {
-				"pageLength": 5,
+				"pageLength": 10,
 				initComplete: function () {
 					this.api().columns().every( function () {
 						var column = this;

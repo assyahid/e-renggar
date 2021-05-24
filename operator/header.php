@@ -25,6 +25,8 @@
 
 	<!-- CSS Just for demo purpose, don't include it in your project -->
 	<link rel="stylesheet" href="../assets/css/demo.css">
+
+	<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
  
 </head>
 <body>
@@ -129,7 +131,7 @@
 						<li class="nav-item">
 							
 							<a href="barang.php?data">
-								<i class="fas fa-th-list"></i>
+								<i class="fas fa-box-open"></i>
 								<span class="sub-item">Data Barang</span>
 							</a>
 						</li>
@@ -137,7 +139,7 @@
 						<li class="nav-item">
 							
 							<a href="surat_permohonan.php?data">
-								<i class="fas fa-th-list"></i>
+								<i class="fas fa-file"></i>
 								<span class="sub-item">Surat Permohonan</span>
 							</a>
 						</li>
