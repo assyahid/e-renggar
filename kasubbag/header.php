@@ -25,7 +25,7 @@
 
 	<!-- CSS Just for demo purpose, don't include it in your project -->
 	<link rel="stylesheet" href="../assets/css/demo.css">
- 
+	
 </head>
 <body>
 	<div class="wrapper">
@@ -71,8 +71,8 @@
 									<li>
 										<div class="user-box">
 											<div class="avatar-lg">
-									<img src="../image/user.png" alt="image profile" class="avatar-img rounded">
-								</div>
+												<img src="../image/user.png" alt="image profile" class="avatar-img rounded">
+											</div>
 											<div class="u-text">
 												<h4><?php echo $_SESSION['nama'];?></h4>
 												<p class="text-muted"><?php echo $_SESSION['level'];?></p><a href="profile.php?data" class="btn btn-xs btn-secondary btn-sm">View Profile</a> <a href="logout.php" class="btn btn-xs btn-danger btn-sm">Logout</a>
@@ -95,8 +95,8 @@
 					<div class="user">
 						<div class="avatar-sm float-left mr-2">
 							
-									<img src="../image/user.png" alt="..." class="avatar-img rounded-circle">
-								
+							<img src="../image/user.png" alt="..." class="avatar-img rounded-circle">
+							
 							
 						</div>
 						<div class="info">
@@ -104,7 +104,7 @@
 								<span>
 									<?php echo $_SESSION['nama'];?>
 									<span class="user-level"><?php echo $_SESSION['level'];?></span>
-								
+									
 								</span>
 							</a>
 							<div class="clearfix"></div>
@@ -125,15 +125,22 @@
 							</span>
 							<h4 class="text-section">Components</h4>
 						</li>
-				
+						
 						<li class="nav-item">
 							
-										<a href="surat_permohonan.php?data">
-											<i class="fas fa-th-list"></i>
-											<span class="sub-item">Surat Permohonan</span>
-										</a>
-									</li>
-									
+							<a href="surat_permohonan.php?data">
+								<i class="fas fa-th-list"></i>
+								<span class="sub-item">Surat Permohonan</span>
+							</a>
+						</li>
+						<li class="nav-item">
+							
+							<a href="logout.php">
+								<i class="fas fa-sign-out-alt"></i>
+								<span class="sub-item">Logout</span>
+							</a>
+						</li>
+						
 						
 						
 					</ul>

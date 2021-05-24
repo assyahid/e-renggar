@@ -2,6 +2,8 @@
 
 $pegawai=mysqli_query($koneksi,"SELECT * FROM surat_permohonan WHERE status_surat LIKE 'Telah divalidasi Kepala' ORDER BY id_surat_permohonan DESC ")or die(mysql_error());
 
+
+
 ?>
 <div class="main-panel">
 	<div class="content">
@@ -59,7 +61,7 @@ $pegawai=mysqli_query($koneksi,"SELECT * FROM surat_permohonan WHERE status_sura
 												<td>
 													<div class="btn-group" role="group" aria-label="Basic example">
 														<a href="detail-proker.php?id_surat=<?= $d['id_surat_permohonan']; ?>" type="button" class="btn btn-secondary">Detail</a>&nbsp;
-														<button type="button" class="btn btn-secondary">Cetak Surat</button>
+														<!-- 	<button type="button" class="btn btn-secondary">Cetak Surat</button> -->
 													</div>
 												</td>
 											</tr>

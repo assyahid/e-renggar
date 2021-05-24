@@ -34,7 +34,7 @@ $proker=mysqli_query($koneksi,"SELECT * FROM proker INNER JOIN surat_permohonan 
 											<th>Pengusul</th>
 											<th>Tanggal Kirim</th>
 											<th>Status</th>
-											<th width="150px"><center>Opsi</center></th>
+											<th ><center>Opsi</center></th>
 										</tr>
 									</thead>
 									<tbody>
@@ -52,7 +52,7 @@ $proker=mysqli_query($koneksi,"SELECT * FROM proker INNER JOIN surat_permohonan 
 													<div class="btn-group" role="group" aria-label="Basic example">
 														<a href="detail-proker.php?id_proker=<?= $d['id_proker']; ?>" type="button" class="btn btn-secondary">Detail</a>&nbsp;
 
-														<button type="button" class="btn btn-secondary">Cetak Surat</button>
+														<!-- <button type="button" class="btn btn-secondary">Cetak Surat</button> -->
 													</div>
 												</td>
 											</tr>

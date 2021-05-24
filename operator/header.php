@@ -27,7 +27,7 @@
 	<link rel="stylesheet" href="../assets/css/demo.css">
 
 	<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
- 
+
 </head>
 <body>
 	<div class="wrapper">
@@ -73,8 +73,8 @@
 									<li>
 										<div class="user-box">
 											<div class="avatar-lg">
-									<img src="../image/user.png" alt="image profile" class="avatar-img rounded">
-								</div>
+												<img src="../image/user.png" alt="image profile" class="avatar-img rounded">
+											</div>
 											<div class="u-text">
 												<h4><?php echo $_SESSION['nama'];?></h4>
 												<p class="text-muted"><?php echo $_SESSION['level'];?></p><a href="profile.php?data" class="btn btn-xs btn-secondary btn-sm">View Profile</a> <a href="logout.php" class="btn btn-xs btn-danger btn-sm">Logout</a>
@@ -97,8 +97,8 @@
 					<div class="user">
 						<div class="avatar-sm float-left mr-2">
 							
-									<img src="../image/user.png" alt="..." class="avatar-img rounded-circle">
-								
+							<img src="../image/user.png" alt="..." class="avatar-img rounded-circle">
+
 							
 						</div>
 						<div class="info">
@@ -106,7 +106,7 @@
 								<span>
 									<?php echo $_SESSION['nama'];?>
 									<span class="user-level"><?php echo $_SESSION['level'];?></span>
-								
+
 								</span>
 							</a>
 							<div class="clearfix"></div>
@@ -135,7 +135,7 @@
 								<span class="sub-item">Data Barang</span>
 							</a>
 						</li>
-				
+
 						<li class="nav-item">
 							
 							<a href="surat_permohonan.php?data">
@@ -146,12 +146,12 @@
 
 						<li class="nav-item">
 							
-							<a href="program_kerja.php?data">
-								<i class="fas fa-th-list"></i>
-								<span class="sub-item">Program Kerja</span>
+							<a href="logout.php">
+								<i class="fas fa-sign-out-alt"></i>
+								<span class="sub-item">Logout</span>
 							</a>
 						</li>
-									
+
 						
 						
 					</ul>

@@ -55,14 +55,14 @@ $pegawai=mysqli_query($koneksi,"SELECT * FROM pegawai WHERE id_user = '".$_SESSI
 									<table id="multi-filter-select" class="display table table-striped table-hover" >
 										<thead>
 											<tr>
-												<th>No</th>
+												
 												<th width="10px">NIP</th>
 												<th>Nama</th>
-												<th>Jabatan</th>
+												<th style="width: 5px;">Jabatan</th>
 												<th>Pangkat/Golongan</th>
 												<th>Pendidikan</th>
 												<th>Keterangan</th>
-												<th width="150px">Opsi</th>
+												<th width="50px">Opsi</th>
 											</tr>
 										</thead>
 
@@ -71,17 +71,18 @@ $pegawai=mysqli_query($koneksi,"SELECT * FROM pegawai WHERE id_user = '".$_SESSI
 											$index = 0;
 											while($d=mysqli_fetch_array($pegawai)){ ?>
 												<tr>
-													<td><?= $index+1; ?></td>
+
 													<td><?= $d["nip"]; ?></td>
 													<td><?= $d["nama"]; ?></td>
 													<td><?= $d["jabatan"]; ?></td>
 													<td><?= $d["pangkat_golongan"]; ?></td>
 													<td><?= $d["pendidikan"]; ?></td>
 													<td><?= $d["keterangan"]; ?></td>
-													<td>
-														<button type="button" class="btn btn-icon btn-round btn-primary">
+													<td style="display: inline-flex;">
+
+														<button type="button"  class="btn btn-icon btn-round btn-primary">
 															<i class="fa fa-edit"></i>
-														</button>
+														</button>&nbsp;
 														<button type="button" class="btn btn-icon btn-round btn-danger">
 															<i class="fa fa-trash"></i>
 														</button>
