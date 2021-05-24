@@ -144,7 +144,7 @@
 
 						<li class="nav-item">
 							
-							<a href="perogram_kerja.php?data">
+							<a href="program_kerja.php?data">
 								<i class="fas fa-th-list"></i>
 								<span class="sub-item">Program Kerja</span>
 							</a>

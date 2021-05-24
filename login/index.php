@@ -23,6 +23,12 @@
   <link rel="stylesheet" href="sweetalert2/sweetalert2.min.css">
   <link rel="stylesheet" href="toastr/toastr.min.css">
 
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+
+  
+  
+
   <?php include'../config.php'; ?>
 </head>
 <body>
@@ -31,19 +37,24 @@
     <div class="container-login100">
       <div class="wrap-login100">
         <div class="login100-pic js-tilt" data-tilt>
-          <img src="../image/logo.png" alt="IMG" height="300" width="250">
+          <img src="../image/logo-login.png" alt="IMG" height="300" width="500">
         </div>
 
         <div class="login100-form validate-form">
           <span class="login100-form-title">
+            <img src="../image/logo.png" alt="IMG" height="90" width="75">
             E-Renggar
           </span>
 
           <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
-           <select name="nama" id="nama" class="select2 input100">
+            <span class="focus-input100"></span>
+         <span class="symbol-input100">
+          <i class="fa fa-user" aria-hidden="true"></i>
+        </span>
+           <select name="nama" id="nama" class="input100 select2" style="width: 100%">
             <option disabled="" selected>Pilih Pengguna</option>
             <?php 
-            include '../config.php';
+            
             $sql = "SELECT * FROM users";
             $kat = mysqli_query($koneksi,$sql);
                                 // print_r($kat); 
@@ -52,10 +63,7 @@
            <?php }
            ?>
          </select>
-         <span class="focus-input100"></span>
-         <span class="symbol-input100">
-          <i class="fa fa-user" aria-hidden="true"></i>
-        </span>
+         
       </div>
 
       <div class="wrap-input100 validate-input" data-validate = "Password is required">
@@ -118,7 +126,13 @@
   <!-- InputMask -->
   <script src="moment/moment.min.js"></script>
 
+ <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
   <script>
+    $(document).ready(function() {
+    $('.select2').select2();
+});
+
     $(document).ready(function() {
       const Toast = Swal.mixin({
         toast: true,
@@ -280,6 +294,8 @@
 
 });
 </script>
+
+
 
 </body>
 </html>

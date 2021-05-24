@@ -68,10 +68,7 @@
 													<td><?php echo $a['nama_umum'] ?></td>
 													<td><?php echo $a['satuan'] ?></td>
 													<td><?php echo $a['kategori'] ?></td>
-													<td><a class="blue" href="cetak_sp.php?id_barang=<?php echo $a['id_barang']; ?>" title='cetak PDF' target="_BLANK">
-															<i class="ace-icon fa fa-print bigger-130"></i>
-														</a>
-
+													<td>
 														<a class="blue" href="?lengkapidata&id_barang=<?php echo $a['id_barang']; ?>" title='Lengkapi Data'>
 															<i class="ace-icon fa fa-plus bigger-130"></i>
 														</a>
@@ -121,7 +118,7 @@ echo '<script type="text/javascript">
 						<div class="col-md-12">
 							<div class="card">
 								<div class="card-header">
-									<h4 class="card-title">Edit Data Surat Permohonan</h4>
+									<h4 class="card-title">Edit Data Barang</h4>
 								</div>
 								<div class="card-body">
 <?php
@@ -133,55 +130,38 @@ while($d=mysqli_fetch_array($det)){
  <form action="" method="post" class="form-horizontal" enctype="multipart/form-data">
    
 	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> No Surat </label>
+		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Nama Barang </label>
 
 		<div class="col-sm-12">
-			<input type="text" id="form-field-1-1" placeholder="" name="no_surat" value="<?php echo $d['no_surat']?>" class="form-control col-xs-10 col-sm-6" />
+			<input type="text" id="form-field-1-1" placeholder="" name="nama_barang" value="<?php echo $d['nama_barang']?>" class="form-control col-xs-10 col-sm-6" />
 		</div>
 	</div>
 
 	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Perihal</label>
+		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Nama Umum</label>
 
 		<div class="col-sm-12">
-			<input type="text" id="form-field-1-1" placeholder="" name="perihal" value="<?php echo $d['perihal']?>" class="form-control col-xs-10 col-sm-6" />
+			<input type="text" id="form-field-1-1" placeholder="" name="nama_umum" value="<?php echo $d['nama_umum']?>" class="form-control col-xs-10 col-sm-6" />
 		</div>
 	</div>
 
 	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Lampiran</label>
+		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Satuan</label>
 
 		<div class="col-sm-12">
-			<input type="text" id="form-field-1-1" placeholder="" name="lampiran" value="<?php echo $d['lampiran']?>" class="form-control col-xs-10 col-sm-6" />
+			<input type="text" id="form-field-1-1" placeholder="" name="satuan" value="<?php echo $d['satuan']?>" class="form-control col-xs-10 col-sm-6" />
 		</div>
 	</div>
 
 	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Tanggal Surat</label>
+		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Kategori</label>
 
 		<div class="col-sm-12">
-			<input type="date" id="form-field-1-1" placeholder="" name="tgl_surat" value="<?php echo $d['tgl_surat']?>" class="form-control col-xs-10 col-sm-6" />
-		</div>
-	</div>
-
-	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Judul Surat</label>
-
-		<div class="col-sm-12">
-			<input type="text" id="form-field-1-1" placeholder="" name="judul_surat" value="<?php echo $d['judul_surat']?>" class="form-control col-xs-10 col-sm-6" />
-		</div>
-	</div>
-
-	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Isi Surat</label>
-
-		<div class="col-sm-12">
-			<textarea type="text" id="artikel" placeholder="" name="isi_surat"  class="form-control"><?php echo $d['isi_surat']?></textarea>
+			<input type="date" id="form-field-1-1" placeholder="" name="kategori" value="<?php echo $d['kategori']?>" class="form-control col-xs-10 col-sm-6" />
 		</div>
 	</div>
 
 	
-
 	
         <!-- /.box-body -->
         <div class="card-footer">
@@ -204,25 +184,22 @@ while($d=mysqli_fetch_array($det)){
 <?php  
 if(isset($_POST['submit1'])){
 $id_barang = $_GET['id_barang'];
-$no_surat = $_POST['no_surat'];
-$perihal = $_POST['perihal'];
-$lampiran = $_POST['lampiran'];
-$tgl_surat = $_POST['tgl_surat'];
-$judul_surat = $_POST['judul_surat'];
-$isi_surat = $_POST['isi_surat'];
+$nama_barang = $_POST['nama_barang'];
+$nama_umum = $_POST['nama_umum'];
+$satuan = $_POST['satuan'];
+$kategori = $_POST['kategori'];
+
 
     $update=mysqli_query($koneksi,"UPDATE `barang` 
 	SET
-	`no_surat` = '$no_surat', 
-	`perihal` = '$perihal', 
-	`lampiran` = '$lampiran', 
-	`tgl_surat` = '$tgl_surat', 
-	`judul_surat` = '$judul_surat', 
-	`isi_surat` = '$isi_surat'
+	`nama_barang` = '$nama_barang', 
+	`nama_umum` = '$nama_umum', 
+	`satuan` = '$satuan', 
+	`kategori` = '$kategori'
 	WHERE
 	`id_barang` = '$id_barang' ;
 
-  ") or die ("gagal update ");
+  ") or die ("gagal update");
     echo '<script type="text/javascript">
         //<![CDATA[
         alert ("Edit Success");
@@ -258,24 +235,24 @@ while($d=mysqli_fetch_array($det)){
 		<td colspan="3"><label><b><i>I. IDENTITAS PRIBADI</i></b></label></td>
 	</tr>
 	<tr>
-		<td><label><font color="">no_surat</font></label></td>
+		<td><label><font color="">nama_barang</font></label></td>
 		<td>:</td>
-		<td><label><font color=""><?php echo $d['no_surat']?></font></label></td>
+		<td><label><font color=""><?php echo $d['nama_barang']?></font></label></td>
 	</tr>
 	<tr>
 		<td><label><font color="">NIP/NRP Baru</font></label></td>
 		<td>:</td>
-		<td><label><font color=""><?php echo $d['perihal']?></font></label></td>
+		<td><label><font color=""><?php echo $d['nama_umum']?></font></label></td>
 	</tr>
 	<tr>
 		<td><label><font color="">NIP/NRP Lama</font></label></td>
 		<td>:</td>
-		<td><label><font color=""><?php echo $d['lampiran']?></font></label></td>
+		<td><label><font color=""><?php echo $d['satuan']?></font></label></td>
 	</tr>
 	<tr>
 		<td><label><font color="">No. Kartu Pegawai</font></label></td>
 		<td>:</td>
-		<td><label><font color=""><?php echo $d['tgl_surat']?></font></label></td>
+		<td><label><font color=""><?php echo $d['kategori']?></font></label></td>
 	</tr>
 	<tr>
 		<td><label><font color="">Tempat/Tanggal Lahir</font></label></td>
@@ -301,7 +278,7 @@ while($d=mysqli_fetch_array($det)){
           <div class="modal-dialog modal-lg">
             <div class="modal-content">
               <div class="modal-header">
-                <h4 class="modal-title">Tambah Data Surat Permohonan</h4>
+                <h4 class="modal-title">Tambah Data Barang</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
                 
@@ -309,61 +286,45 @@ while($d=mysqli_fetch_array($det)){
               <div class="modal-body">
                <form action="" method="post" class="niceform" enctype="multipart/form-data">
             <form class="form-horizontal" role="form" method="post" action="">
-
-	
 	
 
 	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1">No Surat </label>
+		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1">Nama Barang </label>
 
 		<div class="col-sm-12">
-			<input type="text" placeholder="" name="no_surat" class="form-control" />
+			<input type="text" placeholder="" name="nama_barang" class="form-control" />
 		</div>
 	</div>
 
 	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Perihal</label>
+		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Nama Umum</label>
 
 		<div class="col-sm-12">
-			<input type="text" placeholder="" name="perihal" class="form-control" />
+			<input type="text" placeholder="" name="nama_umum" class="form-control" />
 		</div>
 	</div>
 
 	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Lampiran</label>
+		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Satuan</label>
 
 		<div class="col-sm-12">
-			<input type="text"  placeholder="" name="lampiran" class="form-control" />
-		</div>
-	</div>
-
-
-	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Tanggal Surat</label>
-
-		<div class="col-sm-12">
-			<input type="date"  placeholder="" name="tgl_surat" class="form-control" />
+			<input type="text"  placeholder="" name="satuan" class="form-control" />
 		</div>
 	</div>
 
 
 	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Judul Surat</label>
+		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Kategori</label>
 
 		<div class="col-sm-12">
-			<input type="text"  placeholder="" name="judul_surat" class="form-control" />
+			<select class="form-control" name="kategori">
+				<option value="Alat Kesehatan">Alat Kesehatan</option>
+				<option value="Pengolah Data">Pengolah Data</option>
+				<option value="Peralatan Kantor">Peralatan Kantor</option>
+			</select>
 		</div>
 	</div>
 
-	
-
-	<div class="form-group">
-		<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Isi Surat</label>
-
-		<div class="col-sm-12">
-			<textarea id="artikel"  placeholder="" name="isi_surat" class="form-control"/><p style="text-align: justify;">Sehubungan dengan telah berakhirnya Tahun Anggaran 2020, maka dengan ini kami mengharapkan Saudara dapat menyampaikan Laporan Realisasi Kegiatan yang mengacu pada usulan Program Kerja Tahun anggaram 2020 pada Bagian/ Sub.Bagian/ Bidang/ Seksi/ Instalasi yang Saudara pimpin, format laporan terlampir, selanjutnya disampaikan kepada Kepala Bagian Keuangan dan Administrasi Umum melalui Sub Bagian Administrasi Umum BBLK Palembang selambatnya tanggal 11 Januari 2021.</p><p style="text-align: justify;">Mengingat pentingnya laporan tersebut, guna mengevaluasi hasil kegiatan TA 2020 dan tersusunnya kegiatan TA 2021 yang lebih baik, diharapkan dapat disampaikan tepat waktu.</p><p style="text-align: justify;">Demikianlah, atas perhatian dan kerjasama yang baik diucapkan terima kasih.</p></textarea>
-		</div>
-	</div>
 
 	
 
@@ -371,33 +332,25 @@ while($d=mysqli_fetch_array($det)){
 
 <?php
 if(isset($_POST['submit'])){
-$no_surat = $_POST['no_surat'];
-$perihal = $_POST['perihal'];
-$lampiran = $_POST['lampiran'];
-$tgl_surat = $_POST['tgl_surat'];
-$judul_surat = $_POST['judul_surat'];
-$isi_surat = $_POST['isi_surat'];
-$status_surat = "Belum di validasi";
+$nama_barang = $_POST['nama_barang'];
+$nama_umum = $_POST['nama_umum'];
+$satuan = $_POST['satuan'];
+$kategori = $_POST['kategori'];
+
 
 $query = "INSERT INTO `barang` 
 	(`id_barang`, 
-	`no_surat`, 
-	`perihal`, 
-	`lampiran`, 
-	`tgl_surat`, 
-	`judul_surat`, 
-	`isi_surat`, 
-	`status_surat`
+	`nama_barang`, 
+	`nama_umum`, 
+	`satuan`, 
+	`kategori`
 	)
 	VALUES
 	('', 
-	'$no_surat', 
-	'$perihal', 
-	'$lampiran', 
-	'$tgl_surat', 
-	'$judul_surat', 
-	'$isi_surat', 
-	'$status_surat'
+	'$nama_barang', 
+	'$nama_umum', 
+	'$satuan', 
+	'$kategori'
 	);
 
 ";
