@@ -1,41 +1,18 @@
 <?php include 'header.php'; 
 
-$pegawai=mysqli_query($koneksi,"SELECT * FROM pegawai WHERE id_user = '".$_SESSION['id_user']."'")or die(mysql_error());
+$proker=mysqli_query($koneksi,"SELECT * FROM proker INNER JOIN surat_permohonan ON surat_permohonan.id_surat_permohonan = proker.id_surat_permohonan INNER JOIN users ON users.id_user = proker.id_user WHERE posisi LIKE '".$_SESSION["nama"]."'  AND status != 'diverifikasi' ORDER BY proker.id_surat_permohonan DESC ")or die(mysql_error());
 
 ?>
 <div class="main-panel">
 	<div class="content">
 		<div class="page-inner">
 			<div class="page-header">
-				<h4 class="page-title">Master Data Pegawai</h4>
+				<h4 class="page-title">Usulan Program Kerja</h4>
 				<ul class="breadcrumbs">
 
 				</ul>
 			</div>
-			<div class="row">
-				<div class="col-sm-12 col-md-12">
-					<div class="card card-stats card-round">
-						<div class="card-body ">
-							<div class="row align-items-center">
-								<div class="col-icon">
-									<div class="icon-big text-center icon-primary bubble-shadow-small">
-										<i class="flaticon-users"></i>
-									</div>
-								</div>
-								<div class="col col-stats ml-3 ml-sm-0">
-									<div class="numbers">
-										<p class="card-category">Jumlah Pegawai di instalasi anda</p>
-										<h4 class="card-title"><?= mysqli_num_rows($pegawai); ?></h4>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				
-
-				
-			</div>
+			
 			<div class="row">
 
 				<div class="col-12">
@@ -46,59 +23,50 @@ $pegawai=mysqli_query($koneksi,"SELECT * FROM pegawai WHERE id_user = '".$_SESSI
 					<?php } ?>
 
 					<div class="card">
-						<div class="card-header">
-							<h4 class="card-title">Master data pegawai <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal" style="float: right;">
-								<span class="fas fa-plus"></span> Input Data Pegawai</button></h4>
-							</div>
-							<div class="card-body">
-								<div class="table-responsive">
-									<table id="multi-filter-select" class="display table table-striped table-hover" >
-										<thead>
+						
+						<div class="card-body">
+							<div class="table-responsive">
+								<table id="multi-filter-select" class="display table table-striped table-hover" >
+									<thead>
+										<tr>
+											<th>No</th>
+											<th>Nomor Surat</th>
+											<th>Pengusul</th>
+											<th>Tanggal Kirim</th>
+											<th>Status</th>
+											<th width="150px"><center>Opsi</center></th>
+										</tr>
+									</thead>
+									<tbody>
+										<?php 
+										$index = 0;
+										while($d=mysqli_fetch_array($proker)){ 
+											?>
 											<tr>
-												<th>No</th>
-												<th width="10px">NIP</th>
-												<th>Nama</th>
-												<th>Jabatan</th>
-												<th>Pangkat/Golongan</th>
-												<th>Pendidikan</th>
-												<th>Keterangan</th>
-												<th width="150px">Opsi</th>
+												<td><?= $index+1; ?></td>
+												<td><?= $d["no_surat"]; ?></td>
+												<td><?= $d["nama"]; ?></td>
+												<td><?= date_format(new DateTime($d['tgl_surat']),"d-m-Y") ?></td>
+												<td><?= $d["status"]; ?></td>
+												<td>
+													<div class="btn-group" role="group" aria-label="Basic example">
+														<a href="detail-proker.php?id_proker=<?= $d['id_proker']; ?>" type="button" class="btn btn-secondary">Detail</a>&nbsp;
+
+														<button type="button" class="btn btn-secondary">Cetak Surat</button>
+													</div>
+												</td>
 											</tr>
-										</thead>
+											<?php $index++; } ?>
 
-										<tbody>
-											<?php 
-											$index = 0;
-											while($d=mysqli_fetch_array($pegawai)){ ?>
-												<tr>
-													<td><?= $index+1; ?></td>
-													<td><?= $d["nip"]; ?></td>
-													<td><?= $d["nama"]; ?></td>
-													<td><?= $d["jabatan"]; ?></td>
-													<td><?= $d["pangkat_golongan"]; ?></td>
-													<td><?= $d["pendidikan"]; ?></td>
-													<td><?= $d["keterangan"]; ?></td>
-													<td>
-														<button type="button" class="btn btn-icon btn-round btn-primary">
-															<i class="fa fa-edit"></i>
-														</button>
-														<button type="button" class="btn btn-icon btn-round btn-danger">
-															<i class="fa fa-trash"></i>
-														</button>
-
-													</td>
-												</tr>
-												<?php $index++; } ?>
-
-											</tbody>
-										</table>
-									</div>
+										</tbody>
+									</table>
 								</div>
 							</div>
 						</div>
 					</div>
-					<div class="row">
-						<div class="col-12">
+				</div>
+				<div class="row">
+					<div class="col-12">
 					<!-- 	<div class="card">
 							<div class="card-header">
 								<h4 class="card-title">Master data pegawai <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal" style="float: right;">
@@ -175,18 +143,8 @@ $pegawai=mysqli_query($koneksi,"SELECT * FROM pegawai WHERE id_user = '".$_SESSI
 							</div>
 							<div class="col-md-12 col-lg-12">
 								<div class="form-group">
-									<label for="defaultSelect">Jabatan</label>
-									<select name="jabatan" class="form-control form-control" id="defaultSelect">
-										<option value="kepala">Kepala</option>
-										<option value="penyelia">Penyelia</option>
-										<option value="staff">Staff</option>
-									</select>
-								</div>
-							</div>
-							<div class="col-md-12 col-lg-12">
-								<div class="form-group">
-									<label for="email2">Pangkat / Golongan</label>
-									<input type="text" name="pangkat_golongan" class="form-control" id="email2" placeholder="Input Pangkat/ Golongan">
+									<label for="email2">Jabatan</label>
+									<input type="text" name="jabatan" class="form-control" id="email2" placeholder="Input satuan">
 								</div>
 							</div>
 							<div class="col-md-12 col-lg-12">

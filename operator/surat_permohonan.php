@@ -82,6 +82,9 @@
 														<a class="green" href="?edit&id_surat_permohonan=<?php echo $a['id_surat_permohonan']; ?>"  title='Edit'>
 															<i class="ace-icon fa fa-edit bigger-130"></i>
 														</a>
+														<a class="green" href="list_proker.php?id_surat_permohonan=<?php echo $a['id_surat_permohonan']; ?>"  title='Liihat Proker Instalasi'>
+															<i class="ace-icon fas fa-atom"></i>
+														</a>
 
 														
 													</td>

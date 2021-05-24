@@ -32,20 +32,30 @@ $pegawai=mysqli_query($koneksi,"SELECT * FROM surat_permohonan WHERE status_sura
 											<th>No</th>
 											<th>Nomor Surat</th>
 											<th>Batas Pengisian</th>
-											
+											<th>Status Proker Saya</th>
 											<th width="150px"><center>Opsi</center></th>
 										</tr>
 									</thead>
-
 									<tbody>
 										<?php 
 										$index = 0;
-										while($d=mysqli_fetch_array($pegawai)){ ?>
+										while($d=mysqli_fetch_array($pegawai)){ 
+											$proker=mysqli_query($koneksi,"SELECT * FROM proker WHERE id_surat_permohonan = ".$d['id_surat_permohonan']." AND id_user = ".$_SESSION['id_user']." ORDER BY id_surat_permohonan DESC ")or die(mysql_error());
+											?>
 											<tr>
 												<td><?= $index+1; ?></td>
 												<td><?= $d["no_surat"]; ?></td>
-												<td><?= date_format(new DateTime($d['tgl_surat']),"d-m-Y") ?></td>
-												
+												<td><?= date_format(new DateTime($d['tgl_batas_isi_proker']),"d-m-Y") ?></td>
+												<td>
+													<?php 
+													$status = mysqli_fetch_array($proker)['status'];
+													if($status == "" || $status == " "){
+														echo "baru";
+													}else{
+														echo $status;
+													}
+													?>
+												</td>
 												<td>
 													<div class="btn-group" role="group" aria-label="Basic example">
 														<a href="detail-proker.php?id_surat=<?= $d['id_surat_permohonan']; ?>" type="button" class="btn btn-secondary">Detail</a>&nbsp;

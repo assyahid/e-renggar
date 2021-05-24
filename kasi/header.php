@@ -1,4 +1,8 @@
-<?php include '../config.php'; include'cek.php';?>
+<?php include '../config.php';
+$proker=mysqli_query($koneksi,"SELECT * FROM proker INNER JOIN surat_permohonan ON surat_permohonan.id_surat_permohonan = proker.id_surat_permohonan INNER JOIN users ON users.id_user = proker.id_user WHERE posisi LIKE '".$_SESSION["nama"]."' AND status != 'diverifikasi' ORDER BY proker.id_surat_permohonan DESC ")or die(mysql_error());
+$count = mysqli_num_rows($proker);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,7 +37,7 @@
 			<div class="logo-header" data-background-color="blue">
 				
 				<a href="index.php" class="logo">
-					<img src="../image/logorenggar.png" alt="navbar brand" class="navbar-brand">
+					<img src="../image/simka.png" alt="navbar brand" class="navbar-brand">
 				</a>
 				<button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon">
@@ -124,40 +128,16 @@
 							</span>
 							<h4 class="text-section">Components</h4>
 						</li>
-
-					<!-- 	<li class="nav-item">
-							<a href="surat_permohonan.php?data">
-								<i class="fas fa-th-list"></i>
-								<span class="sub-item">Surat Permohonan</span>
-							</a>
-						</li> -->
 						<li class="nav-item">
-							<a href="proker.php">
+							<a href="usulan-proker.php">
 								<i class="fas fa-book-open"></i>
-								<span class="sub-item">Program Kerja</span>
+								Usulan Proker
+								<?php  
+								if($count > 0){ ?>
+									<span class="badge badge-danger"><?= $count; ?></span>
+								<?php }
+								?>
 							</a>
-						</li>
-						<li class="nav-item">
-							<a data-toggle="collapse" href="#sidebarLayouts" class="collapsed" aria-expanded="false">
-								<i class="fas fa-cogs"></i>
-								<p>Master Data</p>
-								<span class="caret"></span>
-							</a>
-							<div class="collapse" id="sidebarLayouts" style="">
-								<ul class="nav nav-collapse">
-									<li>
-										<a href="master_pegawai.php">
-											<span class="sub-item">Data Pegawai</span>
-										</a>
-									</li>
-									<li>
-										<a href="master_peralatan.php">
-											<span class="sub-item">Data Peralatan</span>
-										</a>
-									</li>
-									
-								</ul>
-							</div>
 						</li>
 						<li class="nav-item">
 							<a href="logout.php">

@@ -2,7 +2,7 @@
 include '../../config.php';
 if(isset($_POST['submit']) && $_POST['submit'] == "Tambah Pegawai"){
 	$data = $_POST;
-	$query = "INSERT INTO `pegawai` ( `nip`,`nama`,`jabatan`,`pendidikan`,`keterangan`,`id_user`)VALUES('".$_POST['nip']."','".$_POST['nama']."','".$_POST['jabatan']."','".$_POST['pendidikan']."','".$_POST['keterangan']."','".$_SESSION['id_user']."');";
+	$query = "INSERT INTO `pegawai` ( `nip`,`nama`,`jabatan`,`pendidikan`,`pangkat_golongan`,`keterangan`,`id_user`)VALUES('".$_POST['nip']."','".$_POST['nama']."','".$_POST['jabatan']."','".$_POST['pendidikan']."','".$_POST['pangkat_golongan']."','".$_POST['keterangan']."','".$_SESSION['id_user']."');";
 	$sql = mysqli_query($koneksi,$query);  
 	if($sql){
 		header('Location: ../master_pegawai.php?message=Berhasil!!, Data pegawai berhasil ditambahkan');
@@ -41,7 +41,14 @@ if(isset($_POST['submit']) && $_POST['submit'] == "Tambah Justifikasi"){
 
 if(isset($_POST['submit']) && $_POST['submit'] == "Ya, Kirim Proker saya"){
 	$data = $_POST;
-	$query = "UPDATE proker SET sent = 1,tanggal_kirim='".date('Y-m-d')."' WHERE id_proker = ".$data["id_proker"];
+	// ambil atasan terleih dahulu
+	$atasan = "SELECT * FROM users WHERE id_user = ".$_SESSION['atasan'];
+	$query = mysqli_query($koneksi,$atasan);
+	$usr_atasan = mysqli_fetch_array($query);
+	// var_dump($_SESSION['atasan']);
+	// exit();
+	// end
+	$query = "UPDATE proker SET sent = 1,tanggal_kirim='".date("Y-m-d")."',posisi='".$usr_atasan["nama"]."',status='proses' WHERE id_proker = ".$data["id_proker"]."";
 	$sql = mysqli_query($koneksi,$query);  
 	if($sql){
 		header('Location: ../detail-proker.php?id_surat='.$data["id_surat"]);
