@@ -128,11 +128,19 @@
 				
 						<li class="nav-item">
 							
-										<a href="surat_permohonan.php?data">
-											<i class="fas fa-th-list"></i>
-											<span class="sub-item">Surat Permohonan</span>
-										</a>
-									</li>
+							<a href="surat_permohonan.php?data">
+								<i class="fas fa-th-list"></i>
+								<span class="sub-item">Surat Permohonan</span>
+							</a>
+						</li>
+
+						<li class="nav-item">
+							
+							<a href="logout.php">
+								<i class="fas fa-sign-out-alt"></i>
+								<span class="sub-item">Logout</span>
+							</a>
+						</li>
 									
 						
 						
