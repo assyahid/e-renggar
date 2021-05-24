@@ -29,6 +29,9 @@ if (mysqli_num_rows($sql)==1) {
 	else if ($qry['level']=="instalasi"){
 		echo "success-instalasi";
 	}
+	else if ($qry['level']=="subkoord"){
+		echo "success-subkoord";
+	}
 } else {
 	echo "error";
 }

@@ -250,6 +250,20 @@
                     window.location.href = "../instalasi";
                   });
 
+                }else if(response == "success-subkoord") {
+                  
+                  Swal.fire({
+                    icon: 'success',
+                    title: 'Login Berhasil!',
+                    text: 'Anda akan di arahkan dalam 3 Detik',
+                    timer: 3000,
+                    showCancelButton: false,
+                    showConfirmButton: false
+                  })
+                  .then (function() {
+                    window.location.href = "../kasi";
+                  });
+
                 } else {
 
                   Swal.fire({
@@ -274,9 +288,9 @@
 
             })
 
-          }
+}
 
-        }); 
+}); 
 
 });
 </script>

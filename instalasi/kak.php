@@ -73,8 +73,8 @@ while($d=mysqli_fetch_array($surat)){ $data[] = $d; }
 							<h4 class="card-title">	Justifikasi Kebutuhan Alat Kesehatan
 								<button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal" style="float: right;">
 									<span class="fas fa-plus"></span> Input Data Justifikasi</button>
-									<button type="button" class="btn btn-sm btn-success" style="float: right;margin-right: 5px;">
-										<span class="fas fa-print"></span> Cetak Surat</button>
+									<a type="button" target="_blank" href="../surat/cetak_kak.php?id_proker=<?= $id_proker; ?>" class="btn btn-sm btn-success" style="float: right;margin-right: 5px;">
+										<span class="fas fa-print"></span> Cetak Surat</a>
 									</h4>
 								</div>
 								<div class="card-body">
