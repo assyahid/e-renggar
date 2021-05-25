@@ -29,8 +29,7 @@
 						<div class="col-md-12">
 							<div class="card">
 								<div class="card-header">
-									<h4 class="card-title"><button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal-default">
-                <span class="fas fa-plus"></span> Input Data</button></h4>
+									<h4 class="card-title"></h4>
 									
 								</div>
 								<div class="card-body">
@@ -262,8 +261,11 @@ while($d=mysqli_fetch_array($det)){
 	<table class="table">
 		<tr>
 			<td>Status</td>
-			<td><span class="badge badge-warning"><?php echo $d['status_surat']; ?></span></td>
+			<td><span class="badge badge-warning"><h1><?php echo $d['status_surat']; ?></h1></span></td>
 		</tr>
+		<?php if ($d['status_surat']=='Telah divalidasi Koordinator Tata Usaha') {
+												# code...
+		} else { ?>
 		<tr>
 			<td>Validasi</td>
 			<td><select class="form-control" name="status_surat" readonly>
@@ -280,6 +282,7 @@ while($d=mysqli_fetch_array($det)){
 			<td></td>
 			<td><input type="submit" name="valid" class="btn btn-default"></td>
 		</tr>
+		<?php } ?>
 	</table>
 </form>
 </div>

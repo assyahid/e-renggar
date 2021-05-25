@@ -262,7 +262,7 @@ if(isset($_POST['submit1'])){
 	<table class="table">
 		<tr>
 			<td>Status</td>
-			<td><span class="badge badge-warning"><?php echo $d['status_surat']; ?></span></td>
+			<td><span class="badge badge-warning"><h1><?php echo $d['status_surat']; ?></h1></span></td>
 		</tr>
 	</table>
 </form>
