@@ -30,7 +30,7 @@ $date = date('d-m-Y');
   {
     @page {
       size: A4; /* DIN A4 standard, Europe */
-      margin: 10mm 20mm 20mm 20mm; /* atas,kanan
+      margin: 20mm 20mm 20mm 20mm; /* atas,kanan
     }
     html, body {
       width: 210mm;
