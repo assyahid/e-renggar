@@ -129,12 +129,34 @@
 						</li>
 
 						<li class="nav-item">
-							
-							<a href="barang.php?data">
-								<i class="fas fa-box-open"></i>
-								<span class="sub-item">Data Barang</span>
+							<a data-toggle="collapse" href="#sidebarLayouts" class="collapsed" aria-expanded="false">
+								<i class="fas fa-cogs"></i>
+								<p>Master Data</p>
+								<span class="caret"></span>
 							</a>
+							<div class="collapse" id="sidebarLayouts" style="">
+								<ul class="nav nav-collapse">
+									<li>
+										<a href="barang.php?data">
+											<span class="sub-item">Data Barang</span>
+										</a>
+									</li>
+									<li>
+										<a href="master_pegawai.php">
+											<span class="sub-item">Data Pegawai</span>
+										</a>
+									</li>
+									<li>
+										<a href="master_peralatan.php">
+											<span class="sub-item">Data Peralatan</span>
+										</a>
+									</li>
+									
+								</ul>
+							</div>
 						</li>
+
+						
 
 						<li class="nav-item">
 							

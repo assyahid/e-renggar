@@ -6,6 +6,14 @@ $sql = "SELECT * FROM surat_permohonan";
 $pns = mysqli_query($koneksi,$sql);
     //echo "$sql";
     $jmlsurat = mysqli_num_rows($pns);
+
+
+$pegawai=mysqli_query($koneksi,"SELECT * FROM pegawai ")or die(mysql_error());
+$peralatan=mysqli_query($koneksi,"SELECT * FROM peralatan ")or die(mysql_error());
+$baru = mysqli_query($koneksi,"SELECT * FROM surat_permohonan LEFT JOIN proker ON proker.id_surat_permohonan = surat_permohonan.id_surat_permohonan WHERE (proker.status = 'baru' OR proker.status is null) AND (proker.id_user = ".$_SESSION['id_user']." OR proker.id_user IS NULL) AND surat_permohonan.status_surat = 'Telah divalidasi Kepala'")or die(mysql_error());
+$proses = mysqli_query($koneksi,"SELECT * FROM `proker` WHERE proker.status = 'proses'")or die(mysql_error());
+$revisi = mysqli_query($koneksi,"SELECT * FROM `proker` WHERE proker.status = 'revisi'")or die(mysql_error());
+$verif = mysqli_query($koneksi,"SELECT * FROM `proker` WHERE proker.status = 'diverifikasi'")or die(mysql_error());     
 ?>
 
 
@@ -70,6 +78,92 @@ $pns = mysqli_query($koneksi,$sql);
 						</div>
 					</div>
 					
+
+	<div class="col-md-12">
+							<div class="row row-card-no-pd">
+								<div class="col-sm-6 col-md-3">
+									<div class="card card-stats card-round">
+										<div class="card-body ">
+											<div class="row">
+												<div class="col-5">
+													<div class="icon-big text-center">
+														<i class="flaticon-chart-pie text-warning"></i>
+													</div>
+												</div>
+												<div class="col-7 col-stats">
+													<div class="numbers">
+														<p class="card-category">Baru</p>
+														<h4 class="card-title"><?= mysqli_num_rows($baru); ?></h4>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-6 col-md-3">
+									<div class="card card-stats card-round">
+										<div class="card-body ">
+											<div class="row">
+												<div class="col-5">
+													<div class="icon-big text-center">
+														<i class="flaticon-coins text-success"></i>
+													</div>
+												</div>
+												<div class="col-7 col-stats">
+													<div class="numbers">
+														<p class="card-category">Proses</p>
+														<h4 class="card-title"><?= mysqli_num_rows($proses); ?></h4>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-6 col-md-3">
+									<div class="card card-stats card-round">
+										<div class="card-body">
+											<div class="row">
+												<div class="col-5">
+													<div class="icon-big text-center">
+														<i class="flaticon-error text-danger"></i>
+													</div>
+												</div>
+												<div class="col-7 col-stats">
+													<div class="numbers">
+														<p class="card-category">Revisi</p>
+														<h4 class="card-title"><?= mysqli_num_rows($revisi); ?></h4>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-6 col-md-3">
+									<div class="card card-stats card-round">
+										<div class="card-body">
+											<div class="row">
+												<div class="col-5">
+													<div class="icon-big text-center">
+														<i class="flaticon-twitter text-primary"></i>
+													</div>
+												</div>
+												<div class="col-7 col-stats">
+													<div class="numbers">
+														<p class="card-category">Diverifikasi</p>
+														<h4 class="card-title"><?= mysqli_num_rows($verif); ?></h4>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>							
+						</div>
+
+
+
+
+
 				</div>
 			</div>
 			

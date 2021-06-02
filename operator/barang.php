@@ -1,4 +1,6 @@
-<?php include 'header.php'; ?>	
+<?php include 'header.php'; 
+$barang=mysqli_query($koneksi,"SELECT * FROM barang")or die(mysql_error());
+?>	
 	<div class="main-panel">
 			<div class="content">
 				<div class="page-inner">
@@ -26,6 +28,27 @@
 					</div>
 					<?php if(isset($_GET['data'])){ ?>
 					<div class="row">
+						<div class="col-sm-12 col-md-12">
+					<div class="card card-stats card-round">
+						<div class="card-body ">
+							<div class="row align-items-center">
+								<div class="col-icon">
+									<div class="icon-big text-center icon-primary bubble-shadow-small">
+										<i class="flaticon-box-1"></i>
+									</div>
+								</div>
+								<div class="col col-stats ml-3 ml-sm-0">
+									<div class="numbers">
+										<p class="card-category">Jumlah Barang</p>
+										<h4 class="card-title"><?= mysqli_num_rows($barang); ?></h4>
+									</div>
+								</div>
+								
+							</div>
+						</div>
+					</div>
+				</div>
+				
 						<div class="col-md-12">
 							<div class="card">
 								<div class="card-header">
