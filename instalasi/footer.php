@@ -56,6 +56,13 @@
 	<script src="../assets/js/setting-demo.js"></script>
 	<script src="../assets/js/demo.js"></script>
 	<script>
+  window.setTimeout(function() {
+    $(".alert").fadeTo(500, 0).slideUp(500, function(){
+      $(this).remove(); 
+    });
+  }, 5000);
+</script>
+	<script>
 		$(document).ready(function() {
 			$('#basic-datatables').DataTable({
 			});

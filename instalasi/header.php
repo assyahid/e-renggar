@@ -132,6 +132,12 @@
 							</a>
 						</li> -->
 						<li class="nav-item">
+							<a href="usulan.php">
+								<i class="fas fa-th-list"></i>
+								<span class="sub-item">Usulan</span>
+							</a>
+						</li>
+						<li class="nav-item">
 							<a href="proker.php">
 								<i class="fas fa-book-open"></i>
 								<span class="sub-item">Program Kerja</span>
