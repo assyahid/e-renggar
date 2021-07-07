@@ -55,20 +55,101 @@ if(isset($_POST['submit']) && $_POST['submit'] == "Tambah Justifikasi"){
 if(isset($_POST['submit']) && $_POST['submit'] == "Tambah Usulan Barang"){
 	$data = $_POST;
 
-	$query = "INSERT INTO `usulan_barang` (`id_usulan_barang`,`id_usulan`,`id_barang`,`jumlah_tersedia`,`kondisi`,`jumlah_kebutuhan`,`justifikasi`)
-	VALUES('','".$_POST['id_usulan']."','".$_POST['id_barang']."','".$_POST['jumlah_tersedia']."','".$_POST['kondisi']."','".$_POST['jumlah_kebutuhan']."','".$_POST['justifikasi']."');";
+	$query = "INSERT INTO `usulan_barang` (`id_usulan_barang`,`id_usulan`,`id_barang`,`jumlah_tersedia`,`kondisi`,`jumlah_kebutuhan`,`justifikasi`,`kategori`)
+	VALUES('','".$_POST['id_usulan']."','".$_POST['id_barang']."','".$_POST['jumlah_tersedia']."','".$_POST['kondisi']."','".$_POST['jumlah_kebutuhan']."','".$_POST['justifikasi']."','".$_POST['kategori']."');";
 	$sql = mysqli_query($koneksi,$query);  
 	if($sql){
 		$tampil = mysqli_query($koneksi,"SELECT * FROM usulan_barang ORDER BY id_usulan_barang DESC LIMIT 1 ")or die(mysql_error());
 		$x = mysqli_fetch_array($tampil);
-		$id_alkes = $x['id_alkes'];
-		$merek = mysqli_query($koneksi,"INSERT INTO `merek_barang` (`id_usulan_barang`,`nama_merek`,`spesifikasi_merek`,`harga_merek`) VALUES ('".$id_usulan_barang."','".$_POST['nama_merek']."','".$_POST['spesifikasi_merek']."','".$_POST['harga_merek']."') ");
+		$id_usulan_barang = $x['id_usulan_barang'];
+		$merek = mysqli_query($koneksi,"INSERT INTO `merek_barang` (`id_usulan_barang`,`nama_merek`,`spesifikasi_merek`,`harga_merek`,`status_merek`) VALUES ('".$id_usulan_barang."','".$_POST['nama_merek']."','".$_POST['spesifikasi_merek']."','".$_POST['harga_merek']."','Pengajuan') ");
 		header('Location: ../alkes.php?id_usulan='.$_POST["id_usulan"]);
 	}else{   
 		$err = mysqli_error($koneksi);
 		header('Location: ../alkes.php?id_usulan='.$_POST["id_usulan"]);
 	}
 }
+
+if(isset($_POST['submit']) && $_POST['submit'] == "Tambah Usulan Barang Pengelola Data"){
+	$data = $_POST;
+
+	$query = "INSERT INTO `usulan_barang` (`id_usulan_barang`,`id_usulan`,`id_barang`,`jumlah_tersedia`,`kondisi`,`jumlah_kebutuhan`,`justifikasi`,`kategori`)
+	VALUES('','".$_POST['id_usulan']."','".$_POST['id_barang']."','".$_POST['jumlah_tersedia']."','".$_POST['kondisi']."','".$_POST['jumlah_kebutuhan']."','".$_POST['justifikasi']."','".$_POST['kategori']."');";
+	$sql = mysqli_query($koneksi,$query);  
+	if($sql){
+		$tampil = mysqli_query($koneksi,"SELECT * FROM usulan_barang ORDER BY id_usulan_barang DESC LIMIT 1 ")or die(mysql_error());
+		$x = mysqli_fetch_array($tampil);
+		$id_usulan_barang = $x['id_usulan_barang'];
+		$merek = mysqli_query($koneksi,"INSERT INTO `merek_barang` (`id_usulan_barang`,`nama_merek`,`spesifikasi_merek`,`harga_merek`,`status_merek`) VALUES ('".$id_usulan_barang."','".$_POST['nama_merek']."','".$_POST['spesifikasi_merek']."','".$_POST['harga_merek']."','Pengajuan') ");
+		header('Location: ../p-data.php?id_usulan='.$_POST["id_usulan"]);
+	}else{   
+		$err = mysqli_error($koneksi);
+		header('Location: ../p-data.php?id_usulan='.$_POST["id_usulan"]);
+	}
+}
+
+if(isset($_POST['submit']) && $_POST['submit'] == "Tambah Usulan Barang Peralatan Kantor"){
+	$data = $_POST;
+
+	$query = "INSERT INTO `usulan_barang` (`id_usulan_barang`,`id_usulan`,`id_barang`,`jumlah_tersedia`,`kondisi`,`jumlah_kebutuhan`,`justifikasi`,`kategori`)
+	VALUES('','".$_POST['id_usulan']."','".$_POST['id_barang']."','".$_POST['jumlah_tersedia']."','".$_POST['kondisi']."','".$_POST['jumlah_kebutuhan']."','".$_POST['justifikasi']."','".$_POST['kategori']."');";
+	$sql = mysqli_query($koneksi,$query);  
+	if($sql){
+		$tampil = mysqli_query($koneksi,"SELECT * FROM usulan_barang ORDER BY id_usulan_barang DESC LIMIT 1 ")or die(mysql_error());
+		$x = mysqli_fetch_array($tampil);
+		$id_usulan_barang = $x['id_usulan_barang'];
+		$merek = mysqli_query($koneksi,"INSERT INTO `merek_barang` (`id_usulan_barang`,`nama_merek`,`spesifikasi_merek`,`harga_merek`,`status_merek`) VALUES ('".$id_usulan_barang."','".$_POST['nama_merek']."','".$_POST['spesifikasi_merek']."','".$_POST['harga_merek']."','Pengajuan') ");
+		header('Location: ../p-kantor.php?id_usulan='.$_POST["id_usulan"]);
+	}else{   
+		$err = mysqli_error($koneksi);
+		header('Location: ../p-kantor.php?id_usulan='.$_POST["id_usulan"]);
+	}
+}
+
+
+if(isset($_POST['submit']) && $_POST['submit'] == "Tambah Usulan Barang ART"){
+	$data = $_POST;
+
+	$query = "INSERT INTO `art` (`id_art`,`id_usulan`,`id_barang`,`jumlah_kebutuhan`,`ket_art`)
+	VALUES('','".$_POST['id_usulan']."','".$_POST['id_barang']."','".$_POST['jumlah_kebutuhan']."','".$_POST['ket_art']."');";
+	$sql = mysqli_query($koneksi,$query);  
+	if($sql){
+		header('Location: ../art.php?id_usulan='.$_POST["id_usulan"]);
+	}else{   
+		$err = mysqli_error($koneksi);
+		header('Location: ../art.php?id_usulan='.$_POST["id_usulan"]);
+	}
+}
+
+if(isset($_POST['submit']) && $_POST['submit'] == "Tambah Usulan Barang Reagen"){
+	$data = $_POST;
+
+	$query = "INSERT INTO `reagen` (`id_reagen`,`id_usulan`,`id_barang`,`jumlah_usulan`,`ket_reagen`)
+	VALUES('','".$_POST['id_usulan']."','".$_POST['id_barang']."','".$_POST['jumlah_usulan']."','".$_POST['ket_reagen']."');";
+	$sql = mysqli_query($koneksi,$query);  
+	if($sql){
+		header('Location: ../reagen.php?id_usulan='.$_POST["id_usulan"]);
+	}else{   
+		$err = mysqli_error($koneksi);
+		header('Location: ../reagen.php?id_usulan='.$_POST["id_usulan"]);
+	}
+}
+
+if(isset($_POST['submit']) && $_POST['submit'] == "Tambah Usulan Pelatihan"){
+	$data = $_POST;
+
+	$query = "INSERT INTO `pelatihan` (`id_pelatihan`,`id_usulan`,`nama_pelatihan`,`lokasi`,`penyelenggara`,`jumlah_peserta`,`waktu_pelaksanaan`,`biaya_penyelenggara`,`status_pelatihan`)
+	VALUES('','".$_POST['id_usulan']."','".$_POST['nama_pelatihan']."','".$_POST['lokasi']."','".$_POST['penyelenggara']."','".$_POST['jumlah_peserta']."','".$_POST['waktu_pelaksanaan']."','".$_POST['biaya_penyelenggara']."');";
+	$sql = mysqli_query($koneksi,$query);  
+	if($sql){
+		header('Location: ../pelatihan.php?id_usulan='.$_POST["id_usulan"]);
+	}else{   
+		$err = mysqli_error($koneksi);
+		header('Location: ../pelatihan.php?id_usulan='.$_POST["id_usulan"]);
+	}
+}
+
+
 
 if(isset($_POST['submit']) && $_POST['submit'] == "Tambah Merek"){
 	$data = $_POST;
@@ -76,12 +157,80 @@ if(isset($_POST['submit']) && $_POST['submit'] == "Tambah Merek"){
 	$query = "INSERT INTO `merek_barang` (`id_usulan_barang`,`nama_merek`,`spesifikasi_merek`,`harga_merek`) VALUES ('".$_POST['id_usulan_barang']."','".$_POST['nama_merek']."','".$_POST['spesifikasi_merek']."','".$_POST['harga_merek']."') ";
 	$sql = mysqli_query($koneksi,$query);  
 	if($sql){
-		header('Location: ../alkes.php?id_usulan='.$_POST["id_usulan"]);
+		header('Location: ../tambah_merek.php?id_usulan_barang='.$_POST["id_usulan_barang"]."&id_usulan=".$_POST["id_usulan"]);
 	}else{   
 		$err = mysqli_error($koneksi);
-		header('Location: ../alkes.php?id_usulan='.$_POST["id_usulan"]);
+		header('Location: ../tambah_merek.php?id_usulan_barang='.$_POST["id_usulan_barang"]."&id_usulan=".$_POST["id_usulan"]);
 	}
 }
+
+if(isset($_POST['submit']) && $_POST['submit'] == "Tambah Merek Pengelola Data"){
+	$data = $_POST;
+
+	$query = "INSERT INTO `merek_barang` (`id_usulan_barang`,`nama_merek`,`spesifikasi_merek`,`harga_merek`) VALUES ('".$_POST['id_usulan_barang']."','".$_POST['nama_merek']."','".$_POST['spesifikasi_merek']."','".$_POST['harga_merek']."') ";
+	$sql = mysqli_query($koneksi,$query);  
+	if($sql){
+		header('Location: ../tambah_merek_pdata.php?id_usulan_barang='.$_POST["id_usulan_barang"]."&id_usulan=".$_POST["id_usulan"]);
+	}else{   
+		$err = mysqli_error($koneksi);
+		header('Location: ../tambah_merek_pdata.php?id_usulan_barang='.$_POST["id_usulan_barang"]."&id_usulan=".$_POST["id_usulan"]);
+	}
+}
+
+if(isset($_POST['submit']) && $_POST['submit'] == "Tambah Merek Peralatan Kantor"){
+	$data = $_POST;
+
+	$query = "INSERT INTO `merek_barang` (`id_usulan_barang`,`nama_merek`,`spesifikasi_merek`,`harga_merek`) VALUES ('".$_POST['id_usulan_barang']."','".$_POST['nama_merek']."','".$_POST['spesifikasi_merek']."','".$_POST['harga_merek']."') ";
+	$sql = mysqli_query($koneksi,$query);  
+	if($sql){
+		header('Location: ../tambah_merek_pkantor.php?id_usulan_barang='.$_POST["id_usulan_barang"]."&id_usulan=".$_POST["id_usulan"]);
+	}else{   
+		$err = mysqli_error($koneksi);
+		header('Location: ../tambah_merek_pkantor.php?id_usulan_barang='.$_POST["id_usulan_barang"]."&id_usulan=".$_POST["id_usulan"]);
+	}
+}
+
+ if(isset($_GET['hapusmerek'])){
+    $id_merek_barang=$_GET['id_merek_barang'];
+    $id_usulan=$_GET['id_usulan'];
+    $id_usulan_barang=$_GET['id_usulan_barang'];
+$query2 = "DELETE FROM merek_barang WHERE id_merek_barang='$id_merek_barang'";
+$sql2 = mysqli_query($koneksi,$query2); // Eksekusi/Jalankan query dari variabel $query
+if($sql2){ // Cek jika proses simpan ke database sukses atau tidak  // Jika Sukses, Lakukan :  
+header('Location: ../tambah_merek.php?id_usulan_barang='.$_GET["id_usulan_barang"]."&id_usulan=".$_GET["id_usulan"]);
+} else {  // Jika Gagal, Lakukan :  
+ $err = mysqli_error($koneksi);
+		header('Location: ../tambah_merek.php?id_usulan_barang='.$_GET["id_usulan_barang"]."&id_usulan=".$_GET["id_usulan"]);
+}
+  }
+
+   if(isset($_GET['hapusmerekpdata'])){
+    $id_merek_barang=$_GET['id_merek_barang'];
+    $id_usulan=$_GET['id_usulan'];
+    $id_usulan_barang=$_GET['id_usulan_barang'];
+$query2 = "DELETE FROM merek_barang WHERE id_merek_barang='$id_merek_barang'";
+$sql2 = mysqli_query($koneksi,$query2); // Eksekusi/Jalankan query dari variabel $query
+if($sql2){ // Cek jika proses simpan ke database sukses atau tidak  // Jika Sukses, Lakukan :  
+header('Location: ../tambah_merek_pdata.php?id_usulan_barang='.$_GET["id_usulan_barang"]."&id_usulan=".$_GET["id_usulan"]);
+} else {  // Jika Gagal, Lakukan :  
+ $err = mysqli_error($koneksi);
+		header('Location: ../tambah_merek_pdata.php?id_usulan_barang='.$_GET["id_usulan_barang"]."&id_usulan=".$_GET["id_usulan"]);
+}
+  }
+
+if(isset($_GET['hapusmerekpkantor'])){
+    $id_merek_barang=$_GET['id_merek_barang'];
+    $id_usulan=$_GET['id_usulan'];
+    $id_usulan_barang=$_GET['id_usulan_barang'];
+$query2 = "DELETE FROM merek_barang WHERE id_merek_barang='$id_merek_barang'";
+$sql2 = mysqli_query($koneksi,$query2); // Eksekusi/Jalankan query dari variabel $query
+if($sql2){ // Cek jika proses simpan ke database sukses atau tidak  // Jika Sukses, Lakukan :  
+header('Location: ../tambah_merek_pkantor.php?id_usulan_barang='.$_GET["id_usulan_barang"]."&id_usulan=".$_GET["id_usulan"]);
+} else {  // Jika Gagal, Lakukan :  
+ $err = mysqli_error($koneksi);
+		header('Location: ../tambah_merek_pkantor.php?id_usulan_barang='.$_GET["id_usulan_barang"]."&id_usulan=".$_GET["id_usulan"]);
+}
+  }
 
 if(isset($_POST['update']) && $_POST['update'] == "Update Usulan Barang"){
 	$data = $_POST;
@@ -104,6 +253,165 @@ if(isset($_POST['update']) && $_POST['update'] == "Update Usulan Barang"){
 	}else{   
 		$err = mysqli_error($koneksi);
 		header('Location: ../alkes.php?id_usulan='.$_POST["id_usulan"]);
+	}
+}
+
+if(isset($_POST['update']) && $_POST['update'] == "Update Usulan Barang Pengelola Data"){
+	$data = $_POST;
+
+	$query = "UPDATE `usulan_barang` 
+	SET
+	`id_usulan` = '".$_POST['id_usulan']."', 
+	`id_barang` = '".$_POST['id_barang']."', 
+	`jumlah_tersedia` = '".$_POST['jumlah_tersedia']."', 
+	`kondisi` = '".$_POST['kondisi']."', 
+	`jumlah_kebutuhan` = '".$_POST['jumlah_kebutuhan']."', 
+	`justifikasi` = '".$_POST['justifikasi']."'
+	
+	WHERE
+	`id_usulan_barang` = '".$_POST['id_usulan_barang']."' ;
+";
+	$sql = mysqli_query($koneksi,$query);  
+	if($sql){
+		header('Location: ../p-data.php?message=Data Alat Pengelola Data berhasil diubah,'.'&id_usulan='.$_POST["id_usulan"]);
+	}else{   
+		$err = mysqli_error($koneksi);
+		header('Location: ../p-data.php?id_usulan='.$_POST["id_usulan"]);
+	}
+}
+
+if(isset($_POST['update']) && $_POST['update'] == "Update Usulan Barang Peralatan Kantor"){
+	$data = $_POST;
+
+	$query = "UPDATE `usulan_barang` 
+	SET
+	`id_usulan` = '".$_POST['id_usulan']."', 
+	`id_barang` = '".$_POST['id_barang']."', 
+	`jumlah_tersedia` = '".$_POST['jumlah_tersedia']."', 
+	`kondisi` = '".$_POST['kondisi']."', 
+	`jumlah_kebutuhan` = '".$_POST['jumlah_kebutuhan']."', 
+	`justifikasi` = '".$_POST['justifikasi']."'
+	
+	WHERE
+	`id_usulan_barang` = '".$_POST['id_usulan_barang']."' ;
+";
+	$sql = mysqli_query($koneksi,$query);  
+	if($sql){
+		header('Location: ../p-kantor.php?message=Data Alat Pengelola Data berhasil diubah,'.'&id_usulan='.$_POST["id_usulan"]);
+	}else{   
+		$err = mysqli_error($koneksi);
+		header('Location: ../p-kantor.php?id_usulan='.$_POST["id_usulan"]);
+	}
+}
+
+if(isset($_POST['update']) && $_POST['update'] == "Update Usulan Barang ART"){
+	$data = $_POST;
+
+	$query = "UPDATE `art` 
+	SET
+	`id_usulan` = '".$_POST['id_usulan']."', 
+	`id_barang` = '".$_POST['id_barang']."', 
+	`jumlah_kebutuhan` = '".$_POST['jumlah_kebutuhan']."', 
+	`ket_art` = '".$_POST['ket_art']."'
+	
+	WHERE
+	`id_art` = '".$_POST['id_art']."' ;
+";
+	$sql = mysqli_query($koneksi,$query);  
+	if($sql){
+		header('Location: ../art.php?message=Data Alat Pengelola Data berhasil diubah,'.'&id_usulan='.$_POST["id_usulan"]);
+	}else{   
+		$err = mysqli_error($koneksi);
+		header('Location: ../art.php?id_usulan='.$_POST["id_usulan"]);
+	}
+}
+
+
+if(isset($_POST['update']) && $_POST['update'] == "Update Usulan Barang Reagen"){
+	$data = $_POST;
+
+	$query = "UPDATE `reagen` 
+	SET
+	`id_usulan` = '".$_POST['id_usulan']."', 
+	`id_barang` = '".$_POST['id_barang']."', 
+	`jumlah_usulan` = '".$_POST['jumlah_usulan']."', 
+	`ket_reagen` = '".$_POST['ket_reagen']."'
+	
+	WHERE
+	`id_reagen` = '".$_POST['id_reagen']."' ;
+";
+	$sql = mysqli_query($koneksi,$query);  
+	if($sql){
+		header('Location: ../reagen.php?message=Data Reagen berhasil diubah,'.'&id_usulan='.$_POST["id_usulan"]);
+	}else{   
+		$err = mysqli_error($koneksi);
+		header('Location: ../reagen.php?id_usulan='.$_POST["id_usulan"]);
+	}
+}
+
+if(isset($_POST['update']) && $_POST['update'] == "Update merek alkes"){
+	$data = $_POST;
+
+	$query = "UPDATE `merek_barang` 
+	SET
+	`id_usulan_barang` = '".$_POST['id_usulan_barang']."', 
+	`nama_merek` = '".$_POST['nama_merek']."', 
+	`spesifikasi_merek` = '".$_POST['spesifikasi_merek']."', 
+	`harga_merek` = '".$_POST['harga_merek']."'
+	
+	WHERE
+	`id_merek_barang` = '".$_POST['id_merek_barang']."' ;
+";
+	$sql = mysqli_query($koneksi,$query);  
+	if($sql){
+		header('Location: ../tambah_merek.php?message=Data merek alkes berhasil diubah,'.'&id_usulan_barang='.$_POST["id_usulan_barang"]."&id_usulan=".$_POST["id_usulan"]);
+	}else{   
+		$err = mysqli_error($koneksi);
+		header('Location: ../tambah_merek.php?message=Gagal,'.'&id_usulan_barang='.$_POST["id_usulan_barang"]);
+	}
+}
+
+if(isset($_POST['update']) && $_POST['update'] == "Update Merek Pengelola Data"){
+	$data = $_POST;
+
+	$query = "UPDATE `merek_barang` 
+	SET
+	`id_usulan_barang` = '".$_POST['id_usulan_barang']."', 
+	`nama_merek` = '".$_POST['nama_merek']."', 
+	`spesifikasi_merek` = '".$_POST['spesifikasi_merek']."', 
+	`harga_merek` = '".$_POST['harga_merek']."'
+	
+	WHERE
+	`id_merek_barang` = '".$_POST['id_merek_barang']."' ;
+";
+	$sql = mysqli_query($koneksi,$query);  
+	if($sql){
+		header('Location: ../tambah_merek_pdata.php?message=Data merek alkes berhasil diubah,'.'&id_usulan_barang='.$_POST["id_usulan_barang"]."&id_usulan=".$_POST["id_usulan"]);
+	}else{   
+		$err = mysqli_error($koneksi);
+		header('Location: ../tambah_merek_pdata.php?message=Gagal,'.'&id_usulan_barang='.$_POST["id_usulan_barang"]);
+	}
+}
+
+if(isset($_POST['update']) && $_POST['update'] == "Update Merek Peralatan Kantor"){
+	$data = $_POST;
+
+	$query = "UPDATE `merek_barang` 
+	SET
+	`id_usulan_barang` = '".$_POST['id_usulan_barang']."', 
+	`nama_merek` = '".$_POST['nama_merek']."', 
+	`spesifikasi_merek` = '".$_POST['spesifikasi_merek']."', 
+	`harga_merek` = '".$_POST['harga_merek']."'
+	
+	WHERE
+	`id_merek_barang` = '".$_POST['id_merek_barang']."' ;
+";
+	$sql = mysqli_query($koneksi,$query);  
+	if($sql){
+		header('Location: ../tambah_merek_pkantor.php?message=Data merek alkes berhasil diubah,'.'&id_usulan_barang='.$_POST["id_usulan_barang"]."&id_usulan=".$_POST["id_usulan"]);
+	}else{   
+		$err = mysqli_error($koneksi);
+		header('Location: ../tambah_merek_pkantor.php?message=Gagal,'.'&id_usulan_barang='.$_POST["id_usulan_barang"]);
 	}
 }
 

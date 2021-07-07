@@ -32,6 +32,7 @@
 										<tr>
 											<th>No</th>
 											<th>Nomor Usulan</th>
+											<th>Anggaran</th>
 											<th>Tanggal Usulan</th>
 											<th>Status</th>
 											<th width="150px"><center>Opsi</center></th>
@@ -46,6 +47,7 @@
 											<tr>
 												<td><?php echo $no++; ?></td>
 												<td><?= $d["no_usulan"]; ?></td>
+												<td><?= $d["anggaran"]; ?></td>
 												<td><?= date_format(new DateTime($d['tgl_usulan']),"d-m-Y") ?></td>
 												<td><?= $d["sent"]; ?></td>
 												<td>
@@ -83,13 +85,23 @@
 							<div class="col-md-12 col-lg-12">
 								<div class="form-group">
 									<label for="email2">No Usulan</label>
-									<input type="text" name="no_usulan" class="form-control" id="email2" placeholder="Input nama peralatan">
+									<input type="text" name="no_usulan" class="form-control" id="email2" placeholder="Input nomor usulan" required="">
+								</div>
+							</div>
+							<div class="col-md-12 col-lg-12">
+								<div class="form-group">
+									<label for="email2">Anggaran</label>
+									<select name="anggaran" class="form-control" required="">
+										<option value="">Pilih Anggaran</option>
+										<option value="2021">2021</option>
+										<option value="2022">2022</option>
+									</select>
 								</div>
 							</div>
 							<div class="col-md-12 col-lg-12">
 								<div class="form-group">
 									<label for="email2">Tanggal Usulan</label>
-									<input type="date" name="tgl_usulan" class="form-control" value="<?=date("Y-m-d");?>" id="email2" placeholder="Input jenis peralatan">
+									<input type="date" name="tgl_usulan" class="form-control" value="<?=date("Y-m-d");?>" id="email2" placeholder="Input jenis peralatan" required>
 								</div>
 							</div>
 						

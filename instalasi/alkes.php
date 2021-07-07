@@ -1,7 +1,7 @@
 <?php include 'header.php'; 
 $pegawai  =mysqli_query($koneksi,"SELECT * FROM pegawai WHERE id_user = '".$_SESSION['id_user']."'")or die(mysql_error());
-$usulan_barang=mysqli_query($koneksi,"SELECT * FROM usulan_barang inner join barang on usulan_barang.id_barang=barang.id_barang WHERE usulan_barang.id_usulan = '".$_GET['id_usulan']."'")or die(mysql_error());
-$barang   =mysqli_query($koneksi,"SELECT * FROM barang ORDER BY nama_barang ASC")or die(mysql_error());
+$usulan_barang=mysqli_query($koneksi,"SELECT * FROM usulan_barang inner join barang on usulan_barang.id_barang=barang.id_barang WHERE usulan_barang.id_usulan = '".$_GET['id_usulan']."' and usulan_barang.kategori='Alkes'")or die(mysql_error());
+$barang   =mysqli_query($koneksi,"SELECT * FROM barang where kategori='Alat Kesehatan' ORDER BY nama_barang ASC")or die(mysql_error());
 
 $id_usulan = $_GET["id_usulan"];
 
@@ -19,7 +19,7 @@ while($d=mysqli_fetch_array($surat)){ $data[] = $d; }
 			<div class="page-header">
 				<h4 class="page-title">Alat Kesehatan</h4>
 				<ul class="breadcrumbs">
-
+					<a href="detail-usulan.php?id_usulan=<?=$_GET['id_usulan'];?>" class="btn btn-info">Kembali ke menu usulan</a>
 				</ul>
 			</div>
 			<div class="row">
@@ -104,11 +104,11 @@ while($d=mysqli_fetch_array($surat)){ $data[] = $d; }
 													<tr>
 														<td><?=$no++;?></td>
 														<td><?= $d["nama_barang"] ?></td>
-														<td><?php $merek = mysqli_query($koneksi,"SELECT * FROM merek_barang where id_usulan_barang='$d[id_usulan_barang]' ");
-															
+														<td><?php $merek = mysqli_query($koneksi,"SELECT * FROM merek_barang where id_usulan_barang='$d[id_usulan_barang]'");
 														 ?>
-														 	<button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleMerek" style="float: right;">
-									<span class="fas fa-plus"></span> <?= mysqli_num_rows($merek); ?></button>
+														 	<!-- <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleMerek" style="float: right;">
+									<span class="fas fa-plus"></span> <?= mysqli_num_rows($merek); ?></button> -->
+										<a href="tambah_merek.php?id_usulan_barang=<?=$d['id_usulan_barang']?>&id_usulan=<?=$id_usulan?>" class="btn btn-sm btn-primary"><span class="fas fa-plus"></span> <?= mysqli_num_rows($merek); ?></a>
 														 </td>
 														<td><?= $d["jumlah_tersedia"] ?></td>
 														<td><?= $d["kondisi"] ?></td>
@@ -228,11 +228,11 @@ if($sql2){ // Cek jika proses simpan ke database sukses atau tidak  // Jika Suks
 ?><script type="text/javascript">
     //<![CDATA[
     alert ("Berhasil Hapus");
-    window.location="usulan_barang.php?id_usulan=<?=$id_usulan?>";
+    window.location="alkes.php?id_usulan=<?=$id_usulan?>";
     //]]>
   </script><?php
 } else {  // Jika Gagal, Lakukan :  
-  echo "Data gagal dihapus. <a href='usulan_barang.php?id_usulan=<?=$id_usulan?>'>Kembali</a>";
+  echo "Data gagal dihapus. <a href='alkes.php?id_usulan=<?=$id_usulan?>'>Kembali</a>";
 }
   }
   ?>
@@ -256,6 +256,13 @@ if($sql2){ // Cek jika proses simpan ke database sukses atau tidak  // Jika Suks
   }
   ?>
 
+
+
+
+
+
+
+
 		<!-- Modal Tambah Pegawai-->
 		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog">
 			<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -269,6 +276,7 @@ if($sql2){ // Cek jika proses simpan ke database sukses atau tidak  // Jika Suks
 					<form method="POST" action="controller/v1.php">
 						<div class="modal-body">
 							<input type="hidden" name="id_usulan" class="form-control" id="email2" placeholder="Input spesifikasi umum"value="<?=$_GET['id_usulan'];?>">
+							<input type="hidden" name="kategori" class="form-control" id="email2" placeholder="Input spesifikasi umum"value="alkes">
 							<div class="col-md-12 col-lg-12">
 								<div class="form-group">
 									<label for="defaultSelect">Nama Barang</label>
@@ -309,6 +317,7 @@ if($sql2){ // Cek jika proses simpan ke database sukses atau tidak  // Jika Suks
 								<div class="form-group">
 									<label for="email2">Kondisi</label>
 									<select class="form-control form-control" name="kondisi" id="defaultSelect">
+										<option value="-">-</option>
 										<option value="Baik">Baik</option>
 										<option value="Rusak Ringan">Rusak Ringan</option>
 										<option value="Rusak Berat">Rusak Berat</option>
