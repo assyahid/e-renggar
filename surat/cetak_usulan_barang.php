@@ -6,7 +6,8 @@ use Spipu\Html2Pdf\Html2Pdf;
 session_start();
 ob_start();
 include_once("../config.php"); //buat koneksi ke database
-$id_usulan   = $_GET['id_usulan']; //kode berita yang akan dikonvert
+$id_usulan   = $_GET['id_usulan'];
+$id_usulan_barang   = $_GET['id_usulan_barang']; //kode berita yang akan dikonvert
 $query  = mysqli_query($koneksi,"SELECT * FROM usulan WHERE id_usulan='".$id_usulan."'");
 $data   = mysqli_fetch_array($query);
 ?>
@@ -34,7 +35,7 @@ $data   = mysqli_fetch_array($query);
     <th>JUSTIFIKASI</th>
   </tr>
   <?php
-    $query = mysqli_query($koneksi,"SELECT * FROM merek_barang inner join usulan_barang on merek_barang.id_usulan_barang=usulan_barang.id_usulan_barang inner join barang on usulan_barang.id_barang=barang.id_barang where id_usulan=$id_usulan");
+    $query = mysqli_query($koneksi,"SELECT * FROM merek_barang inner join usulan_barang on merek_barang.id_usulan_barang=usulan_barang.id_usulan_barang inner join barang on usulan_barang.id_barang=barang.id_barang where id_usulan=$id_usulan and merek_barang.id_usulan_barang='$id_usulan_barang' ");
     $no=1;
     while ($a = mysqli_fetch_array($query)) :?>
     <tr>
@@ -43,9 +44,9 @@ $data   = mysqli_fetch_array($query);
       <td><?php echo $a['nama_merek'] ?></td>
       <td><?php echo wordwrap($a['spesifikasi_merek'],45,'<br />', true) ?></td>
       <td>Rp <?php echo number_format($a['harga_merek']) ?></td>
-      <td><?php echo $a['jumlah_tersedia'] ?></td>
-      <td><?php echo $a['kondisi'] ?></td>
-      <td><?php echo $a['jumlah_kebutuhan'] ?></td>
+      <td align="center"><?php echo $a['jumlah_tersedia'] ?></td>
+      <td align="center"><?php echo $a['kondisi'] ?></td>
+      <td align="center"><?php echo $a['jumlah_kebutuhan'] ?></td>
       <td><?php echo wordwrap($a['justifikasi'],35,'<br />', true) ?></td>
     </tr>
   <?php endwhile;?>
@@ -56,10 +57,10 @@ $data   = mysqli_fetch_array($query);
            * Justifikasi Kebutuhan diisi alasan kebutuhan alat yang diusulkan secara rinci dan jelas</p>
 
 
-<p align='right'><b><?=$_SESSION['nama']?></b><br>
+<p align='right'><b><?=$_SESSION['nama_instalasi']?></b><br>
 <img src='../image/simka.png' width='120'>
 <br>
-<b><u>..........................</u><br>NIP. .....................</b></p>
+<b><u><?=$_SESSION['nama_kepala_instalasi']?></u><br>NIP.<?=$_SESSION['nip']?></b></p>
 
 </body>
 </html><!-- Akhir halaman HTML yang akan di konvert -->

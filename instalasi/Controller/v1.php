@@ -139,7 +139,7 @@ if(isset($_POST['submit']) && $_POST['submit'] == "Tambah Usulan Pelatihan"){
 	$data = $_POST;
 
 	$query = "INSERT INTO `pelatihan` (`id_pelatihan`,`id_usulan`,`nama_pelatihan`,`lokasi`,`penyelenggara`,`jumlah_peserta`,`waktu_pelaksanaan`,`biaya_penyelenggara`,`status_pelatihan`)
-	VALUES('','".$_POST['id_usulan']."','".$_POST['nama_pelatihan']."','".$_POST['lokasi']."','".$_POST['penyelenggara']."','".$_POST['jumlah_peserta']."','".$_POST['waktu_pelaksanaan']."','".$_POST['biaya_penyelenggara']."');";
+	VALUES('','".$_POST['id_usulan']."','".$_POST['nama_pelatihan']."','".$_POST['lokasi']."','".$_POST['penyelenggara']."','".$_POST['jumlah_peserta']."','".$_POST['waktu_pelaksanaan']."','".$_POST['biaya_penyelenggara']."','Pengajuan');";
 	$sql = mysqli_query($koneksi,$query);  
 	if($sql){
 		header('Location: ../pelatihan.php?id_usulan='.$_POST["id_usulan"]);
@@ -349,6 +349,33 @@ if(isset($_POST['update']) && $_POST['update'] == "Update Usulan Barang Reagen")
 	}
 }
 
+if(isset($_POST['update']) && $_POST['update'] == "Update Usulan Pelatihan"){
+	$data = $_POST;
+
+	$query = "UPDATE`pelatihan` 
+	SET
+	`id_usulan` = '".$_POST['id_usulan']."', 
+	`nama_pelatihan` = '".$_POST['nama_pelatihan']."', 
+	`lokasi` = '".$_POST['lokasi']."', 
+	`penyelenggara` = '".$_POST['penyelenggara']."', 
+	`jumlah_peserta` = '".$_POST['jumlah_peserta']."', 
+	`waktu_pelaksanaan` = '".$_POST['waktu_pelaksanaan']."', 
+	`biaya_penyelenggara` = '".$_POST['biaya_penyelenggara']."', 
+	`status_pelatihan` = '".$_POST['status_pelatihan']."'
+	
+	WHERE
+	`id_pelatihan` = '".$_POST['id_pelatihan']."' ;
+
+";
+	$sql = mysqli_query($koneksi,$query);  
+	if($sql){
+		header('Location: ../pelatihan.php?message=Data Pelatihan berhasil diubah,'.'&id_usulan='.$_POST["id_usulan"]);
+	}else{   
+		$err = mysqli_error($koneksi);
+		header('Location: ../pelatihan.php?id_usulan='.$_POST["id_usulan"]);
+	}
+}
+
 if(isset($_POST['update']) && $_POST['update'] == "Update merek alkes"){
 	$data = $_POST;
 
@@ -433,5 +460,24 @@ if(isset($_POST['submit']) && $_POST['submit'] == "Ya, Kirim Proker saya"){
 	}else{   
 		$err = mysqli_error($koneksi);
 		header('Location: ../detail-proker.php?id_surat='.$data["id_surat"]);
+	}
+}
+
+if(isset($_POST['submit']) && $_POST['submit'] == "Ya, Kirim Usulan Saya"){
+	$data = $_POST;
+	// ambil atasan terlebih dahulu
+	$atasan = "SELECT * FROM users WHERE id_user = ".$_SESSION['atasan'];
+	$query = mysqli_query($koneksi,$atasan);
+	$usr_atasan = mysqli_fetch_array($query);
+	// var_dump($_SESSION['atasan']);
+	// exit();
+	// end
+	$query = "UPDATE usulan SET sent = 1,tanggal_kirim='".date("Y-m-d")."',posisi='".$usr_atasan["nama"]."',status='proses' WHERE id_usulan = ".$data["id_usulan"]."";
+	$sql = mysqli_query($koneksi,$query);  
+	if($sql){
+		header('Location: ../detail-usulan.php?id_surat='.$data["id_surat"]);
+	}else{   
+		$err = mysqli_error($koneksi);
+		header('Location: ../detail-usulan.php?id_surat='.$data["id_surat"]);
 	}
 }

@@ -1,6 +1,7 @@
 <?php include 'header.php'; 
 $pegawai  =mysqli_query($koneksi,"SELECT * FROM pegawai WHERE id_user = '".$_SESSION['id_user']."'")or die(mysql_error());
 $usulan_barang=mysqli_query($koneksi,"SELECT * FROM usulan_barang inner join barang on usulan_barang.id_barang=barang.id_barang WHERE usulan_barang.id_usulan = '".$_GET['id_usulan']."' and usulan_barang.kategori='Alkes'")or die(mysql_error());
+$id_usulan_barang=mysqli_query($koneksi,"SELECT * FROM usulan_barang inner join barang on usulan_barang.id_barang=barang.id_barang WHERE usulan_barang.id_usulan = '".$_GET['id_usulan']."' and usulan_barang.kategori='Alkes'")or die(mysql_error());
 $barang   =mysqli_query($koneksi,"SELECT * FROM barang where kategori='Alat Kesehatan' ORDER BY nama_barang ASC")or die(mysql_error());
 
 $id_usulan = $_GET["id_usulan"];
@@ -77,7 +78,8 @@ while($d=mysqli_fetch_array($surat)){ $data[] = $d; }
 							<h4 class="card-title"> Kebutuhan Alat Kesehatan
 								<button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal" style="float: right;">
 									<span class="fas fa-plus"></span> Input Data Alat Kesehatan</button>
-									<a type="button" target="_blank" href="../surat/cetak_usulan_barang.php?id_usulan=<?= $id_usulan; ?>" class="btn btn-sm btn-success" style="float: right;margin-right: 5px;">
+									<?php $xx=mysqli_fetch_array($id_usulan_barang); ?>
+									<a type="button" target="_blank" href="../surat/cetak_usulan_barang.php?id_usulan=<?= $id_usulan; ?>&id_usulan_barang=<?= $xx['id_usulan_barang']; ?>" class="btn btn-sm btn-success" style="float: right;margin-right: 5px;">
 										<span class="fas fa-print"></span> Cetak Surat</a>
 									</h4>
 								</div>

@@ -148,7 +148,7 @@ while($d=mysqli_fetch_array($surat)){ $data[] = $d; }
 							<div class="col-md-12 col-lg-12">
 								<div class="form-group">
 									<label for="email2">Penyelenggara</label>
-									<input type="text" name="lokasi" class="form-control" id="email2" placeholder="Input Jumlah" value="<?=$d['lokasi']?>">
+									<input type="text" name="penyelenggara" class="form-control" id="email2" placeholder="Input Penyelenggara" value="<?=$d['penyelenggara']?>">
 								</div>
 							</div>
 						
@@ -162,7 +162,7 @@ while($d=mysqli_fetch_array($surat)){ $data[] = $d; }
 							<div class="col-md-12 col-lg-12">
 								<div class="form-group">
 									<label for="email2">Waktu Pelaksanaan</label>
-									<input type="text" name="jumlah_peserta" class="form-control" id="email2" placeholder="Input Jumlah" value="<?=$d['jumlah_peserta']?>">
+									<input type="text" name="waktu_pelaksanaan" class="form-control" id="email2" placeholder="Input Jumlah" value="<?=$d['jumlah_peserta']?>">
 								</div>
 							</div>
 
@@ -256,7 +256,7 @@ if($sql2){ // Cek jika proses simpan ke database sukses atau tidak  // Jika Suks
 							<div class="col-md-12 col-lg-12">
 								<div class="form-group">
 									<label for="email2">Penyelenggara</label>
-									<input type="text" name="lokasi" class="form-control" id="email2" placeholder="Input Penyelenggara">
+									<input type="text" name="penyelenggara" class="form-control" id="email2" placeholder="Input Penyelenggara">
 								</div>
 							</div>
 						

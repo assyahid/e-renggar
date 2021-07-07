@@ -3,7 +3,7 @@ include 'header.php';
 $id_usulan = $_GET["id_usulan"];
 $surat=mysqli_query($koneksi,"SELECT * FROM usulan WHERE id_usulan=$id_usulan")or die(mysql_error());
 
-$alkes=mysqli_query($koneksi,"SELECT * FROM usulan_barang inner join barang on usulan_barang.id_barang=barang.id_barang WHERE usulan_barang.kategori='alkes' and usulan_barang.id_usulan = '".$_GET['id_usulan']."'")or die(mysql_error());
+$usulan_barang=mysqli_query($koneksi,"SELECT * FROM usulan_barang inner join barang on usulan_barang.id_barang=barang.id_barang WHERE usulan_barang.kategori='alkes' and usulan_barang.id_usulan = '".$_GET['id_usulan']."'")or die(mysql_error());
 
 $pdata=mysqli_query($koneksi,"SELECT * FROM usulan_barang inner join barang on usulan_barang.id_barang=barang.id_barang WHERE usulan_barang.kategori='Pengelola Data' and usulan_barang.id_usulan = '".$_GET['id_usulan']."'")or die(mysql_error());
 
@@ -91,7 +91,7 @@ while($d=mysqli_fetch_array($surat)){ $data[] = $d; }
 									<span class="btn-label">
 										<i class="fa fa-bookmark"></i>
 									</span>
-									Alat Kesehatan  <span class="badge badge-danger"> <?= mysqli_num_rows($alkes); ?></span>
+									Alat Kesehatan  <span class="badge badge-danger"> <?= mysqli_num_rows($usulan_barang); ?></span>
 								</a>
 								<a href="p-data.php?id_usulan=<?= $id_usulan ?>" class="btn btn-primary">
 									<span class="btn-label">
@@ -161,20 +161,47 @@ while($d=mysqli_fetch_array($surat)){ $data[] = $d; }
 			<div class="modal-content">
 				<form method="POST" action="Controller/v1.php">
 					<div class="modal-header">
-						<h5 class="modal-title">Kirim program kerja saya</h5>
+						<h5 class="modal-title">Kirim Usulan Anda ?</h5>
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
 					<div class="modal-body">
-						<h2>Kirim Usulan Anda ? </h2>
+						<h2>Preview </h2>
+			<table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>Merek</th>
+                <th>Spesifikasi</th>
+                <th>Harga</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php 
+              $xx = mysqli_fetch_array($usulan_barang);
+              $merek_barang=mysqli_query($koneksi,"SELECT * FROM merek_barang inner join usulan_barang on merek_barang.id_usulan_barang=usulan_barang.id_usulan_barang where merek_barang.id_usulan_barang='$xx[id_usulan_barang]'")or die(mysql_error());
+              $no=1;
+              while($d=mysqli_fetch_array($merek_barang)){ 
+                ?>
+                <tr>
+                  <td><?=$no++;?></td>
+                  <td><?= $d["nama_merek"] ?></td>
+                  <td><?= $d["spesifikasi_merek"] ?></td>
+                  <td>Rp <?= number_format($d["harga_merek"],0) ?></td>
+                 
+                </tr> 
+                  <?php } ?>
+            </tbody>
+          </table>
 					</div>
 					<div class="modal-footer">
-						<input type="hidden" name="id_proker" value="<?= $id_proker ?>">
 						<input type="hidden" name="id_usulan" value="<?= $id_usulan ?>">
-						<input type="submit" class="btn btn-primary" name="submit" value="Ya, Kirim Proker saya">
+						<input type="submit" class="btn btn-primary" name="submit" value="Ya, Kirim Usulan Saya">
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 					</div>
+
+        
 				</form>
 			</div>
 		</div>

@@ -11,6 +11,9 @@ if (mysqli_num_rows($sql)==1) {
 	$_SESSION['atasan'] = $qry['atasan'];
 	$_SESSION['level'] = $qry['level'];
 	$_SESSION['id_user'] = $qry['id_user'];
+	$_SESSION['nama_instalasi'] = $qry['nama_instalasi'];
+	$_SESSION['nama_kepala_instalasi'] = $qry['nama_kepala_instalasi'];
+	$_SESSION['nip'] = $qry['nip'];
 	if($qry['level']=="admin"){
 		echo "success-admin";
 	}
