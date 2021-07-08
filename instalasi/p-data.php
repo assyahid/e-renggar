@@ -75,8 +75,10 @@ while($d=mysqli_fetch_array($surat)){ $data[] = $d; }
 					<div class="card">
 						<div class="card-header">
 							<h4 class="card-title"> Kebutuhan Alat Pengelola Data
+									<?php if ($data[0]['status']=="Pengajuan") { ?>
 								<button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal" style="float: right;">
 									<span class="fas fa-plus"></span> Input Data Alat Pengelola Data</button>
+									<?php	}  ?>
 									<a type="button" target="_blank" href="../surat/cetak_usulan_barang.php?id_usulan=<?= $id_usulan; ?>" class="btn btn-sm btn-success" style="float: right;margin-right: 5px;">
 										<span class="fas fa-print"></span> Cetak Surat</a>
 									</h4>
@@ -114,10 +116,19 @@ while($d=mysqli_fetch_array($surat)){ $data[] = $d; }
 														<td><?= $d["kondisi"] ?></td>
 														<td><?= $d["jumlah_kebutuhan"] ?></td>
 														<td><?= $d["justifikasi"] ?></td>
-														<td><button type="button" class="btn btn-icon btn-round btn-primary" data-toggle="modal" data-target="#exampleEdit_<?php echo $d['id_usulan_barang']; ?>">
+														<td>
+															<?php if ($data[0]['status']=="Pengajuan") { ?>
+															<button type="button" class="btn btn-icon btn-round btn-primary" data-toggle="modal" data-target="#exampleEdit_<?php echo $d['id_usulan_barang']; ?>">
 															<i class="fa fa-edit"></i>
 														</button>
 														<a onclick="if(confirm('Apakah anda yakin ingin menghapus data ini ??')){ location.href='?hapus&id_usulan_barang=<?php echo $d['id_usulan_barang']; ?>&id_usulan=<?php echo $d['id_usulan']; ?>' }" class="btn btn-icon btn-round btn-danger"> <i class="fa fa-trash"></i></a>
+														<?php	} elseif($data[0]['status']=="Revisi") { ?>
+															<button type="button" class="btn btn-icon btn-round btn-primary" data-toggle="modal" data-target="#exampleEdit_<?php echo $d['id_usulan_barang']; ?>">
+															<i class="fa fa-edit"></i>
+														</button>
+													<?php } else { ?>
+															<p>Sedang di Proses</p>
+													<?php } ?>
 													</td>
 													</tr>	
 

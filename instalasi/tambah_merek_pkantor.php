@@ -1,4 +1,10 @@
-<?php include 'header.php' ?>
+<?php include 'header.php' ;
+$surat=mysqli_query($koneksi,"SELECT * FROM usulan WHERE id_usulan = $_GET[id_usulan]")or die(mysql_error());
+
+
+$data = [];
+while($d=mysqli_fetch_array($surat)){ $data[] = $d; }
+?>
 <div class="main-panel">
   <div class="content">
     <div class="page-inner">
@@ -39,8 +45,10 @@
               <td colspan="2">: <?=$show['justifikasi']?></td>
             </tr>
           </table>
+           <?php if ($data[0]['status']=="Pengajuan") { ?>
           <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleMerek">
-                  <span class="fas fa-plus"></span> Tambah Data Merek</button>
+                  <span class="fas fa-plus"></span> Tambah Data Merek</button> <br> <br>
+                     <?php }  ?>
           <table class="table table-bordered">
             <thead>
               <tr>
@@ -62,10 +70,12 @@
                   <td><?= $d["nama_merek"] ?></td>
                   <td><?= $d["spesifikasi_merek"] ?></td>
                   <td>Rp <?= number_format($d["harga_merek"],0) ?></td>
-                  <td><button type="button" class="btn btn-icon btn-round btn-primary" data-toggle="modal" data-target="#exampleEdit_<?php echo $d['id_merek_barang']; ?>">
+                  <td>  <?php if ($data[0]['status']=="Pengajuan") { ?>
+                    <button type="button" class="btn btn-icon btn-round btn-primary" data-toggle="modal" data-target="#exampleEdit_<?php echo $d['id_merek_barang']; ?>">
                               <i class="fa fa-edit"></i>
                             </button>
-                    <a onclick="if(confirm('Apakah anda yakin ingin menghapus data ini ??')){ location.href='controller/v1.php?hapusmerekpkantor&id_merek_barang=<?php echo $d['id_merek_barang']; ?>&id_usulan=<?php echo $d['id_usulan']; ?>&id_usulan_barang=<?php echo $d['id_usulan_barang']; ?>' }" class="btn btn-icon btn-round btn-danger"> <i class="fa fa-trash"></i></a></td>
+                    <a onclick="if(confirm('Apakah anda yakin ingin menghapus data ini ??')){ location.href='controller/v1.php?hapusmerekpdata&id_merek_barang=<?php echo $d['id_merek_barang']; ?>&id_usulan=<?php echo $d['id_usulan']; ?>&id_usulan_barang=<?php echo $d['id_usulan_barang']; ?>' }" class="btn btn-icon btn-round btn-danger"> <i class="fa fa-trash"></i></a>
+                    <?php }  ?></td>
                 </tr> 
 
 

@@ -63,7 +63,7 @@ if(isset($_POST['submit']) && $_POST['submit'] == "Tambah Usulan Barang"){
 		$x = mysqli_fetch_array($tampil);
 		$id_usulan_barang = $x['id_usulan_barang'];
 		$merek = mysqli_query($koneksi,"INSERT INTO `merek_barang` (`id_usulan_barang`,`nama_merek`,`spesifikasi_merek`,`harga_merek`,`status_merek`) VALUES ('".$id_usulan_barang."','".$_POST['nama_merek']."','".$_POST['spesifikasi_merek']."','".$_POST['harga_merek']."','Pengajuan') ");
-		header('Location: ../alkes.php?id_usulan='.$_POST["id_usulan"]);
+		header('Location: ../alkes.php?message=input'.'&id_usulan='.$_POST["id_usulan"]);
 	}else{   
 		$err = mysqli_error($koneksi);
 		header('Location: ../alkes.php?id_usulan='.$_POST["id_usulan"]);
@@ -249,7 +249,7 @@ if(isset($_POST['update']) && $_POST['update'] == "Update Usulan Barang"){
 ";
 	$sql = mysqli_query($koneksi,$query);  
 	if($sql){
-		header('Location: ../alkes.php?message=Data alkes berhasil diubah,'.'&id_usulan='.$_POST["id_usulan"]);
+		header('Location: ../alkes.php?message=update,'.'&id_usulan='.$_POST["id_usulan"]);
 	}else{   
 		$err = mysqli_error($koneksi);
 		header('Location: ../alkes.php?id_usulan='.$_POST["id_usulan"]);
@@ -472,12 +472,12 @@ if(isset($_POST['submit']) && $_POST['submit'] == "Ya, Kirim Usulan Saya"){
 	// var_dump($_SESSION['atasan']);
 	// exit();
 	// end
-	$query = "UPDATE usulan SET sent = 1,tanggal_kirim='".date("Y-m-d")."',posisi='".$usr_atasan["nama"]."',status='proses' WHERE id_usulan = ".$data["id_usulan"]."";
+	$query = "UPDATE usulan SET sent = 1,tgl_kirim='".date("Y-m-d")."',posisi='".$usr_atasan["nama"]."',status='Proses' WHERE id_usulan = ".$data["id_usulan"]."";
 	$sql = mysqli_query($koneksi,$query);  
 	if($sql){
-		header('Location: ../detail-usulan.php?id_surat='.$data["id_surat"]);
+		header('Location: ../detail-usulan.php?id_usulan='.$data["id_usulan"]);
 	}else{   
 		$err = mysqli_error($koneksi);
-		header('Location: ../detail-usulan.php?id_surat='.$data["id_surat"]);
+		header('Location: ../detail-usulan.php?id_usulan='.$data["id_usulan"]);
 	}
 }

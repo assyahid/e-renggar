@@ -71,8 +71,10 @@ while($d=mysqli_fetch_array($surat)){ $data[] = $d; }
 					<div class="card">
 						<div class="card-header">
 							<h4 class="card-title"> Kebutuhan pelatihan
+									<?php if ($data[0]['status']=="Pengajuan") { ?>
 								<button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal" style="float: right;">
 									<span class="fas fa-plus"></span> Input Data pelatihan</button>
+									<?php	}  ?>
 									<a type="button" target="_blank" href="../surat/cetak_pelatihan.php?id_usulan=<?= $id_usulan; ?>" class="btn btn-sm btn-success" style="float: right;margin-right: 5px;">
 										<span class="fas fa-print"></span> Cetak Surat</a>
 									</h4>
@@ -87,7 +89,7 @@ while($d=mysqli_fetch_array($surat)){ $data[] = $d; }
 													<th>Lokasi</th>
 													<th>Penyelenggara</th>
 													<th>Jumlah Peserta</th>
-													<th>Waktu Pelaksanaan</th>
+													<th>Waktu Pelaksanaan (hari)</th>
 													<th>Biaya Penyelenggara</th>
 													<th>Status Pelatihan</th>
 													<th width="90px">Opsi</th>
@@ -105,12 +107,21 @@ while($d=mysqli_fetch_array($surat)){ $data[] = $d; }
 														<td><?= $d["penyelenggara"] ?></td>
 														<td><?= $d["jumlah_peserta"] ?></td>
 														<td><?= $d["waktu_pelaksanaan"] ?></td>
-														<td><?= $d["biaya_penyelenggara"] ?></td>
+														<td>Rp <?= number_format($d["biaya_penyelenggara"],0) ?></td>
 														<td><?= $d["status_pelatihan"] ?></td>
-														<td><button type="button" class="btn btn-icon btn-round btn-primary" data-toggle="modal" data-target="#exampleEdit_<?php echo $d['id_pelatihan']; ?>">
+														<td>
+															<?php if ($data[0]['status']=="Pengajuan") { ?>
+															<button type="button" class="btn btn-icon btn-round btn-primary" data-toggle="modal" data-target="#exampleEdit_<?php echo $d['id_usulan_barang']; ?>">
 															<i class="fa fa-edit"></i>
 														</button>
-														<a onclick="if(confirm('Apakah anda yakin ingin menghapus data ini ??')){ location.href='?hapus&id_pelatihan=<?php echo $d['id_pelatihan']; ?>&id_usulan=<?php echo $d['id_usulan']; ?>' }" class="btn btn-icon btn-round btn-danger"> <i class="fa fa-trash"></i></a>
+														<a onclick="if(confirm('Apakah anda yakin ingin menghapus data ini ??')){ location.href='?hapus&id_usulan_barang=<?php echo $d['id_usulan_barang']; ?>&id_usulan=<?php echo $d['id_usulan']; ?>' }" class="btn btn-icon btn-round btn-danger"> <i class="fa fa-trash"></i></a>
+															<?php	} elseif($data[0]['status']=="Revisi") { ?>
+															<button type="button" class="btn btn-icon btn-round btn-primary" data-toggle="modal" data-target="#exampleEdit_<?php echo $d['id_usulan_barang']; ?>">
+															<i class="fa fa-edit"></i>
+														</button>
+													<?php } else { ?>
+															<p>Sedang di Proses</p>
+													<?php } ?>
 													</td>
 													</tr>	
 

@@ -35,6 +35,7 @@
 											<th>Anggaran</th>
 											<th>Tanggal Usulan</th>
 											<th>Status</th>
+											<th>Posisi Pengajuan</th>
 											<th width="150px"><center>Opsi</center></th>
 										</tr>
 									</thead>
@@ -49,7 +50,8 @@
 												<td><?= $d["no_usulan"]; ?></td>
 												<td><?= $d["anggaran"]; ?></td>
 												<td><?= date_format(new DateTime($d['tgl_usulan']),"d-m-Y") ?></td>
-												<td><?= $d["sent"]; ?></td>
+												<td><?= $d["status"]; ?></td>
+												<td><?= $d["posisi"]; ?></td>
 												<td>
 													<div class="btn-group" role="group" aria-label="Basic example">
 														<a href="detail-usulan.php?id_usulan=<?= $d['id_usulan']; ?>" type="button" class="btn btn-secondary">Detail</a>&nbsp;

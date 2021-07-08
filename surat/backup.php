@@ -35,25 +35,21 @@ $data   = mysqli_fetch_array($query);
     <th>JUSTIFIKASI</th>
   </tr>
   <?php
-    $query = mysqli_query($koneksi,"SELECT * FROM usulan_barang inner join barang on usulan_barang.id_barang=barang.id_barang where id_usulan_barang='$id_usulan_barang' ");
+    $query = mysqli_query($koneksi,"SELECT * FROM merek_barang inner join usulan_barang on merek_barang.id_usulan_barang=usulan_barang.id_usulan_barang inner join barang on usulan_barang.id_barang=barang.id_barang where id_usulan=$id_usulan and merek_barang.id_usulan_barang='$id_usulan_barang' ");
     $no=1;
-    foreach ($query as $a) : ?>
-      <?php $merek = mysqli_query($koneksi,"SELECT * FROM merek_barang where id_usulan_barang='$a[id_usulan_barang]'");
-       $countrowspan=mysqli_num_rows($merek);
-      foreach ($merek as $b) : ?>
-      <tr>
-      <td rowspan="<?=$countrowspan?>"><?php echo $no++; ?></td>
-      <td rowspan="<?=$countrowspan?>"><?php echo $a['nama_barang'] ?></td>
-      <td><?php echo $b['nama_merek'] ?></td>
-      <td><?php echo wordwrap($b['spesifikasi_merek'],45,'<br />', true) ?></td>
-      <td>Rp <?php echo number_format($b['harga_merek']) ?></td>
-      <td align="center" rowspan="<?=$countrowspan?>"><?php echo $a['jumlah_tersedia'] ?></td>
-      <td align="center" rowspan="<?=$countrowspan?>"><?php echo $a['kondisi'] ?></td>
-      <td align="center" rowspan="<?=$countrowspan?>"><?php echo $a['jumlah_kebutuhan'] ?></td>
-      <td rowspan="<?=$countrowspan?>"><?php echo wordwrap($a['justifikasi'],35,'<br />', true) ?></td>
+    while ($a = mysqli_fetch_array($query)) :?>
+    <tr>
+      <td><?php echo $no++; ?></td>
+      <td><?php echo $a['nama_barang'] ?></td>
+      <td><?php echo $a['nama_merek'] ?></td>
+      <td><?php echo wordwrap($a['spesifikasi_merek'],45,'<br />', true) ?></td>
+      <td>Rp <?php echo number_format($a['harga_merek']) ?></td>
+      <td align="center"><?php echo $a['jumlah_tersedia'] ?></td>
+      <td align="center"><?php echo $a['kondisi'] ?></td>
+      <td align="center"><?php echo $a['jumlah_kebutuhan'] ?></td>
+      <td><?php echo wordwrap($a['justifikasi'],35,'<br />', true) ?></td>
     </tr>
-     <?php endforeach;?>>
-  <?php endforeach;?>
+  <?php endwhile;?>
 </table>
 <p>Catatan 
   * Untuk kondisi alat diisi (Baik/Rusak Ringan/Rusak Berat)

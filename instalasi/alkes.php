@@ -67,17 +67,32 @@ while($d=mysqli_fetch_array($surat)){ $data[] = $d; }
 
 			</div>
 			<div class="row">
-				<?php if(isset($_GET["message"]) && $_GET["message"] != ""){ ?>
-						<div class="alert alert-success" role="alert">
-							<strong>Sukses!</strong> <?= $_GET["message"]; ?>
+				<?php if(isset($_GET["message"]) && $_GET["message"] != ""){ 
+						$message = $_GET['message'];
+						if ($message == "input") { ?>
+							<div class="alert alert-success" role="alert">
+							<strong>Sukses!</strong> Data Berhasil di Input
 						</div>
-					<?php } ?>
+					<?php	} elseif($message == "update") { ?>
+							<div class="alert alert-warning" role="alert">
+							<strong>Sukses!</strong> Data Berhasil di Update
+						</div>
+					<?php	} elseif($message == "delete") { ?>
+							<div class="alert alert-danger" role="alert">
+							<strong>Sukses!</strong> Data Berhasil di Hapus
+						</div>
+					<?php	} }
+					?>
+					
 				<div class="col-12">
 					<div class="card">
 						<div class="card-header">
 							<h4 class="card-title"> Kebutuhan Alat Kesehatan
-								<button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal" style="float: right;">
+								<?php if ($data[0]['status']=="Pengajuan") { ?>
+										<button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal" style="float: right;">
 									<span class="fas fa-plus"></span> Input Data Alat Kesehatan</button>
+							<?php	}  ?>
+							
 									<?php $xx=mysqli_fetch_array($id_usulan_barang); ?>
 									<a type="button" target="_blank" href="../surat/cetak_usulan_barang.php?id_usulan=<?= $id_usulan; ?>&id_usulan_barang=<?= $xx['id_usulan_barang']; ?>" class="btn btn-sm btn-success" style="float: right;margin-right: 5px;">
 										<span class="fas fa-print"></span> Cetak Surat</a>
@@ -116,10 +131,19 @@ while($d=mysqli_fetch_array($surat)){ $data[] = $d; }
 														<td><?= $d["kondisi"] ?></td>
 														<td><?= $d["jumlah_kebutuhan"] ?></td>
 														<td><?= $d["justifikasi"] ?></td>
-														<td><button type="button" class="btn btn-icon btn-round btn-primary" data-toggle="modal" data-target="#exampleEdit_<?php echo $d['id_usulan_barang']; ?>">
+														<td>
+															<?php if ($data[0]['status']=="Pengajuan") { ?>
+															<button type="button" class="btn btn-icon btn-round btn-primary" data-toggle="modal" data-target="#exampleEdit_<?php echo $d['id_usulan_barang']; ?>">
 															<i class="fa fa-edit"></i>
 														</button>
 														<a onclick="if(confirm('Apakah anda yakin ingin menghapus data ini ??')){ location.href='?hapus&id_usulan_barang=<?php echo $d['id_usulan_barang']; ?>&id_usulan=<?php echo $d['id_usulan']; ?>' }" class="btn btn-icon btn-round btn-danger"> <i class="fa fa-trash"></i></a>
+															<?php	} elseif($data[0]['status']=="Revisi") { ?>
+															<button type="button" class="btn btn-icon btn-round btn-primary" data-toggle="modal" data-target="#exampleEdit_<?php echo $d['id_usulan_barang']; ?>">
+															<i class="fa fa-edit"></i>
+														</button>
+													<?php } else { ?>
+															<p>Sedang di Proses</p>
+													<?php } ?>
 													</td>
 													</tr>	
 
@@ -230,7 +254,7 @@ if($sql2){ // Cek jika proses simpan ke database sukses atau tidak  // Jika Suks
 ?><script type="text/javascript">
     //<![CDATA[
     alert ("Berhasil Hapus");
-    window.location="alkes.php?id_usulan=<?=$id_usulan?>";
+    window.location="alkes.php?message=delete&id_usulan=<?=$id_usulan?>";
     //]]>
   </script><?php
 } else {  // Jika Gagal, Lakukan :  
@@ -452,4 +476,3 @@ if($sql2){ // Cek jika proses simpan ke database sukses atau tidak  // Jika Suks
 
 
 		<?php include 'footer.php';?>
-

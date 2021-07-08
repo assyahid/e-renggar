@@ -73,8 +73,11 @@ while($d=mysqli_fetch_array($surat)){ $data[] = $d; }
 					<div class="card">
 						<div class="card-header">
 							<h4 class="card-title"> Kebutuhan Reagen
-								<button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal" style="float: right;">
+								<?php if ($data[0]['status']=="Pengajuan") { ?>
+										<button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal" style="float: right;">
 									<span class="fas fa-plus"></span> Input Data Reagen</button>
+							<?php	}  ?>
+							
 									<a type="button" target="_blank" href="../surat/cetak_reagen.php?id_usulan=<?= $id_usulan; ?>" class="btn btn-sm btn-success" style="float: right;margin-right: 5px;">
 										<span class="fas fa-print"></span> Cetak Surat</a>
 									</h4>
@@ -107,10 +110,19 @@ while($d=mysqli_fetch_array($surat)){ $data[] = $d; }
 														<td><?= $d["jumlah_usulan"] ?></td>
 														<td><?= $d["satuan"] ?></td>
 														<td><?= $d["ket_reagen"] ?></td>
-														<td><button type="button" class="btn btn-icon btn-round btn-primary" data-toggle="modal" data-target="#exampleEdit_<?php echo $d['id_reagen']; ?>">
+													<td>
+															<?php if ($data[0]['status']=="Pengajuan") { ?>
+															<button type="button" class="btn btn-icon btn-round btn-primary" data-toggle="modal" data-target="#exampleEdit_<?php echo $d['id_usulan_barang']; ?>">
 															<i class="fa fa-edit"></i>
 														</button>
-														<a onclick="if(confirm('Apakah anda yakin ingin menghapus data ini ??')){ location.href='?hapus&id_reagen=<?php echo $d['id_reagen']; ?>&id_usulan=<?php echo $d['id_usulan']; ?>' }" class="btn btn-icon btn-round btn-danger"> <i class="fa fa-trash"></i></a>
+														<a onclick="if(confirm('Apakah anda yakin ingin menghapus data ini ??')){ location.href='?hapus&id_usulan_barang=<?php echo $d['id_usulan_barang']; ?>&id_usulan=<?php echo $d['id_usulan']; ?>' }" class="btn btn-icon btn-round btn-danger"> <i class="fa fa-trash"></i></a>
+															<?php	} elseif($data[0]['status']=="Revisi") { ?>
+															<button type="button" class="btn btn-icon btn-round btn-primary" data-toggle="modal" data-target="#exampleEdit_<?php echo $d['id_usulan_barang']; ?>">
+															<i class="fa fa-edit"></i>
+														</button>
+													<?php } else { ?>
+															<p>Sedang di Proses</p>
+													<?php } ?>
 													</td>
 													</tr>	
 

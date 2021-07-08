@@ -40,7 +40,7 @@ while($d=mysqli_fetch_array($surat)){ $data[] = $d; }
 									<td class="text-white op-7 mb-2"><?= $data[0]['anggaran'] ?></td>
 								</tr>
 								<tr>
-									<td class="text-white op-7 mb-2">Tanggal</td>
+									<td class="text-white op-7 mb-2">Tanggal Pengajuan</td>
 									<td class="text-white op-7 mb-2">:</td>
 									<td class="text-white op-7 mb-2"><?= $data[0]['tgl_usulan'] ?></td>
 								</tr>
@@ -49,6 +49,11 @@ while($d=mysqli_fetch_array($surat)){ $data[] = $d; }
 									<td class="text-white op-7 mb-2">:</td>
 									<td class="text-white op-7 mb-2"><?= $data[0]['status'] ?></td>
 								</tr>
+								<tr>
+									<td class="text-white op-7 mb-2">Posisi</td>
+									<td class="text-white op-7 mb-2">:</td>
+									<td class="text-white op-7 mb-2"><?= $data[0]['posisi'] ?></td>
+								</tr>
 							</table>
 						</div>
 						<div class="col-4 col-md-4">
@@ -56,7 +61,7 @@ while($d=mysqli_fetch_array($surat)){ $data[] = $d; }
 							if($data[0]['sent'] == 1){ ?>
 								<button class="btn btn-primary" style="float: right;"><span class="btn-label">
 									<i class="far fa-paper-plane"></i>&nbsp;
-								</span> Telah terkirim pada <?= date_format(new DateTime($d['tanggal_kirim']),'d-m-Y') ?></button>
+								</span> Telah terkirim pada <?= date_format(new DateTime($data[0]['tgl_kirim']),'d-m-Y') ?></button>
 							<?php } else{ ?>
 								<button data-toggle="modal" data-target="#modalVerifikasiProker" class="btn btn-success" style="float: right;"><span class="btn-label">
 									<i class="fa fa-plus"></i>&nbsp;
@@ -161,39 +166,13 @@ while($d=mysqli_fetch_array($surat)){ $data[] = $d; }
 			<div class="modal-content">
 				<form method="POST" action="Controller/v1.php">
 					<div class="modal-header">
-						<h5 class="modal-title">Kirim Usulan Anda ?</h5>
+						<h5 class="modal-title">Kirim Usulan</h5>
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
 					<div class="modal-body">
-						<h2>Preview </h2>
-			<table class="table table-bordered">
-            <thead>
-              <tr>
-                <th>No</th>
-                <th>Merek</th>
-                <th>Spesifikasi</th>
-                <th>Harga</th>
-              </tr>
-            </thead>
-            <tbody>
-              <?php 
-              $xx = mysqli_fetch_array($usulan_barang);
-              $merek_barang=mysqli_query($koneksi,"SELECT * FROM merek_barang inner join usulan_barang on merek_barang.id_usulan_barang=usulan_barang.id_usulan_barang where merek_barang.id_usulan_barang='$xx[id_usulan_barang]'")or die(mysql_error());
-              $no=1;
-              while($d=mysqli_fetch_array($merek_barang)){ 
-                ?>
-                <tr>
-                  <td><?=$no++;?></td>
-                  <td><?= $d["nama_merek"] ?></td>
-                  <td><?= $d["spesifikasi_merek"] ?></td>
-                  <td>Rp <?= number_format($d["harga_merek"],0) ?></td>
-                 
-                </tr> 
-                  <?php } ?>
-            </tbody>
-          </table>
+						Apakah anda sudah yakin untuk mengirim usulan anda ?
 					</div>
 					<div class="modal-footer">
 						<input type="hidden" name="id_usulan" value="<?= $id_usulan ?>">
