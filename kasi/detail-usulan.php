@@ -93,7 +93,7 @@ $data_pengusul = mysqli_fetch_array($pengusul);
 				<div class="col-md-4">
 					<div class="card full-height">
 						<div class="card-body">
-							<div class="card-title"><b>Alat Kesehatan</b></div>
+							<div class="card-title"><b>Alat Kesehatan</b> <span class="badge badge-danger"> <?= mysqli_num_rows($usulan_barang); ?></span></div>
 							<div class="card-category">Belanja Modal</div>
 							<div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
 								<div class="px-2 pb-2 pb-md-0 text-center">
@@ -126,7 +126,7 @@ $data_pengusul = mysqli_fetch_array($pengusul);
 				<div class="col-md-4">
 					<div class="card full-height">
 						<div class="card-body">
-							<div class="card-title"><b>Pengelola Data</b></div>
+							<div class="card-title"><b>Pengelola Data</b> <span class="badge badge-danger"> <?= mysqli_num_rows($pdata); ?></span></div>
 							<div class="card-category">Belanja Modal</div>
 							<div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
 								<div class="px-2 pb-2 pb-md-0 text-center">
@@ -159,7 +159,7 @@ $data_pengusul = mysqli_fetch_array($pengusul);
 				<div class="col-md-4">
 					<div class="card full-height">
 						<div class="card-body">
-							<div class="card-title"><b>Peralatan Kantor</b></div>
+							<div class="card-title"><b>Peralatan Kantor</b> <span class="badge badge-danger"> <?= mysqli_num_rows($pkantor); ?></span></div>
 							<div class="card-category">Belanja Modal</div>
 							<div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
 								<div class="px-2 pb-2 pb-md-0 text-center">
@@ -197,7 +197,7 @@ $data_pengusul = mysqli_fetch_array($pengusul);
 				<div class="col-md-4">
 					<div class="card full-height">
 						<div class="card-body">
-							<div class="card-title"><b>Reagen</b></div>
+							<div class="card-title"><b>Reagen</b> <span class="badge badge-danger"> <?= mysqli_num_rows($reagen); ?></span></div>
 							<div class="card-category">Belanja Barang</div>
 							<div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
 								<div class="px-2 pb-2 pb-md-0 text-center">
@@ -230,7 +230,7 @@ $data_pengusul = mysqli_fetch_array($pengusul);
 				<div class="col-md-4">
 					<div class="card full-height">
 						<div class="card-body">
-							<div class="card-title"><b>ART / Alat Kebersihan</b></div>
+							<div class="card-title"><b>ART / Alat Kebersihan</b> <span class="badge badge-danger"> <?= mysqli_num_rows($art); ?></span></div>
 							<div class="card-category">Belanja Barang</div>
 							<div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
 								<div class="px-2 pb-2 pb-md-0 text-center">
@@ -263,7 +263,7 @@ $data_pengusul = mysqli_fetch_array($pengusul);
 				<div class="col-md-4">
 					<div class="card full-height">
 						<div class="card-body">
-							<div class="card-title"><b>Pelatihan</b></div>
+							<div class="card-title"><b>Pelatihan</b> <span class="badge badge-danger"> <?= mysqli_num_rows($pelatihan); ?></span></div>
 							<div class="card-category">Belanja Barang</div>
 							<div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
 								<div class="px-2 pb-2 pb-md-0 text-center">

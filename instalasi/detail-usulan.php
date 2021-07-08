@@ -42,7 +42,7 @@ while($d=mysqli_fetch_array($surat)){ $data[] = $d; }
 								<tr>
 									<td class="text-white op-7 mb-2">Tanggal Pengajuan</td>
 									<td class="text-white op-7 mb-2">:</td>
-									<td class="text-white op-7 mb-2"><?= $data[0]['tgl_usulan'] ?></td>
+									<td class="text-white op-7 mb-2"><?= date_format(new DateTime($data[0]['tgl_usulan']),'d-m-Y') ?></td>
 								</tr>
 								<tr>
 									<td class="text-white op-7 mb-2">Status</td>
@@ -75,11 +75,11 @@ while($d=mysqli_fetch_array($surat)){ $data[] = $d; }
 		</div>
 		<div class="page-inner mt--5">
 			<div class="row mt--2">
-				<div class="col-md-12">
+				<div class="col-md-4">
 					<div class="card full-height">
 						<div class="card-body">
-							<div class="card-title">Belanja Modal</div>
-							<div class="card-category">Silahkan perbarui data</div>
+							<div class="card-title"><b>Alat Kesehatan</b> <span class="badge badge-danger"> <?= mysqli_num_rows($usulan_barang); ?></span></div>
+							<div class="card-category">Belanja Modal</div>
 							<div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
 								<div class="px-2 pb-2 pb-md-0 text-center">
 									
@@ -92,33 +92,28 @@ while($d=mysqli_fetch_array($surat)){ $data[] = $d; }
 
 
 								</div>
-								<a href="alkes.php?id_usulan=<?= $id_usulan ?>" class="btn btn-primary">
+								<a href="alkes.php?id_usulan=<?= $id_usulan; ?>" class="btn btn-default">
 									<span class="btn-label">
-										<i class="fa fa-bookmark"></i>
+										<i class="fas fa-bullseye"></i>
 									</span>
-									Alat Kesehatan  <span class="badge badge-danger"> <?= mysqli_num_rows($usulan_barang); ?></span>
+									Lihat
 								</a>
-								<a href="p-data.php?id_usulan=<?= $id_usulan ?>" class="btn btn-primary">
+								<?php $xx=mysqli_fetch_array($usulan_barang); ?>
+								<a href="../surat/cetak_usulan_barang.php?id_usulan=<?= $id_usulan; ?>&id_usulan_barang=<?= $xx['id_usulan_barang']; ?>" target="_blank" class="btn btn-default">
 									<span class="btn-label">
-										<i class="fa fa-laptop"></i>
+										<i class="fas fa-print"></i>
 									</span>
-									Pengelola Data <span class="badge badge-danger"> <?= mysqli_num_rows($pdata); ?></span>
-								</a>
-								<a href="p-kantor.php?id_usulan=<?= $id_usulan ?>" class="btn btn-primary">
-									<span class="btn-label">
-										<i class="fa fa-bookmark"></i>
-									</span>
-									Peralatan Kantor <span class="badge badge-danger"> <?= mysqli_num_rows($pkantor); ?></span>
+									Cetak
 								</a>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="col-md-12">
+				<div class="col-md-4">
 					<div class="card full-height">
 						<div class="card-body">
-							<div class="card-title">Belanja Barang</div>
-							<div class="card-category">Silahkan perbarui data</div>
+							<div class="card-title"><b>Pengelola Data</b> <span class="badge badge-danger"> <?= mysqli_num_rows($pdata); ?></span></div>
+							<div class="card-category">Belanja Modal</div>
 							<div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
 								<div class="px-2 pb-2 pb-md-0 text-center">
 									
@@ -131,23 +126,154 @@ while($d=mysqli_fetch_array($surat)){ $data[] = $d; }
 
 
 								</div>
-								<a href="reagen.php?id_usulan=<?= $id_usulan ?>" class="btn btn-primary">
+								<a href="p-data.php?id_usulan=<?= $id_usulan; ?>" class="btn btn-default">
 									<span class="btn-label">
-										<i class="fa fa-bookmark"></i>
+										<i class="fas fa-bullseye"></i>
 									</span>
-									Reagen <span class="badge badge-danger"> <?= mysqli_num_rows($reagen); ?></span>
+									Lihat
 								</a>
-								<a href="art.php?id_usulan=<?= $id_usulan ?>" class="btn btn-primary">
+								<a href="../surat/cetak_kak.php?id_usulan=<?= $id_usulan; ?>" target="_blank" class="btn btn-default">
 									<span class="btn-label">
-										<i class="fa fa-bookmark"></i>
+										<i class="fas fa-print"></i>
 									</span>
-									ART / Alat Kebersihan <span class="badge badge-danger"> <?= mysqli_num_rows($art); ?></span>
+									Cetak
 								</a>
-								<a href="pelatihan.php?id_usulan=<?= $id_usulan ?>" class="btn btn-primary">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="card full-height">
+						<div class="card-body">
+							<div class="card-title"><b>Peralatan Kantor</b> <span class="badge badge-danger"> <?= mysqli_num_rows($pkantor); ?></span></div>
+							<div class="card-category">Belanja Modal</div>
+							<div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
+								<div class="px-2 pb-2 pb-md-0 text-center">
+									
+
+								</div>
+								<div class="px-2 pb-2 pb-md-0 text-center">
+
+								</div>
+								<div class="px-2 pb-2 pb-md-0 text-center">
+
+
+								</div>
+								<a href="p-kantor.php?id_usulan=<?= $id_usulan; ?>" class="btn btn-default">
 									<span class="btn-label">
-										<i class="fa fa-bookmark"></i>
+										<i class="fas fa-bullseye"></i>
 									</span>
-									Pelatihan <span class="badge badge-danger"> <?= mysqli_num_rows($pelatihan); ?></span>
+									Lihat
+								</a>
+								<a href="../surat/cetak_kak.php?id_usulan=<?= $id_usulan; ?>" target="_blank" class="btn btn-default">
+									<span class="btn-label">
+										<i class="fas fa-print"></i>
+									</span>
+									Cetak
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+			<div class="page-inner mt--5">
+			<div class="row mt--2">
+				<div class="col-md-4">
+					<div class="card full-height">
+						<div class="card-body">
+							<div class="card-title"><b>Reagen</b> <span class="badge badge-danger"> <?= mysqli_num_rows($reagen); ?></span></div>
+							<div class="card-category">Belanja Barang</div>
+							<div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
+								<div class="px-2 pb-2 pb-md-0 text-center">
+									
+
+								</div>
+								<div class="px-12 pb-12 pb-md-12 text-center">
+
+								</div>
+								<div class="px-2 pb-2 pb-md-0 text-center">
+
+
+								</div>
+								<a href="reagen.php?id_usulan=<?= $id_usulan; ?>" class="btn btn-default">
+									<span class="btn-label">
+										<i class="fas fa-bullseye"></i>
+									</span>
+									Lihat
+								</a>
+								<a href="../surat/cetak_kak.php?id_usulan=<?= $id_usulan; ?>" target="_blank" class="btn btn-default">
+									<span class="btn-label">
+										<i class="fas fa-print"></i>
+									</span>
+									Cetak
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="card full-height">
+						<div class="card-body">
+							<div class="card-title"><b>ART / Alat Kebersihan</b> <span class="badge badge-danger"> <?= mysqli_num_rows($art); ?></span></div>
+							<div class="card-category">Belanja Barang</div>
+							<div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
+								<div class="px-2 pb-2 pb-md-0 text-center">
+									
+
+								</div>
+								<div class="px-2 pb-2 pb-md-0 text-center">
+
+								</div>
+								<div class="px-2 pb-2 pb-md-0 text-center">
+
+
+								</div>
+								<a href="art.php?id_usulan=<?= $id_usulan; ?>" class="btn btn-default">
+									<span class="btn-label">
+										<i class="fas fa-bullseye"></i>
+									</span>
+									Lihat
+								</a>
+								<a href="../surat/cetak_kak.php?id_usulan=<?= $id_usulan; ?>" target="_blank" class="btn btn-default">
+									<span class="btn-label">
+										<i class="fas fa-print"></i>
+									</span>
+									Cetak
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="card full-height">
+						<div class="card-body">
+							<div class="card-title"><b>Pelatihan</b> <span class="badge badge-danger"> <?= mysqli_num_rows($pelatihan); ?></span></div>
+							<div class="card-category">Belanja Barang</div>
+							<div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
+								<div class="px-2 pb-2 pb-md-0 text-center">
+									
+
+								</div>
+								<div class="px-2 pb-2 pb-md-0 text-center">
+
+								</div>
+								<div class="px-2 pb-2 pb-md-0 text-center">
+
+
+								</div>
+								<a href="pelatihan.php?id_usulan=<?= $id_usulan; ?>" class="btn btn-default">
+									<span class="btn-label">
+										<i class="fas fa-bullseye"></i>
+									</span>
+									Lihat
+								</a>
+								<a href="../surat/cetak_kak.php?id_usulan=<?= $id_usulan; ?>" target="_blank" class="btn btn-default">
+									<span class="btn-label">
+										<i class="fas fa-print"></i>
+									</span>
+									Cetak
 								</a>
 							</div>
 						</div>

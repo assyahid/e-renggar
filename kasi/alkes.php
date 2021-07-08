@@ -142,7 +142,7 @@ while($d=mysqli_fetch_array($surat)){ $data[] = $d; }
 															<i class="fa fa-edit"></i>
 														</button>
 													<?php } else { ?>
-															<p>Sedang di Proses</p>
+															<a href="Controller/KasiController.php?aksi=setujui_alkes_kasi&id_usulan_barang=<?=$d['id_usulan_barang']?>" class="btn btn-sm btn-primary">Setujui</a> <a href="Controller/KasiController.php?aksi=tolak&id_usulan_barang=<?=$d['id_usulan_barang']?>" class="btn btn-sm btn-danger">Tolak</a>
 													<?php } ?>
 													</td>
 													</tr>	
