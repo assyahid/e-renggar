@@ -35,7 +35,7 @@ $data   = mysqli_fetch_array($query);
     <th>JUSTIFIKASI</th>
   </tr>
   <?php
-    $query = mysqli_query($koneksi,"SELECT * FROM usulan_barang inner join barang on usulan_barang.id_barang=barang.id_barang where id_usulan_barang='$id_usulan_barang' ");
+    $query = mysqli_query($koneksi,"SELECT * FROM usulan_barang inner join barang on usulan_barang.id_barang=barang.id_barang where id_usulan='$id_usulan' ");
     $no=1;
     $data_temp = []; // 1. buat array penampung
     foreach ($query as $a) : ?>

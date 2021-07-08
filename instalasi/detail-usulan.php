@@ -165,7 +165,7 @@ while($d=mysqli_fetch_array($surat)){ $data[] = $d; }
 									</span>
 									Lihat
 								</a>
-								<a href="../surat/cetak_kak.php?id_usulan=<?= $id_usulan; ?>" target="_blank" class="btn btn-default">
+								<a href="../surat/cetak_alat_kantor.php?id_usulan=<?= $id_usulan; ?>" target="_blank" class="btn btn-default">
 									<span class="btn-label">
 										<i class="fas fa-print"></i>
 									</span>

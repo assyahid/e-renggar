@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 08, 2021 at 06:43 AM
+-- Generation Time: Jul 08, 2021 at 04:27 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.9
 
@@ -20,6 +20,31 @@ SET time_zone = "+00:00";
 --
 -- Database: `e-renggar`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `alat_kantor`
+--
+
+CREATE TABLE `alat_kantor` (
+  `id_alat_kantor` int(11) NOT NULL,
+  `id_usulan` int(11) NOT NULL,
+  `id_barang` int(11) NOT NULL,
+  `harga_barang` varchar(25) NOT NULL,
+  `jumlah_tersedia` varchar(25) NOT NULL,
+  `kondisi` varchar(255) NOT NULL,
+  `jumlah_kebutuhan` varchar(25) NOT NULL,
+  `justifikasi_kebutuhan` text NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `alat_kantor`
+--
+
+INSERT INTO `alat_kantor` (`id_alat_kantor`, `id_usulan`, `id_barang`, `harga_barang`, `jumlah_tersedia`, `kondisi`, `jumlah_kebutuhan`, `justifikasi_kebutuhan`, `created_at`) VALUES
+(1, 1, 103, '3000000', '1', 'Rusak Ringan', '1', 'pengganti kursi yang rusak', '2021-07-08 13:44:33');
 
 -- --------------------------------------------------------
 
@@ -249,7 +274,10 @@ INSERT INTO `merek_barang` (`id_merek_barang`, `id_usulan_barang`, `nama_merek`,
 (17, 1, 'Bio system', 'ini spesifikasi jbdjsjdb ', 1243455, NULL, '2021-07-07 03:50:35'),
 (18, 10, 'nnnl', 'nnlnln', 797, 'Pengajuan', '2021-07-07 12:03:04'),
 (19, 11, 'nlnlnlnlnl', 'nlnlnlnlnlnl', 7979, 'Pengajuan', '2021-07-07 12:03:41'),
-(20, 12, 'nknlnkn', 'nnknknkn', 79, 'Pengajuan', '2021-07-07 12:04:41');
+(20, 12, 'nknlnkn', 'nnknknkn', 79, 'Pengajuan', '2021-07-07 12:04:41'),
+(21, 13, 'nnsnlsnsln', 'nslnslnslsnln', 979797, 'Pengajuan', '2021-07-08 13:16:40'),
+(23, 14, 'kbknkbk', 'bkbkbk', 8787, 'Pengajuan', '2021-07-08 14:00:30'),
+(24, 15, 'bkbkbk', 'bkbkbkk', 6868686, 'Pengajuan', '2021-07-08 14:25:48');
 
 -- --------------------------------------------------------
 
@@ -487,7 +515,7 @@ CREATE TABLE `usulan` (
 --
 
 INSERT INTO `usulan` (`id_usulan`, `id_user`, `no_usulan`, `anggaran`, `tgl_usulan`, `sent`, `status`, `tgl_kirim`, `posisi`, `catatan`, `created_at`, `updated_at`) VALUES
-(1, 17, '12345678', '2021', '2021-06-30', 1, 'Proses', '2021-07-08', 'Sub Koord Labklinik Uji Kesh.', '', '2021-06-30 12:06:02', '2021-07-08 09:24:07');
+(1, 17, '12345678', '2021', '2021-06-30', 0, 'Pengajuan', '2021-07-08', 'Sub Koord Labklinik Uji Kesh.', '', '2021-06-30 12:06:02', '2021-07-08 20:35:34');
 
 -- --------------------------------------------------------
 
@@ -504,6 +532,7 @@ CREATE TABLE `usulan_barang` (
   `jumlah_kebutuhan` int(11) NOT NULL,
   `justifikasi` text NOT NULL,
   `kategori` varchar(255) NOT NULL,
+  `persetujuan` varchar(255) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -511,14 +540,21 @@ CREATE TABLE `usulan_barang` (
 -- Dumping data for table `usulan_barang`
 --
 
-INSERT INTO `usulan_barang` (`id_usulan_barang`, `id_usulan`, `id_barang`, `jumlah_tersedia`, `kondisi`, `jumlah_kebutuhan`, `justifikasi`, `kategori`, `created_at`) VALUES
-(1, 1, 63, 0, '-', 1, 'untuk proses RT-PCR sampel SARS-Soc-2, karena alat CFX Connect akan dikembalikan ke FK Unsri', 'alkes', '2021-07-05 04:48:31'),
-(3, 1, 91, 0, '-', 1, 'untuk keperluan zoom meeting', 'Pengelola Data', '2021-07-05 05:02:42'),
-(7, 1, 100, 1, '-', 1, 'aghgfddfghgfdfghjhgfdfghjhg', 'Peralatan Kantor', '2021-07-05 07:53:36');
+INSERT INTO `usulan_barang` (`id_usulan_barang`, `id_usulan`, `id_barang`, `jumlah_tersedia`, `kondisi`, `jumlah_kebutuhan`, `justifikasi`, `kategori`, `persetujuan`, `created_at`) VALUES
+(1, 1, 63, 0, '-', 1, 'untuk proses RT-PCR sampel SARS-Soc-2, karena alat CFX Connect akan dikembalikan ke FK Unsri', 'alkes', '0', '2021-07-05 04:48:31'),
+(3, 1, 91, 0, '-', 1, 'untuk keperluan zoom meeting', 'Pengelola Data', '0', '2021-07-05 05:02:42'),
+(7, 1, 100, 1, '-', 1, 'aghgfddfghgfdfghjhgfdfghjhg', 'Peralatan Kantor', '0', '2021-07-05 07:53:36'),
+(15, 1, 1, 6, '-', 6, 'gjvjvjvjvjvj', 'alkes', '', '2021-07-08 14:25:48');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `alat_kantor`
+--
+ALTER TABLE `alat_kantor`
+  ADD PRIMARY KEY (`id_alat_kantor`);
 
 --
 -- Indexes for table `art`
@@ -616,6 +652,12 @@ ALTER TABLE `usulan_barang`
 --
 
 --
+-- AUTO_INCREMENT for table `alat_kantor`
+--
+ALTER TABLE `alat_kantor`
+  MODIFY `id_alat_kantor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `art`
 --
 ALTER TABLE `art`
@@ -643,7 +685,7 @@ ALTER TABLE `justifikasi`
 -- AUTO_INCREMENT for table `merek_barang`
 --
 ALTER TABLE `merek_barang`
-  MODIFY `id_merek_barang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id_merek_barang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `pdata`
@@ -703,7 +745,7 @@ ALTER TABLE `usulan`
 -- AUTO_INCREMENT for table `usulan_barang`
 --
 ALTER TABLE `usulan_barang`
-  MODIFY `id_usulan_barang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_usulan_barang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
