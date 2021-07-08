@@ -4,6 +4,18 @@ $id_usulan = $_GET["id_usulan"];
 $usulan=mysqli_query($koneksi,"SELECT * FROM usulan WHERE id_usulan = ".$id_usulan)or die(mysql_error());
 $data_usulan = mysqli_fetch_array($usulan);
 
+$usulan_barang=mysqli_query($koneksi,"SELECT * FROM usulan_barang inner join barang on usulan_barang.id_barang=barang.id_barang WHERE usulan_barang.kategori='alkes' and usulan_barang.id_usulan = '".$_GET['id_usulan']."'")or die(mysql_error());
+
+$pdata=mysqli_query($koneksi,"SELECT * FROM usulan_barang inner join barang on usulan_barang.id_barang=barang.id_barang WHERE usulan_barang.kategori='Pengelola Data' and usulan_barang.id_usulan = '".$_GET['id_usulan']."'")or die(mysql_error());
+
+$pkantor=mysqli_query($koneksi,"SELECT * FROM usulan_barang inner join barang on usulan_barang.id_barang=barang.id_barang WHERE usulan_barang.kategori='Peralatan Kantor' and usulan_barang.id_usulan = '".$_GET['id_usulan']."'")or die(mysql_error());
+
+$art=mysqli_query($koneksi,"SELECT * FROM art inner join barang on art.id_barang=barang.id_barang WHERE id_usulan = '".$_GET['id_usulan']."'")or die(mysql_error());
+
+$reagen=mysqli_query($koneksi,"SELECT * FROM reagen inner join barang on reagen.id_barang=barang.id_barang WHERE id_usulan = '".$_GET['id_usulan']."'")or die(mysql_error());
+
+$pelatihan=mysqli_query($koneksi,"SELECT * FROM pelatihan WHERE id_usulan = '".$_GET['id_usulan']."'")or die(mysql_error());
+
 $pengusul = mysqli_query($koneksi,"SELECT * FROM users WHERE id_user = ".$data_usulan['id_user'])or die(mysql_error());
 $data_pengusul = mysqli_fetch_array($pengusul);
 ?>
@@ -15,8 +27,35 @@ $data_pengusul = mysqli_fetch_array($pengusul);
 				<div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
 					<div class="row" style="width: 100%;">
 						<div class="col-8 col-md-8">
-							<h2 class="text-white pb-2 fw-bold">Usulan </h2>
-							<h6 class="text-white pb-2 fw-bold">Diusulkan oleh : <?= $data_pengusul['nama']; ?></h6>
+							<h2 class="text-white pb-2 fw-bold">Usulan dari <?= $data_pengusul['nama']; ?></h2>
+							<!-- <h6 class="text-white pb-2 fw-bold">Diusulkan oleh : <?= $data_pengusul['nama']; ?></h6> -->
+							<table>
+								<tr>
+									<td class="text-white op-7 mb-2">No Usulan</td>
+									<td class="text-white op-7 mb-2">:</td>
+									<td class="text-white op-7 mb-2"><?= $data_usulan['no_usulan'] ?></td>
+								</tr>
+								<tr>
+									<td class="text-white op-7 mb-2">Anggaran</td>
+									<td class="text-white op-7 mb-2">:</td>
+									<td class="text-white op-7 mb-2"><?= $data_usulan['anggaran'] ?></td>
+								</tr>
+								<tr>
+									<td class="text-white op-7 mb-2">Tanggal Pengajuan</td>
+									<td class="text-white op-7 mb-2">:</td>
+									<td class="text-white op-7 mb-2"><?= $data_usulan['tgl_usulan'] ?></td>
+								</tr>
+								<tr>
+									<td class="text-white op-7 mb-2">Status</td>
+									<td class="text-white op-7 mb-2">:</td>
+									<td class="text-white op-7 mb-2"><?= $data_usulan['status'] ?></td>
+								</tr>
+								<tr>
+									<td class="text-white op-7 mb-2">Posisi</td>
+									<td class="text-white op-7 mb-2">:</td>
+									<td class="text-white op-7 mb-2"><?= $data_usulan['posisi'] ?></td>
+								</tr>
+							</table>
 						</div>
 
 						<?php 
@@ -54,7 +93,7 @@ $data_pengusul = mysqli_fetch_array($pengusul);
 				<div class="col-md-4">
 					<div class="card full-height">
 						<div class="card-body">
-							<div class="card-title">Alat Kesehatan</div>
+							<div class="card-title"><b>Alat Kesehatan</b></div>
 							<div class="card-category">Belanja Modal</div>
 							<div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
 								<div class="px-2 pb-2 pb-md-0 text-center">
@@ -68,11 +107,17 @@ $data_pengusul = mysqli_fetch_array($pengusul);
 
 
 								</div>
-								<a href="../surat/cetak_kak.php?id_usulan=<?= $id_usulan; ?>" target="_blank" class="btn btn-default">
+								<a href="alkes.php?id_usulan=<?= $id_usulan; ?>" class="btn btn-default">
 									<span class="btn-label">
 										<i class="fas fa-bullseye"></i>
 									</span>
 									Lihat
+								</a>
+								<a href="../surat/cetak_kak.php?id_usulan=<?= $id_usulan; ?>" target="_blank" class="btn btn-default">
+									<span class="btn-label">
+										<i class="fas fa-print"></i>
+									</span>
+									Cetak
 								</a>
 							</div>
 						</div>
@@ -81,7 +126,7 @@ $data_pengusul = mysqli_fetch_array($pengusul);
 				<div class="col-md-4">
 					<div class="card full-height">
 						<div class="card-body">
-							<div class="card-title">Pengelola Data</div>
+							<div class="card-title"><b>Pengelola Data</b></div>
 							<div class="card-category">Belanja Modal</div>
 							<div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
 								<div class="px-2 pb-2 pb-md-0 text-center">
@@ -95,12 +140,18 @@ $data_pengusul = mysqli_fetch_array($pengusul);
 
 
 								</div>
-								<button class="btn btn-default">
+								<a href="p-data.php?id_usulan=<?= $id_usulan; ?>" class="btn btn-default">
 									<span class="btn-label">
 										<i class="fas fa-bullseye"></i>
 									</span>
 									Lihat
-								</button>
+								</a>
+								<a href="../surat/cetak_kak.php?id_usulan=<?= $id_usulan; ?>" target="_blank" class="btn btn-default">
+									<span class="btn-label">
+										<i class="fas fa-print"></i>
+									</span>
+									Cetak
+								</a>
 							</div>
 						</div>
 					</div>
@@ -108,7 +159,7 @@ $data_pengusul = mysqli_fetch_array($pengusul);
 				<div class="col-md-4">
 					<div class="card full-height">
 						<div class="card-body">
-							<div class="card-title">Peralatan Kantor</div>
+							<div class="card-title"><b>Peralatan Kantor</b></div>
 							<div class="card-category">Belanja Modal</div>
 							<div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
 								<div class="px-2 pb-2 pb-md-0 text-center">
@@ -122,12 +173,18 @@ $data_pengusul = mysqli_fetch_array($pengusul);
 
 
 								</div>
-								<button class="btn btn-default">
+								<a href="p-kantor.php?id_usulan=<?= $id_usulan; ?>" class="btn btn-default">
 									<span class="btn-label">
 										<i class="fas fa-bullseye"></i>
 									</span>
 									Lihat
-								</button>
+								</a>
+								<a href="../surat/cetak_kak.php?id_usulan=<?= $id_usulan; ?>" target="_blank" class="btn btn-default">
+									<span class="btn-label">
+										<i class="fas fa-print"></i>
+									</span>
+									Cetak
+								</a>
 							</div>
 						</div>
 					</div>
@@ -140,7 +197,7 @@ $data_pengusul = mysqli_fetch_array($pengusul);
 				<div class="col-md-4">
 					<div class="card full-height">
 						<div class="card-body">
-							<div class="card-title">Reagen</div>
+							<div class="card-title"><b>Reagen</b></div>
 							<div class="card-category">Belanja Barang</div>
 							<div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
 								<div class="px-2 pb-2 pb-md-0 text-center">
@@ -154,11 +211,17 @@ $data_pengusul = mysqli_fetch_array($pengusul);
 
 
 								</div>
-								<a href="../surat/cetak_kak.php?id_usulan=<?= $id_usulan; ?>" target="_blank" class="btn btn-default">
+								<a href="reagen.php?id_usulan=<?= $id_usulan; ?>" class="btn btn-default">
 									<span class="btn-label">
 										<i class="fas fa-bullseye"></i>
 									</span>
 									Lihat
+								</a>
+								<a href="../surat/cetak_kak.php?id_usulan=<?= $id_usulan; ?>" target="_blank" class="btn btn-default">
+									<span class="btn-label">
+										<i class="fas fa-print"></i>
+									</span>
+									Cetak
 								</a>
 							</div>
 						</div>
@@ -167,7 +230,7 @@ $data_pengusul = mysqli_fetch_array($pengusul);
 				<div class="col-md-4">
 					<div class="card full-height">
 						<div class="card-body">
-							<div class="card-title">ART / Alat Kebersihan</div>
+							<div class="card-title"><b>ART / Alat Kebersihan</b></div>
 							<div class="card-category">Belanja Barang</div>
 							<div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
 								<div class="px-2 pb-2 pb-md-0 text-center">
@@ -181,12 +244,18 @@ $data_pengusul = mysqli_fetch_array($pengusul);
 
 
 								</div>
-								<button class="btn btn-default">
+								<a href="art.php?id_usulan=<?= $id_usulan; ?>" class="btn btn-default">
 									<span class="btn-label">
 										<i class="fas fa-bullseye"></i>
 									</span>
 									Lihat
-								</button>
+								</a>
+								<a href="../surat/cetak_kak.php?id_usulan=<?= $id_usulan; ?>" target="_blank" class="btn btn-default">
+									<span class="btn-label">
+										<i class="fas fa-print"></i>
+									</span>
+									Cetak
+								</a>
 							</div>
 						</div>
 					</div>
@@ -194,7 +263,7 @@ $data_pengusul = mysqli_fetch_array($pengusul);
 				<div class="col-md-4">
 					<div class="card full-height">
 						<div class="card-body">
-							<div class="card-title">Pelatihan</div>
+							<div class="card-title"><b>Pelatihan</b></div>
 							<div class="card-category">Belanja Barang</div>
 							<div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
 								<div class="px-2 pb-2 pb-md-0 text-center">
@@ -208,12 +277,18 @@ $data_pengusul = mysqli_fetch_array($pengusul);
 
 
 								</div>
-								<button class="btn btn-default">
+								<a href="pelatihan.php?id_usulan=<?= $id_usulan; ?>" class="btn btn-default">
 									<span class="btn-label">
 										<i class="fas fa-bullseye"></i>
 									</span>
 									Lihat
-								</button>
+								</a>
+								<a href="../surat/cetak_kak.php?id_usulan=<?= $id_usulan; ?>" target="_blank" class="btn btn-default">
+									<span class="btn-label">
+										<i class="fas fa-print"></i>
+									</span>
+									Cetak
+								</a>
 							</div>
 						</div>
 					</div>
