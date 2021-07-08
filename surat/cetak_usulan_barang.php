@@ -37,22 +37,43 @@ $data   = mysqli_fetch_array($query);
   <?php
     $query = mysqli_query($koneksi,"SELECT * FROM usulan_barang inner join barang on usulan_barang.id_barang=barang.id_barang where id_usulan_barang='$id_usulan_barang' ");
     $no=1;
+    $data_temp = []; // 1. buat array penampung
     foreach ($query as $a) : ?>
       <?php $merek = mysqli_query($koneksi,"SELECT * FROM merek_barang where id_usulan_barang='$a[id_usulan_barang]'");
        $countrowspan=mysqli_num_rows($merek);
       foreach ($merek as $b) : ?>
       <tr>
-      <td rowspan="<?=$countrowspan?>"><?php echo $no++; ?></td>
-      <td rowspan="<?=$countrowspan?>"><?php echo $a['nama_barang'] ?></td>
+      <?php 
+
+      // 4. check parameter unique apakah ada dalam array penampung, jika ada maka akan render td dengan colspan, jika tidak maka tidak akan render, dan langsung render td selanjutnya
+      if(!in_array($a['nama_barang'], $data_temp)){
+        ?>
+        <td rowspan="<?=$countrowspan?>"><?php echo $no++; ?></td>
+        <td rowspan="<?=$countrowspan?>"><?php echo $a['nama_barang'] ?></td>
+        <?php 
+      }
+      ?>
+          
+      
       <td><?php echo $b['nama_merek'] ?></td>
       <td><?php echo wordwrap($b['spesifikasi_merek'],45,'<br />', true) ?></td>
       <td>Rp <?php echo number_format($b['harga_merek']) ?></td>
-      <td align="center" rowspan="<?=$countrowspan?>"><?php echo $a['jumlah_tersedia'] ?></td>
-      <td align="center" rowspan="<?=$countrowspan?>"><?php echo $a['kondisi'] ?></td>
-      <td align="center" rowspan="<?=$countrowspan?>"><?php echo $a['jumlah_kebutuhan'] ?></td>
-      <td rowspan="<?=$countrowspan?>"><?php echo wordwrap($a['justifikasi'],35,'<br />', true) ?></td>
+      <?php 
+      if(!in_array($a['nama_barang'], $data_temp)){
+        ?>
+        <td align="center" rowspan="<?=$countrowspan?>"><?php echo $a['jumlah_tersedia'] ?></td>
+        <td align="center" rowspan="<?=$countrowspan?>"><?php echo $a['kondisi'] ?></td>
+        <td align="center" rowspan="<?=$countrowspan?>"><?php echo $a['jumlah_kebutuhan'] ?></td>
+        <td rowspan="<?=$countrowspan?>"><?php echo wordwrap($a['justifikasi'],35,'<br />', true) ?></td>
+        <?php 
+      }
+      ?>
+      
     </tr>
-     <?php endforeach;?>>
+     <?php
+     array_push($data_temp, $a['nama_barang']); // 2. push parameter unique yang akan jadi pembanding rowspan
+     $data_temp = array_unique($data_temp); // 3. filter data array agar unique dan tidak double
+     endforeach;?>
   <?php endforeach;?>
 </table>
 <p>Catatan 
