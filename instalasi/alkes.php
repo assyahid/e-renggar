@@ -122,6 +122,9 @@ while($d=mysqli_fetch_array($surat)){ $data[] = $d; }
 														<td><?=$no++;?></td>
 														<td><?= $d["nama_barang"] ?></td>
 														<td><?php $merek = mysqli_query($koneksi,"SELECT * FROM merek_barang where id_usulan_barang='$d[id_usulan_barang]'");
+															while ($xm=mysqli_fetch_array($merek)) {
+																echo "-".$xm['nama_merek'];
+															}
 														 ?>
 														 	<!-- <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleMerek" style="float: right;">
 									<span class="fas fa-plus"></span> <?= mysqli_num_rows($merek); ?></button> -->

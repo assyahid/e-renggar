@@ -1,6 +1,6 @@
 <?php include 'header.php'; 
 $pegawai  =mysqli_query($koneksi,"SELECT * FROM pegawai WHERE id_user = '".$_SESSION['id_user']."'")or die(mysql_error());
-$usulan_barang=mysqli_query($koneksi,"SELECT * FROM usulan_barang inner join barang on usulan_barang.id_barang=barang.id_barang WHERE usulan_barang.id_usulan = '".$_GET['id_usulan']."' and usulan_barang.kategori='Peralatan Kantor'")or die(mysql_error());
+$alat_kantor=mysqli_query($koneksi,"SELECT * FROM alat_kantor inner join barang on alat_kantor.id_barang=barang.id_barang WHERE alat_kantor.id_usulan = '".$_GET['id_usulan']."'")or die(mysql_error());
 $barang   =mysqli_query($koneksi,"SELECT * FROM barang where kategori='Peralatan Kantor' ORDER BY nama_barang ASC")or die(mysql_error());
 
 $id_usulan = $_GET["id_usulan"];
@@ -55,8 +55,8 @@ while($d=mysqli_fetch_array($surat)){ $data[] = $d; }
 								<div class="col col-stats ml-3 ml-sm-0">
 									<div class="numbers">
 										<p class="card-category">Data Alat Peralatan Kantor</p>
-										<h4 class="card-title"><?= mysqli_num_rows($usulan_barang); ?></h4>
-										<!-- <a href="usulan_barang.php">lihat data</a> -->
+										<h4 class="card-title"><?= mysqli_num_rows($alat_kantor); ?></h4>
+										<!-- <a href="alat_kantor.php">lihat data</a> -->
 									</div>
 								</div>
 							</div>
@@ -74,12 +74,12 @@ while($d=mysqli_fetch_array($surat)){ $data[] = $d; }
 				<div class="col-12">
 					<div class="card">
 						<div class="card-header">
-							<h4 class="card-title"> Kebutuhan Alat Peralatan Kantor
+							<h4 class="card-title"> Kebutuhan Peralatan Kantor
 								<?php if ($data[0]['status']=="Pengajuan") { ?>
 								<button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal" style="float: right;">
 									<span class="fas fa-plus"></span> Input Data Alat Peralatan Kantor</button>
 									<?php	}  ?>
-									<a type="button" target="_blank" href="../surat/cetak_usulan_barang.php?id_usulan=<?= $id_usulan; ?>" class="btn btn-sm btn-success" style="float: right;margin-right: 5px;">
+									<a type="button" target="_blank" href="../surat/cetak_alat_kantor.php?id_usulan=<?= $id_usulan; ?>" class="btn btn-sm btn-success" style="float: right;margin-right: 5px;">
 										<span class="fas fa-print"></span> Cetak Surat</a>
 									</h4>
 								</div>
@@ -90,7 +90,7 @@ while($d=mysqli_fetch_array($surat)){ $data[] = $d; }
 												<tr>
 													<th>No</th>
 													<th>Nama Alat</th>
-													<th>Merek</th>
+													<th>Harga</th>
 													<th>Jumlah Tersedia</th>
 													<th>Kondisi</th>
 													<th>Jumlah Kebutuhan</th>
@@ -101,29 +101,24 @@ while($d=mysqli_fetch_array($surat)){ $data[] = $d; }
 											<tbody>
 												<?php 
 												$no=1;
-												while($d=mysqli_fetch_array($usulan_barang)){ 
+												while($d=mysqli_fetch_array($alat_kantor)){ 
 													?>
 													<tr>
 														<td><?=$no++;?></td>
 														<td><?= $d["nama_barang"] ?></td>
-														<td><?php $merek = mysqli_query($koneksi,"SELECT * FROM merek_barang where id_usulan_barang='$d[id_usulan_barang]'");
-														 ?>
-														 	<!-- <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleMerek" style="float: right;">
-									<span class="fas fa-plus"></span> <?= mysqli_num_rows($merek); ?></button> -->
-										<a href="tambah_merek_pkantor.php?id_usulan_barang=<?=$d['id_usulan_barang']?>&id_usulan=<?=$id_usulan?>" class="btn btn-sm btn-primary"><span class="fas fa-plus"></span> <?= mysqli_num_rows($merek); ?></a>
-														 </td>
+														<td>Rp <?= number_format($d["harga_barang"],0.0) ?></td>
 														<td><?= $d["jumlah_tersedia"] ?></td>
-														<td><?= $d["kondisi"] ?></td>
+														<td><label class="badge badge-warning"><?= $d["kondisi"] ?></label></td>
 														<td><?= $d["jumlah_kebutuhan"] ?></td>
-														<td><?= $d["justifikasi"] ?></td>
+														<td><?= $d["justifikasi_kebutuhan"] ?></td>
 														<td>	
-															<?php if(isset($_GET["message"]) && $_GET["message"] != ""){ ?>
-															<button type="button" class="btn btn-icon btn-round btn-primary" data-toggle="modal" data-target="#exampleEdit_<?php echo $d['id_usulan_barang']; ?>">
+															<?php if($data[0]['status']=="Pengajuan"){ ?>
+															<button type="button" class="btn btn-icon btn-round btn-primary" data-toggle="modal" data-target="#exampleEdit_<?php echo $d['id_alat_kantor']; ?>">
 															<i class="fa fa-edit"></i>
 														</button>
-														<a onclick="if(confirm('Apakah anda yakin ingin menghapus data ini ??')){ location.href='?hapus&id_usulan_barang=<?php echo $d['id_usulan_barang']; ?>&id_usulan=<?php echo $d['id_usulan']; ?>' }" class="btn btn-icon btn-round btn-danger"> <i class="fa fa-trash"></i></a>
+														<a onclick="if(confirm('Apakah anda yakin ingin menghapus data ini ??')){ location.href='?hapus&id_alat_kantor=<?php echo $d['id_alat_kantor']; ?>&id_usulan=<?php echo $d['id_usulan']; ?>' }" class="btn btn-icon btn-round btn-danger"> <i class="fa fa-trash"></i></a>
 															<?php	} elseif($data[0]['status']=="Revisi") { ?>
-															<button type="button" class="btn btn-icon btn-round btn-primary" data-toggle="modal" data-target="#exampleEdit_<?php echo $d['id_usulan_barang']; ?>">
+															<button type="button" class="btn btn-icon btn-round btn-primary" data-toggle="modal" data-target="#exampleEdit_<?php echo $d['id_alat_kantor']; ?>">
 															<i class="fa fa-edit"></i>
 														</button>
 													<?php } else { ?>
@@ -134,8 +129,8 @@ while($d=mysqli_fetch_array($surat)){ $data[] = $d; }
 
 
 
-	<!-- Modal Edit usulan_barang-->
-		<div class="modal fade" id="exampleEdit_<?php echo $d['id_usulan_barang']; ?>" tabindex="-1" role="dialog">
+	<!-- Modal Edit alat_kantor-->
+		<div class="modal fade" id="exampleEdit_<?php echo $d['id_alat_kantor']; ?>" tabindex="-1" role="dialog">
 			<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
@@ -147,7 +142,7 @@ while($d=mysqli_fetch_array($surat)){ $data[] = $d; }
 					<form method="POST" action="controller/v1.php">
 						<div class="modal-body">
 							<input type="hidden" name="id_usulan" class="form-control" id="email2" placeholder="Input Jumlah" value="<?=$d['id_usulan']?>">
-							<input type="hidden" name="id_usulan_barang" class="form-control" id="email2" placeholder="Input Jumlah" value="<?=$d['id_usulan_barang']?>">
+							<input type="hidden" name="id_alat_kantor" class="form-control" id="email2" placeholder="Input Jumlah" value="<?=$d['id_alat_kantor']?>">
 							<div class="col-md-12 col-lg-12">
 								<div class="form-group">
 									<label for="defaultSelect">Nama Barang</label>
@@ -162,6 +157,13 @@ while($d=mysqli_fetch_array($surat)){ $data[] = $d; }
                                                             <option <?php echo $sel; ?> value="<?php echo $rmodal['id_barang']; ?>"> <?php echo $rmodal['nama_barang'].''; ?></option>
                                                       <?php } ?>
                                                     </select>
+								</div>
+							</div>
+
+							<div class="col-md-12 col-lg-12">
+								<div class="form-group">
+									<label for="email2">Harga</label>
+									<input type="number" name="harga_barang" class="form-control" id="email2" placeholder="Input Jumlah" value="<?=$d['harga_barang']?>">
 								</div>
 							</div>
 						
@@ -199,7 +201,7 @@ while($d=mysqli_fetch_array($surat)){ $data[] = $d; }
 							<div class="col-md-12 col-lg-12">
 								<div class="form-group">
 									<label for="email2">Keterangan Justifikasi</label>
-									<textarea input type="text" name="justifikasi" class="form-control" value="<?= $d["justifikasi"] ?>"><?= $d["justifikasi"] ?></textarea>
+									<textarea input type="text" name="justifikasi_kebutuhan" class="form-control" value="<?= $d["justifikasi_kebutuhan"] ?>"><?= $d["justifikasi_kebutuhan"] ?></textarea>
 								</div>
 							</div>
 						<div class="modal-footer">
@@ -234,9 +236,9 @@ while($d=mysqli_fetch_array($surat)){ $data[] = $d; }
 		</div>
 <?php
 		if(isset($_GET['hapus'])){
-    $id_usulan_barang=$_GET['id_usulan_barang'];
+    $id_alat_kantor=$_GET['id_alat_kantor'];
     $id_usulan=$_GET['id_usulan'];
-$query2 = "DELETE FROM usulan_barang WHERE id_usulan_barang='$id_usulan_barang'";
+$query2 = "DELETE FROM alat_kantor WHERE id_alat_kantor='$id_alat_kantor'";
 $sql2 = mysqli_query($koneksi,$query2); // Eksekusi/Jalankan query dari variabel $query
 if($sql2){ // Cek jika proses simpan ke database sukses atau tidak  // Jika Sukses, Lakukan :  
 ?><script type="text/javascript">
@@ -282,7 +284,7 @@ if($sql2){ // Cek jika proses simpan ke database sukses atau tidak  // Jika Suks
 			<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h5 class="modal-title">Tambah Data Kebutuhan Alat Peralatan Kantor</h5>
+						<h5 class="modal-title">Tambah Data Kebutuhan Peralatan Kantor</h5>
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
@@ -290,7 +292,6 @@ if($sql2){ // Cek jika proses simpan ke database sukses atau tidak  // Jika Suks
 					<form method="POST" action="controller/v1.php">
 						<div class="modal-body">
 							<input type="hidden" name="id_usulan" class="form-control" id="email2" placeholder="Input spesifikasi umum"value="<?=$_GET['id_usulan'];?>">
-							<input type="hidden" name="kategori" class="form-control" id="email2" placeholder="Input spesifikasi umum"value="Peralatan Kantor">
 							<div class="col-md-12 col-lg-12">
 								<div class="form-group">
 									<label for="defaultSelect">Nama Barang</label>
@@ -305,20 +306,8 @@ if($sql2){ // Cek jika proses simpan ke database sukses atau tidak  // Jika Suks
 							</div>
 							<div class="col-md-12 col-lg-12">
 								<div class="form-group">
-									<label for="email2">Merek</label>
-									<input type="text" name="nama_merek" class="form-control" id="email2" placeholder="Input Merek">
-								</div>
-							</div>
-							<div class="col-md-12 col-lg-12">
-								<div class="form-group">
-									<label for="email2">Spesifikasi</label>
-									<textarea input type="text" name="spesifikasi_merek" class="form-control" id="email2" placeholder="Input spesifikasi"></textarea>
-								</div>
-							</div>
-							<div class="col-md-12 col-lg-12">
-								<div class="form-group">
 									<label for="email2">Harga</label>
-									<input type="number" name="harga_merek" class="form-control" id="email2" placeholder="Input Jumlah">
+									<input type="text" name="harga_barang" class="form-control" id="email2" placeholder="Input Harga">
 								</div>
 							</div>
 							<div class="col-md-12 col-lg-12">
@@ -347,7 +336,7 @@ if($sql2){ // Cek jika proses simpan ke database sukses atau tidak  // Jika Suks
 							<div class="col-md-12 col-lg-12">
 								<div class="form-group">
 									<label for="email2">Keterangan Justifikasi</label>
-									<textarea input type="text" name="justifikasi" class="form-control" id="email2" placeholder="Input keterangan justifikasi"></textarea>
+									<textarea input type="text" name="justifikasi_kebutuhan" class="form-control" id="email2" placeholder="Input keterangan justifikasi"></textarea>
 								</div>
 							</div>
 						</div>
@@ -361,105 +350,7 @@ if($sql2){ // Cek jika proses simpan ke database sukses atau tidak  // Jika Suks
 		</div>
 		<!-- Modal Tambah Pegawai-->
 
-		<!-- Modal Tambah Pegawai-->
-		<div class="modal fade" id="exampleMerek" tabindex="-1" role="dialog">
-			<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title">Tambah Data Merek</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					<p align="center"><b>JUSTIFIKASI ALAT KESEHATAN<br>
-					PERENCANAAN USULAN PEMBELIAN BARANG/ALAT MELALUI PENGGUNAAN SALDO AWAL BLU<br>
-					UNTUK OPERASIONAL BBLK PALEMBANG<br>
-					TAHUN 2022</b></p>
-					<?php $usulan_barang=mysqli_query($koneksi,"SELECT * FROM usulan_barang inner join barang on usulan_barang.id_barang=barang.id_barang WHERE usulan_barang.id_usulan = '".$_GET['id_usulan']."'")or die(mysql_error());
-					$show=mysqli_fetch_array($usulan_barang);
-					?>
-					<table class="table table-bordered">
-						<tr>
-							<td>Nama Alat</td>
-							<td>: <?=$show['nama_barang']?></td>
-							<td>Jumlah tersedia </td>
-							<td>: <?=$show['jumlah_tersedia']?></td>
-						</tr>
-						<tr>
-							<td>Kondisi</td>
-							<td>: <?=$show['kondisi']?></td>
-							<td>Jumlah Kebutuhan</td>
-							<td>: <?=$show['jumlah_kebutuhan']?></td>
-						</tr>
-						<tr>
-							<td colspan="2">Justifikasi</td>
-							<td colspan="2">: <?=$show['justifikasi']?></td>
-						</tr>
-					</table>
-					
-					<table class="table table-responsive">
-						<thead>
-							<tr>
-								<th width="15px">No</th>
-								<th>Merek</th>
-								<th>Spesifikasi</th>
-								<th>Harga</th>
-								<th width="100px">Opsi</th>
-							</tr>
-						</thead>
-						<tbody>
-							<?php 
-							$usulan_barang=mysqli_query($koneksi,"SELECT * FROM merek_barang inner join usulan_barang on merek_barang.id_usulan_barang=usulan_barang.id_usulan_barang")or die(mysql_error());
-							$no=1;
-							while($d=mysqli_fetch_array($usulan_barang)){ 
-								?>
-								<tr>
-									<td><?=$no++;?></td>
-									<td><?= $d["nama_merek"] ?></td>
-									<td><?= $d["spesifikasi_merek"] ?></td>
-									<td>Rp <?= number_format($d["harga_merek"],0) ?></td>
-									<td><a onclick="if(confirm('Apakah anda yakin ingin menghapus data ini ??')){ location.href='?hapusmerek&id_merek_usulan_barang=<?php echo $d['id_merek_usulan_barang']; ?>&id_usulan=<?php echo $d['id_usulan']; ?>' }" class="btn btn-icon btn-round btn-danger"> <i class="fa fa-trash"></i></a></td>
-								</tr>	
-
-							<?php } ?>
-						</tbody>
-					</table>
-					<form method="POST" action="controller/v1.php">
-						<div class="modal-body">
-							<input type="hidden" name="id_usulan_barang" class="form-control" id="email2" placeholder="Input spesifikasi umum"value="<?=$show['id_usulan_barang'];?>">
-							<input type="hidden" name="id_usulan" class="form-control" id="email2" placeholder="Input spesifikasi umum"value="<?=$show['id_usulan'];?>">
-			
-							<div class="col-md-12 col-lg-12">
-								<div class="form-group">
-									<label for="email2">Merek</label>
-									<input type="text" name="nama_merek" class="form-control" id="email2" placeholder="Input Merek">
-								</div>
-							</div>
-							<div class="col-md-12 col-lg-12">
-								<div class="form-group">
-									<label for="email2">Spesifikasi</label>
-									<textarea input type="text" name="spesifikasi_merek" class="form-control" id="email2" placeholder="Input Jumlah"></textarea>
-								</div>
-							</div>
-							<div class="col-md-12 col-lg-12">
-								<div class="form-group">
-									<label for="email2">Harga</label>
-									<input type="text" name="harga_merek" class="form-control" id="email2" placeholder="Input Harga">
-								</div>
-							</div>
-							
-						</div>
-						<div class="modal-footer">
-							<input type="submit" name="submit" class="btn btn-primary" value="Tambah Merek">
-							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-		<!-- Modal Tambah Pegawai-->
-
-
+	
 
 
 

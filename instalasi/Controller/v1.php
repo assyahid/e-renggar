@@ -91,18 +91,14 @@ if(isset($_POST['submit']) && $_POST['submit'] == "Tambah Usulan Barang Pengelol
 if(isset($_POST['submit']) && $_POST['submit'] == "Tambah Usulan Barang Peralatan Kantor"){
 	$data = $_POST;
 
-	$query = "INSERT INTO `usulan_barang` (`id_usulan_barang`,`id_usulan`,`id_barang`,`jumlah_tersedia`,`kondisi`,`jumlah_kebutuhan`,`justifikasi`,`kategori`)
-	VALUES('','".$_POST['id_usulan']."','".$_POST['id_barang']."','".$_POST['jumlah_tersedia']."','".$_POST['kondisi']."','".$_POST['jumlah_kebutuhan']."','".$_POST['justifikasi']."','".$_POST['kategori']."');";
+	$query = "INSERT INTO `alat_kantor` (`id_alat_kantor`,`id_usulan`,`id_barang`,`harga_barang`,`jumlah_tersedia`,`kondisi`,`jumlah_kebutuhan`,`justifikasi_kebutuhan`)
+	VALUES('','".$_POST['id_usulan']."','".$_POST['id_barang']."','".$_POST['harga_barang']."','".$_POST['jumlah_tersedia']."','".$_POST['kondisi']."','".$_POST['jumlah_kebutuhan']."','".$_POST['justifikasi_kebutuhan']."');";
 	$sql = mysqli_query($koneksi,$query);  
 	if($sql){
-		$tampil = mysqli_query($koneksi,"SELECT * FROM usulan_barang ORDER BY id_usulan_barang DESC LIMIT 1 ")or die(mysql_error());
-		$x = mysqli_fetch_array($tampil);
-		$id_usulan_barang = $x['id_usulan_barang'];
-		$merek = mysqli_query($koneksi,"INSERT INTO `merek_barang` (`id_usulan_barang`,`nama_merek`,`spesifikasi_merek`,`harga_merek`,`status_merek`) VALUES ('".$id_usulan_barang."','".$_POST['nama_merek']."','".$_POST['spesifikasi_merek']."','".$_POST['harga_merek']."','Pengajuan') ");
-		header('Location: ../p-kantor.php?id_usulan='.$_POST["id_usulan"]);
+		header('Location: ../p-kantor.php?message=input&id_usulan='.$_POST["id_usulan"]);
 	}else{   
 		$err = mysqli_error($koneksi);
-		header('Location: ../p-kantor.php?id_usulan='.$_POST["id_usulan"]);
+		header('Location: ../p-kantor.php?message=error&id_usulan='.$_POST["id_usulan"]);
 	}
 }
 
@@ -283,21 +279,22 @@ if(isset($_POST['update']) && $_POST['update'] == "Update Usulan Barang Pengelol
 if(isset($_POST['update']) && $_POST['update'] == "Update Usulan Barang Peralatan Kantor"){
 	$data = $_POST;
 
-	$query = "UPDATE `usulan_barang` 
+	$query = "UPDATE `alat_kantor` 
 	SET
 	`id_usulan` = '".$_POST['id_usulan']."', 
 	`id_barang` = '".$_POST['id_barang']."', 
+	`harga_barang` = '".$_POST['harga_barang']."', 
 	`jumlah_tersedia` = '".$_POST['jumlah_tersedia']."', 
 	`kondisi` = '".$_POST['kondisi']."', 
 	`jumlah_kebutuhan` = '".$_POST['jumlah_kebutuhan']."', 
-	`justifikasi` = '".$_POST['justifikasi']."'
+	`justifikasi_kebutuhan` = '".$_POST['justifikasi_kebutuhan']."'
 	
 	WHERE
-	`id_usulan_barang` = '".$_POST['id_usulan_barang']."' ;
+	`id_alat_kantor` = '".$_POST['id_alat_kantor']."' ;
 ";
 	$sql = mysqli_query($koneksi,$query);  
 	if($sql){
-		header('Location: ../p-kantor.php?message=Data Alat Pengelola Data berhasil diubah,'.'&id_usulan='.$_POST["id_usulan"]);
+		header('Location: ../p-kantor.php?message=update,'.'&id_usulan='.$_POST["id_usulan"]);
 	}else{   
 		$err = mysqli_error($koneksi);
 		header('Location: ../p-kantor.php?id_usulan='.$_POST["id_usulan"]);
