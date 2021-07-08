@@ -1,6 +1,9 @@
 <?php include '../config.php';
 $proker=mysqli_query($koneksi,"SELECT * FROM proker INNER JOIN surat_permohonan ON surat_permohonan.id_surat_permohonan = proker.id_surat_permohonan INNER JOIN users ON users.id_user = proker.id_user WHERE posisi LIKE '".$_SESSION["nama"]."' AND status != 'diverifikasi' ORDER BY proker.id_surat_permohonan DESC ")or die(mysql_error());
 $count = mysqli_num_rows($proker);
+
+$usulan=mysqli_query($koneksi,"SELECT * FROM usulan INNER JOIN users ON users.id_user = usulan.id_user WHERE posisi LIKE '".$_SESSION["nama"]."' AND status != 'diverifikasi' ORDER BY usulan.id_usulan DESC ")or die(mysql_error());
+$countusulan = mysqli_num_rows($usulan);
 ?>
 
 <!DOCTYPE html>
@@ -127,6 +130,17 @@ $count = mysqli_num_rows($proker);
 								<i class="fa fa-ellipsis-h"></i>
 							</span>
 							<h4 class="text-section">Components</h4>
+						</li>
+						<li class="nav-item">
+							<a href="usulan-belanja.php">
+								<i class="fas fa-book-open"></i>
+								Usulan Belanja
+								<?php  
+								if($countusulan > 0){ ?>
+									<span class="badge badge-danger"><?= $countusulan; ?></span>
+								<?php }
+								?>
+							</a>
 						</li>
 						<li class="nav-item">
 							<a href="usulan-proker.php">

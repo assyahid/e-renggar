@@ -1,0 +1,284 @@
+<?php 
+include 'header.php'; 
+$id_usulan = $_GET["id_usulan"];
+$usulan=mysqli_query($koneksi,"SELECT * FROM usulan WHERE id_usulan = ".$id_usulan)or die(mysql_error());
+$data_usulan = mysqli_fetch_array($usulan);
+
+$pengusul = mysqli_query($koneksi,"SELECT * FROM users WHERE id_user = ".$data_usulan['id_user'])or die(mysql_error());
+$data_pengusul = mysqli_fetch_array($pengusul);
+?>
+
+<div class="main-panel">
+	<div class="content">
+		<div class="panel-header bg-primary-gradient">
+			<div class="page-inner py-5">
+				<div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
+					<div class="row" style="width: 100%;">
+						<div class="col-8 col-md-8">
+							<h2 class="text-white pb-2 fw-bold">Usulan </h2>
+							<h6 class="text-white pb-2 fw-bold">Diusulkan oleh : <?= $data_pengusul['nama']; ?></h6>
+						</div>
+
+						<?php 
+						if($data_usulan['status'] != 'revisi'){ ?>
+							<div class="col-2 col-md-2">
+								<button class="btn btn-success" data-toggle="modal" data-target="#modalSetujuiusulan" style="float: right;"><span class="btn-label">
+									<i class="far fa-paper-plane"></i>&nbsp;
+								</span>Verifikasi Usulan Ini</button>
+
+
+							</div>
+							<div class="col-2 col-md-2" style="    margin-left: 0px;">
+								<button class="btn btn-danger" data-toggle="modal" data-target="#modalTolakusulan" style="float: right;"><span class="btn-label">
+									<i class="fas fa-long-arrow-alt-left"></i>&nbsp;
+								</span>Revisi Usulan Ini</button>
+
+
+							</div>
+						<?php }else{ ?>
+							<div class="col-4 col-md-4" style="    margin-left: 0px;">
+								<button class="btn btn-danger" style="float: right;"><span class="btn-label">
+									<i class="fas fa-asterisk"></i>&nbsp;
+								</span>Program kerja ini direvisi</button>
+								
+
+							</div>
+						<?php }
+						?>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="page-inner mt--5">
+			<div class="row mt--2">
+				<div class="col-md-4">
+					<div class="card full-height">
+						<div class="card-body">
+							<div class="card-title">Alat Kesehatan</div>
+							<div class="card-category">Belanja Modal</div>
+							<div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
+								<div class="px-2 pb-2 pb-md-0 text-center">
+									
+
+								</div>
+								<div class="px-12 pb-12 pb-md-12 text-center">
+
+								</div>
+								<div class="px-2 pb-2 pb-md-0 text-center">
+
+
+								</div>
+								<a href="../surat/cetak_kak.php?id_usulan=<?= $id_usulan; ?>" target="_blank" class="btn btn-default">
+									<span class="btn-label">
+										<i class="fas fa-bullseye"></i>
+									</span>
+									Lihat
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="card full-height">
+						<div class="card-body">
+							<div class="card-title">Pengelola Data</div>
+							<div class="card-category">Belanja Modal</div>
+							<div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
+								<div class="px-2 pb-2 pb-md-0 text-center">
+									
+
+								</div>
+								<div class="px-2 pb-2 pb-md-0 text-center">
+
+								</div>
+								<div class="px-2 pb-2 pb-md-0 text-center">
+
+
+								</div>
+								<button class="btn btn-default">
+									<span class="btn-label">
+										<i class="fas fa-bullseye"></i>
+									</span>
+									Lihat
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="card full-height">
+						<div class="card-body">
+							<div class="card-title">Peralatan Kantor</div>
+							<div class="card-category">Belanja Modal</div>
+							<div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
+								<div class="px-2 pb-2 pb-md-0 text-center">
+									
+
+								</div>
+								<div class="px-2 pb-2 pb-md-0 text-center">
+
+								</div>
+								<div class="px-2 pb-2 pb-md-0 text-center">
+
+
+								</div>
+								<button class="btn btn-default">
+									<span class="btn-label">
+										<i class="fas fa-bullseye"></i>
+									</span>
+									Lihat
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+			<div class="page-inner mt--5">
+			<div class="row mt--2">
+				<div class="col-md-4">
+					<div class="card full-height">
+						<div class="card-body">
+							<div class="card-title">Reagen</div>
+							<div class="card-category">Belanja Barang</div>
+							<div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
+								<div class="px-2 pb-2 pb-md-0 text-center">
+									
+
+								</div>
+								<div class="px-12 pb-12 pb-md-12 text-center">
+
+								</div>
+								<div class="px-2 pb-2 pb-md-0 text-center">
+
+
+								</div>
+								<a href="../surat/cetak_kak.php?id_usulan=<?= $id_usulan; ?>" target="_blank" class="btn btn-default">
+									<span class="btn-label">
+										<i class="fas fa-bullseye"></i>
+									</span>
+									Lihat
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="card full-height">
+						<div class="card-body">
+							<div class="card-title">ART / Alat Kebersihan</div>
+							<div class="card-category">Belanja Barang</div>
+							<div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
+								<div class="px-2 pb-2 pb-md-0 text-center">
+									
+
+								</div>
+								<div class="px-2 pb-2 pb-md-0 text-center">
+
+								</div>
+								<div class="px-2 pb-2 pb-md-0 text-center">
+
+
+								</div>
+								<button class="btn btn-default">
+									<span class="btn-label">
+										<i class="fas fa-bullseye"></i>
+									</span>
+									Lihat
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="card full-height">
+						<div class="card-body">
+							<div class="card-title">Pelatihan</div>
+							<div class="card-category">Belanja Barang</div>
+							<div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
+								<div class="px-2 pb-2 pb-md-0 text-center">
+									
+
+								</div>
+								<div class="px-2 pb-2 pb-md-0 text-center">
+
+								</div>
+								<div class="px-2 pb-2 pb-md-0 text-center">
+
+
+								</div>
+								<button class="btn btn-default">
+									<span class="btn-label">
+										<i class="fas fa-bullseye"></i>
+									</span>
+									Lihat
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+
+
+	<!-- Modal Tambah Peralatan-->
+	<div class="modal fade" id="modalSetujuiusulan" tabindex="-1" role="dialog">
+		<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+			<div class="modal-content">
+				<form method="POST" action="Controller/KasiController.php">
+					<div class="modal-header">
+						<h5 class="modal-title">Verifikasi program kerja</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<h2>Verifikasi Program Kerja ini ? </h2>
+					</div>
+					<div class="modal-footer">
+						<input type="hidden" name="id_usulan" value="<?= $id_usulan ?>">
+						<input type="hidden" name="id_surat" value="<?= $id_surat ?>">
+						<input type="submit" class="btn btn-primary" name="submit" value="Verifikasi  usulan ini">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- Modal Tambah Peralatan-->
+
+	<!-- Modal Tambah Peralatan-->
+	<div class="modal fade" id="modalTolakusulan" tabindex="-1" role="dialog">
+		<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+			<div class="modal-content">
+				<form method="POST" action="Controller/KasiController.php">
+					<div class="modal-header">
+						<h5 class="modal-title">Revisi program kerja</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="form-group">
+							<label for="comment">Catatan Revisi untuk usulan ini</label>
+							<textarea name="catatan" class="form-control" id="comment" rows="5">
+							</textarea>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<input type="hidden" name="id_usulan" value="<?= $id_usulan ?>">
+						<input type="hidden" name="id_surat" value="<?= $id_surat ?>">
+						<input type="submit" class="btn btn-danger" name="submit" value="Revisi usulan ini">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- Modal Tambah Peralatan-->
+
+
+	<?php include'footer.php';?>
