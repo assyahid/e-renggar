@@ -73,15 +73,15 @@ if(isset($_POST['submit']) && $_POST['submit'] == "Tambah Usulan Barang"){
 if(isset($_POST['submit']) && $_POST['submit'] == "Tambah Usulan Barang Pengelola Data"){
 	$data = $_POST;
 
-	$query = "INSERT INTO `usulan_barang` (`id_usulan_barang`,`id_usulan`,`id_barang`,`jumlah_tersedia`,`kondisi`,`jumlah_kebutuhan`,`justifikasi`,`kategori`)
-	VALUES('','".$_POST['id_usulan']."','".$_POST['id_barang']."','".$_POST['jumlah_tersedia']."','".$_POST['kondisi']."','".$_POST['jumlah_kebutuhan']."','".$_POST['justifikasi']."','".$_POST['kategori']."');";
+	$query = "INSERT INTO `pdata` (`id_pdata`,`id_usulan`,`id_barang`,`jumlah_tersedia`,`kondisi`,`jumlah_kebutuhan`,`justifikasi`)
+	VALUES('','".$_POST['id_usulan']."','".$_POST['id_barang']."','".$_POST['jumlah_tersedia']."','".$_POST['kondisi']."','".$_POST['jumlah_kebutuhan']."','".$_POST['justifikasi']."');";
 	$sql = mysqli_query($koneksi,$query);  
 	if($sql){
-		$tampil = mysqli_query($koneksi,"SELECT * FROM usulan_barang ORDER BY id_usulan_barang DESC LIMIT 1 ")or die(mysql_error());
+		$tampil = mysqli_query($koneksi,"SELECT * FROM pdata ORDER BY id_pdata DESC LIMIT 1 ")or die(mysql_error());
 		$x = mysqli_fetch_array($tampil);
-		$id_usulan_barang = $x['id_usulan_barang'];
-		$merek = mysqli_query($koneksi,"INSERT INTO `merek_barang` (`id_usulan_barang`,`nama_merek`,`spesifikasi_merek`,`harga_merek`,`status_merek`) VALUES ('".$id_usulan_barang."','".$_POST['nama_merek']."','".$_POST['spesifikasi_merek']."','".$_POST['harga_merek']."','Pengajuan') ");
-		header('Location: ../p-data.php?id_usulan='.$_POST["id_usulan"]);
+		$id_pdata = $x['id_pdata'];
+		$merek = mysqli_query($koneksi,"INSERT INTO `merek_pdata` (`id_pdata`,`nama_merek`,`spesifikasi_merek`,`harga_merek`,`status_merek`) VALUES ('".$id_pdata."','".$_POST['nama_merek']."','".$_POST['spesifikasi_merek']."','".$_POST['harga_merek']."','Pengajuan') ");
+		header('Location: ../p-data.php?message=input&id_usulan='.$_POST["id_usulan"]);
 	}else{   
 		$err = mysqli_error($koneksi);
 		header('Location: ../p-data.php?id_usulan='.$_POST["id_usulan"]);
@@ -120,8 +120,8 @@ if(isset($_POST['submit']) && $_POST['submit'] == "Tambah Usulan Barang ART"){
 if(isset($_POST['submit']) && $_POST['submit'] == "Tambah Usulan Barang Reagen"){
 	$data = $_POST;
 
-	$query = "INSERT INTO `reagen` (`id_reagen`,`id_usulan`,`id_barang`,`jumlah_usulan`,`ket_reagen`)
-	VALUES('','".$_POST['id_usulan']."','".$_POST['id_barang']."','".$_POST['jumlah_usulan']."','".$_POST['ket_reagen']."');";
+	$query = "INSERT INTO `reagen` (`id_reagen`,`id_usulan`,`id_barang`,`merek_reagen`,`jumlah_usulan`,`ket_reagen`)
+	VALUES('','".$_POST['id_usulan']."','".$_POST['id_barang']."','".$_POST['merek_reagen']."','".$_POST['jumlah_usulan']."','".$_POST['ket_reagen']."');";
 	$sql = mysqli_query($koneksi,$query);  
 	if($sql){
 		header('Location: ../reagen.php?id_usulan='.$_POST["id_usulan"]);
@@ -163,13 +163,13 @@ if(isset($_POST['submit']) && $_POST['submit'] == "Tambah Merek"){
 if(isset($_POST['submit']) && $_POST['submit'] == "Tambah Merek Pengelola Data"){
 	$data = $_POST;
 
-	$query = "INSERT INTO `merek_barang` (`id_usulan_barang`,`nama_merek`,`spesifikasi_merek`,`harga_merek`) VALUES ('".$_POST['id_usulan_barang']."','".$_POST['nama_merek']."','".$_POST['spesifikasi_merek']."','".$_POST['harga_merek']."') ";
+	$query = "INSERT INTO `merek_pdata` (`id_pdata`,`nama_merek`,`spesifikasi_merek`,`harga_merek`) VALUES ('".$_POST['id_pdata']."','".$_POST['nama_merek']."','".$_POST['spesifikasi_merek']."','".$_POST['harga_merek']."') ";
 	$sql = mysqli_query($koneksi,$query);  
 	if($sql){
-		header('Location: ../tambah_merek_pdata.php?id_usulan_barang='.$_POST["id_usulan_barang"]."&id_usulan=".$_POST["id_usulan"]);
+		header('Location: ../tambah_merek_pdata.php?id_pdata='.$_POST["id_pdata"]."&id_usulan=".$_POST["id_usulan"]);
 	}else{   
 		$err = mysqli_error($koneksi);
-		header('Location: ../tambah_merek_pdata.php?id_usulan_barang='.$_POST["id_usulan_barang"]."&id_usulan=".$_POST["id_usulan"]);
+		header('Location: ../tambah_merek_pdata.php?id_pdata='.$_POST["id_pdata"]."&id_usulan=".$_POST["id_usulan"]);
 	}
 }
 
@@ -184,6 +184,62 @@ if(isset($_POST['submit']) && $_POST['submit'] == "Tambah Merek Peralatan Kantor
 		$err = mysqli_error($koneksi);
 		header('Location: ../tambah_merek_pkantor.php?id_usulan_barang='.$_POST["id_usulan_barang"]."&id_usulan=".$_POST["id_usulan"]);
 	}
+}
+
+if(isset($_POST['submit']) && $_POST['submit'] == "Buat Usulan Perbaikan Alkes"){
+	$data = $_POST;
+
+$id_usulan_barang = $_POST['id_usulan_barang'];
+$id_usulan = $_POST['id_usulan'];
+$keterangan = $_POST['keterangan'];
+ 
+$rand = rand();
+$ekstensi = 'application/pdf';
+$tipe = $_FILES['file']['type'];
+$filename = $_FILES['file']['name'];
+$ukuran = $_FILES['file']['size'];
+$ext = pathinfo($filename, PATHINFO_EXTENSION);
+ 
+if($tipe !="application/pdf") {
+	header("location:../perbaikan-alkes.php?message=gagal_ekstensi&id_usulan_barang=".$id_usulan_barang."&id_usulan=".$id_usulan);
+}else{
+	if($ukuran < 1044070){		
+		$xx = $rand.'_'.$filename;
+		move_uploaded_file($_FILES['file']['tmp_name'], '../../image/'.$rand.'_'.$filename);
+		mysqli_query($koneksi, "INSERT INTO perbaikan_alkes (id_perbaikan_alkes,id_usulan,id_usulan_barang,file,keterangan,status_perbaikan_alkes) VALUES('','$id_usulan,'$id_usulan_barang','$xx','$keterangan','Pengajuan')");
+		header("location:../perbaikan-alkes.php?message=berhasil&id_usulan_barang=".$id_usulan_barang."&id_usulan=".$id_usulan);
+	}else{
+		header("location:../perbaikan-alkes.php?message=gagal_ukuran&id_usulan_barang=".$id_usulan_barang."&id_usulan=".$id_usulan);
+	}
+}
+}
+
+if(isset($_POST['submit']) && $_POST['submit'] == "Buat Usulan Penghapusan Alkes"){
+	$data = $_POST;
+
+$id_usulan_barang = $_POST['id_usulan_barang'];
+$id_usulan = $_POST['id_usulan'];
+$keterangan = $_POST['keterangan'];
+ 
+$rand = rand();
+$ekstensi = 'application/pdf';
+$tipe = $_FILES['file']['type'];
+$filename = $_FILES['file']['name'];
+$ukuran = $_FILES['file']['size'];
+$ext = pathinfo($filename, PATHINFO_EXTENSION);
+ 
+if($tipe !="application/pdf") {
+	header("location:../Penghapusan-alkes.php?message=gagal_ekstensi&id_usulan_barang=".$id_usulan_barang."&id_usulan=".$id_usulan);
+}else{
+	if($ukuran < 1044070){		
+		$xx = $rand.'_'.$filename;
+		move_uploaded_file($_FILES['file']['tmp_name'], '../../image/'.$rand.'_'.$filename);
+		mysqli_query($koneksi, "INSERT INTO penghapusan_alkes (id_penghapusan_alkes,id_usulan,id_usulan_barang,file,keterangan,status_penghapusan_alkes) VALUES('','$id_usulan,'$id_usulan_barang','$xx','$keterangan','Pengajuan')");
+		header("location:../penghapusan-alkes.php?message=berhasil&id_usulan_barang=".$id_usulan_barang."&id_usulan=".$id_usulan);
+	}else{
+		header("location:../penghapusan-alkes.php?message=gagal_ukuran&id_usulan_barang=".$id_usulan_barang."&id_usulan=".$id_usulan);
+	}
+}
 }
 
  if(isset($_GET['hapusmerek'])){
@@ -255,7 +311,7 @@ if(isset($_POST['update']) && $_POST['update'] == "Update Usulan Barang"){
 if(isset($_POST['update']) && $_POST['update'] == "Update Usulan Barang Pengelola Data"){
 	$data = $_POST;
 
-	$query = "UPDATE `usulan_barang` 
+	$query = "UPDATE `pdata` 
 	SET
 	`id_usulan` = '".$_POST['id_usulan']."', 
 	`id_barang` = '".$_POST['id_barang']."', 
@@ -265,11 +321,11 @@ if(isset($_POST['update']) && $_POST['update'] == "Update Usulan Barang Pengelol
 	`justifikasi` = '".$_POST['justifikasi']."'
 	
 	WHERE
-	`id_usulan_barang` = '".$_POST['id_usulan_barang']."' ;
+	`id_pdata` = '".$_POST['id_pdata']."' ;
 ";
 	$sql = mysqli_query($koneksi,$query);  
 	if($sql){
-		header('Location: ../p-data.php?message=Data Alat Pengelola Data berhasil diubah,'.'&id_usulan='.$_POST["id_usulan"]);
+		header('Location: ../p-data.php?message=update'.'&id_usulan='.$_POST["id_usulan"]);
 	}else{   
 		$err = mysqli_error($koneksi);
 		header('Location: ../p-data.php?id_usulan='.$_POST["id_usulan"]);

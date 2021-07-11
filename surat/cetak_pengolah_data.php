@@ -7,7 +7,7 @@ session_start();
 ob_start();
 include_once("../config.php"); //buat koneksi ke database
 $id_usulan   = $_GET['id_usulan'];
-$id_usulan_barang   = $_GET['id_usulan_barang']; //kode berita yang akan dikonvert
+$id_pdata   = $_GET['id_pdata']; //kode berita yang akan dikonvert
 $query  = mysqli_query($koneksi,"SELECT * FROM usulan WHERE id_usulan='".$id_usulan."'");
 $data   = mysqli_fetch_array($query);
 ?>
@@ -18,25 +18,28 @@ $data   = mysqli_fetch_array($query);
 <title><?php echo $data['no_usulan']; ?></title>
 </head>
 <body>
-<h4 align="center">JUSTIFIKASI ALAT KESEHATAN<br>PERENCANAAN USULAN PEMBELIAN BARANG/ALAT MELALUI PENGGUNAAN SALDO AWAL BLU<br>UNTUK OPERASIONAL BBLK PALEMBANG<br>TAHUN 2022</h4>
+
+
+<h4 align="center">USULAN KEBUTUHAN PEMBELIAN BARANG/ALAT PENGOLAH DATA<br>UNTUK OPERASIONAL BBLK PALEMBANG TA 2022</h4>
+
 <table border="1" cellspacing="0">
   <tr align="center">
-     <th>NO</th>
-    <th width="150">JENIS BELANJA</th>
+    <th>NO</th>
+    <th width="200">JENIS BELANJA</th>
     <th width="100">MEREK</th>
     <th width="200">SPESIFIKASI</th>
     <th>HARGA</th>
-    <th><?php echo wordwrap("JUMLAH YANG TERSEDIA DI UNIT KERJA",10,'<br />', true) ?></th>
+    <th><?php echo wordwrap("JUMLAH YANG TERSEDIA DI UNIT KERJA (UNIT)",10,'<br />', true) ?></th>
     <th>KONDISI</th>
     <th><?php echo wordwrap("JUMLAH KEBUTUHAN ALAT BARU (UNIT)",10,'<br />', true) ?></th>
     <th width="200">JUSTIFIKASI</th>
   </tr>
   <?php
-    $query = mysqli_query($koneksi,"SELECT * FROM usulan_barang inner join barang on usulan_barang.id_barang=barang.id_barang where id_usulan='$id_usulan' ");
+    $query = mysqli_query($koneksi,"SELECT * FROM pdata inner join barang on pdata.id_barang=barang.id_barang where id_usulan='$id_usulan' ");
     $no=1;
     $data_temp = []; // 1. buat array penampung
     foreach ($query as $a) : ?>
-      <?php $merek = mysqli_query($koneksi,"SELECT * FROM merek_barang where id_usulan_barang='$a[id_usulan_barang]'");
+      <?php $merek = mysqli_query($koneksi,"SELECT * FROM merek_pdata where id_pdata='$a[id_pdata]'");
        $countrowspan=mysqli_num_rows($merek);
       foreach ($merek as $b) : ?>
       <tr>
@@ -75,39 +78,12 @@ $data   = mysqli_fetch_array($query);
 </table>
 <p>Catatan 
   * Untuk kondisi alat diisi (Baik/Rusak Ringan/Rusak Berat)
-  * Apabila alat dalam kondisi Rusak atau Tidak Layak Pakai harap diusulkan penghapusan barang bmn ditujukan kepada Kepala BBLK Palembang cc Subkoordinator Keuangan dan BMN
-  * Justifikasi Kebutuhan diisi alasan kebutuhan alat yang diusulkan secara rinci dan jelas</p>
-<?php $q=mysqli_query($koneksi,"SELECT * FROM users where id_user='$data[id_user]'"); 
-$u=mysqli_fetch_array($q);
-?>  
-<table >
-  <tr>
-    <td width="200"><?=$u['nama_instalasi']?></td>
-    <td width="200"><?=$u['nama_instalasi']?></td>
-    <td width="200"><?=$u['nama_instalasi']?></td>
-    <td width="200"><?=$u['nama_instalasi']?></td>
-    <td width="200"><?=$u['nama_instalasi']?></td>
-  </tr>
-  <tr>
-    <td><qrcode value="https://simka.bblkpalembang.com" ec="S" style="border: none; width: 20mm;"></qrcode></td>
-    <td><qrcode value="https://simka.bblkpalembang.com" ec="S" style="border: none; width: 20mm;"></qrcode></td>
-    <td><qrcode value="https://simka.bblkpalembang.com" ec="S" style="border: none; width: 20mm;"></qrcode></td>
-    <td><qrcode value="https://simka.bblkpalembang.com" ec="S" style="border: none; width: 20mm;"></qrcode></td>
-    <td><qrcode value="https://simka.bblkpalembang.com" ec="S" style="border: none; width: 20mm;"></qrcode></td>
-  </tr>
-  <tr>
-    <td><?=$u['nama_kepala_instalasi']?><br>NIP.<?=$u['nip']?></td>
-    <td><?=$u['nama_kepala_instalasi']?><br>NIP.<?=$u['nip']?></td>
-    <td><?=$u['nama_kepala_instalasi']?><br>NIP.<?=$u['nip']?></td>
-    <td><?=$u['nama_kepala_instalasi']?><br>NIP.<?=$u['nip']?></td>
-    <td><?=$u['nama_kepala_instalasi']?><br>NIP.<?=$u['nip']?></td>
-  </tr>
-</table>         
-<!-- <p align='right'><b><?=$u['nama_instalasi']?></b><br>
+           * Apabila alat dalam kondisi Rusak atau Tidak Layak Pakai harap diusulkan penghapusan barang bmn ditujukan kepada Kepala BBLK Palembang cc Subkoordinator Keuangan dan BMN
+           * Justifikasi Kebutuhan diisi alasan kebutuhan alat yang diusulkan secara rinci dan jelas</p>
+
+<p align='right'><b><?=$_SESSION['nama_instalasi']?></b><br>
 <qrcode value="https://simka.bblkpalembang.com" ec="S" style="border: none; width: 20mm;"></qrcode>
-<b><u><?=$u['nama_kepala_instalasi']?></u><br>NIP.<?=$u['nip']?></b></p> -->
-
-
+<b><u><?=$_SESSION['nama_kepala_instalasi']?></u><br>NIP.<?=$_SESSION['nip']?></b></p>
 
 </body>
 </html><!-- Akhir halaman HTML yang akan di konvert -->
@@ -122,7 +98,7 @@ $content = '<page style="font-family: freeserif">'.nl2br($content).'</page>';
 
  try
  {
-  $html2pdf = new HTML2PDF('L','F4','en', false, 'ISO-8859-15',array(20, 0, 20, 0));
+  $html2pdf = new HTML2PDF('L','A4','en', false, 'ISO-8859-15',array(10, 0, 20, 0));
   $html2pdf->setDefaultFont('Arial');
   $html2pdf->writeHTML($content, isset($_GET['vuehtml']));
   $html2pdf->Output($filename);

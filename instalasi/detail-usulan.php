@@ -5,13 +5,13 @@ $surat=mysqli_query($koneksi,"SELECT * FROM usulan WHERE id_usulan=$id_usulan")o
 
 $usulan_barang=mysqli_query($koneksi,"SELECT * FROM usulan_barang inner join barang on usulan_barang.id_barang=barang.id_barang WHERE usulan_barang.kategori='alkes' and usulan_barang.id_usulan = '".$_GET['id_usulan']."'")or die(mysql_error());
 
-$pdata=mysqli_query($koneksi,"SELECT * FROM usulan_barang inner join barang on usulan_barang.id_barang=barang.id_barang WHERE usulan_barang.kategori='Pengelola Data' and usulan_barang.id_usulan = '".$_GET['id_usulan']."'")or die(mysql_error());
+$pdata=mysqli_query($koneksi,"SELECT * FROM pdata inner join barang on pdata.id_barang=barang.id_barang WHERE pdata.id_usulan = '".$_GET['id_usulan']."'")or die(mysql_error());
 
 $pkantor=mysqli_query($koneksi,"SELECT * FROM usulan_barang inner join barang on usulan_barang.id_barang=barang.id_barang WHERE usulan_barang.kategori='Peralatan Kantor' and usulan_barang.id_usulan = '".$_GET['id_usulan']."'")or die(mysql_error());
 
 $art=mysqli_query($koneksi,"SELECT * FROM art inner join barang on art.id_barang=barang.id_barang WHERE id_usulan = '".$_GET['id_usulan']."'")or die(mysql_error());
 
-$reagen=mysqli_query($koneksi,"SELECT * FROM reagen inner join barang on reagen.id_barang=barang.id_barang WHERE id_usulan = '".$_GET['id_usulan']."'")or die(mysql_error());
+$reagen=mysqli_query($koneksi,"SELECT * FROM reagen  WHERE id_usulan = '".$_GET['id_usulan']."'")or die(mysql_error());
 
 $pelatihan=mysqli_query($koneksi,"SELECT * FROM pelatihan WHERE id_usulan = '".$_GET['id_usulan']."'")or die(mysql_error());
 
@@ -132,7 +132,7 @@ while($d=mysqli_fetch_array($surat)){ $data[] = $d; }
 									</span>
 									Lihat
 								</a>
-								<a href="../surat/cetak_kak.php?id_usulan=<?= $id_usulan; ?>" target="_blank" class="btn btn-default">
+								<a href="../surat/cetak_pengolah_data.php?id_usulan=<?= $id_usulan; ?>" target="_blank" class="btn btn-default">
 									<span class="btn-label">
 										<i class="fas fa-print"></i>
 									</span>
@@ -203,7 +203,7 @@ while($d=mysqli_fetch_array($surat)){ $data[] = $d; }
 									</span>
 									Lihat
 								</a>
-								<a href="../surat/cetak_kak.php?id_usulan=<?= $id_usulan; ?>" target="_blank" class="btn btn-default">
+								<a href="../surat/cetak_reagen.php?id_usulan=<?= $id_usulan; ?>" target="_blank" class="btn btn-default">
 									<span class="btn-label">
 										<i class="fas fa-print"></i>
 									</span>
@@ -236,7 +236,7 @@ while($d=mysqli_fetch_array($surat)){ $data[] = $d; }
 									</span>
 									Lihat
 								</a>
-								<a href="../surat/cetak_kak.php?id_usulan=<?= $id_usulan; ?>" target="_blank" class="btn btn-default">
+								<a href="../surat/cetak_art.php?id_usulan=<?= $id_usulan; ?>" target="_blank" class="btn btn-default">
 									<span class="btn-label">
 										<i class="fas fa-print"></i>
 									</span>
@@ -269,7 +269,7 @@ while($d=mysqli_fetch_array($surat)){ $data[] = $d; }
 									</span>
 									Lihat
 								</a>
-								<a href="../surat/cetak_kak.php?id_usulan=<?= $id_usulan; ?>" target="_blank" class="btn btn-default">
+								<a href="../surat/cetak_pelatihan.php?id_usulan=<?= $id_usulan; ?>" target="_blank" class="btn btn-default">
 									<span class="btn-label">
 										<i class="fas fa-print"></i>
 									</span>

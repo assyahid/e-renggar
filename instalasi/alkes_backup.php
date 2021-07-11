@@ -1,11 +1,8 @@
 <?php include 'header.php'; 
 $pegawai  =mysqli_query($koneksi,"SELECT * FROM pegawai WHERE id_user = '".$_SESSION['id_user']."'")or die(mysql_error());
 $usulan_barang=mysqli_query($koneksi,"SELECT * FROM usulan_barang inner join barang on usulan_barang.id_barang=barang.id_barang WHERE usulan_barang.id_usulan = '".$_GET['id_usulan']."' and usulan_barang.kategori='Alkes'")or die(mysql_error());
-
 $id_usulan_barang=mysqli_query($koneksi,"SELECT * FROM usulan_barang inner join barang on usulan_barang.id_barang=barang.id_barang WHERE usulan_barang.id_usulan = '".$_GET['id_usulan']."' and usulan_barang.kategori='Alkes'")or die(mysql_error());
 $barang   =mysqli_query($koneksi,"SELECT * FROM barang where kategori='Alat Kesehatan' ORDER BY nama_barang ASC")or die(mysql_error());
-
-
 
 $id_usulan = $_GET["id_usulan"];
 
@@ -47,7 +44,7 @@ while($d=mysqli_fetch_array($surat)){ $data[] = $d; }
 						</div>
 					</div>
 				</div> -->
-				<div class="col-sm-4 col-md-4">
+				<div class="col-sm-6 col-md-6">
 					<div class="card card-stats card-round">
 						<div class="card-body">
 							<div class="row align-items-center">
@@ -60,50 +57,6 @@ while($d=mysqli_fetch_array($surat)){ $data[] = $d; }
 									<div class="numbers">
 										<p class="card-category">Data alat kesehatan</p>
 										<h4 class="card-title"><?= mysqli_num_rows($usulan_barang); ?></h4>
-										<!-- <a href="usulan_barang.php">lihat data</a> -->
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-sm-4 col-md-4">
-					<div class="card card-stats card-round">
-						<div class="card-body">
-							<div class="row align-items-center">
-								<div class="col-icon">
-									<div class="icon-big text-center icon-info bubble-shadow-small">
-										<i class="flaticon-interface-6"></i>
-									</div>
-								</div>
-								<div class="col col-stats ml-3 ml-sm-0">
-									<div class="numbers">
-										<p class="card-category">Data Perbaikan Alkes</p>
-										<?php $perbaikan=mysqli_query($koneksi,"SELECT * FROM perbaikan_alkes where id_usulan='$_GET[id_usulan]'")or die(mysql_error()); ?>
-										<h4 class="card-title"><?= mysqli_num_rows($perbaikan); ?></h4>
-										<!-- <a href="usulan_barang.php">lihat data</a> -->
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-sm-4 col-md-4">
-					<div class="card card-stats card-round">
-						<div class="card-body">
-							<div class="row align-items-center">
-								<div class="col-icon">
-									<div class="icon-big text-center icon-info bubble-shadow-small">
-										<i class="flaticon-interface-6"></i>
-									</div>
-								</div>
-								<div class="col col-stats ml-3 ml-sm-0">
-									<div class="numbers">
-										<p class="card-category">Data Penghapusan Alkes</p>
-											<?php $penghapusan=mysqli_query($koneksi,"SELECT * FROM penghapusan_alkes where id_usulan='$_GET[id_usulan]'")or die(mysql_error()); ?>
-										<h4 class="card-title"><?= mysqli_num_rows($penghapusan); ?></h4>
 										<!-- <a href="usulan_barang.php">lihat data</a> -->
 									</div>
 								</div>
@@ -170,7 +123,7 @@ while($d=mysqli_fetch_array($surat)){ $data[] = $d; }
 														<td><?= $d["nama_barang"] ?></td>
 														<td><?php $merek = mysqli_query($koneksi,"SELECT * FROM merek_barang where id_usulan_barang='$d[id_usulan_barang]'");
 															while ($xm=mysqli_fetch_array($merek)) {
-																echo "-".$xm['nama_merek']."<br>";
+																echo "-".$xm['nama_merek'];
 															}
 														 ?>
 														 	<!-- <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleMerek" style="float: right;">
@@ -178,27 +131,12 @@ while($d=mysqli_fetch_array($surat)){ $data[] = $d; }
 										<a href="tambah_merek.php?id_usulan_barang=<?=$d['id_usulan_barang']?>&id_usulan=<?=$id_usulan?>" class="btn btn-sm btn-primary"><span class="fas fa-plus"></span> <?= mysqli_num_rows($merek); ?></a>
 														 </td>
 														<td><?= $d["jumlah_tersedia"] ?></td>
-														<td> 
-													
-															<?php if ($d["kondisi"]=='Rusak Ringan') { ?>
-																<?php $perbaikan_alkes = mysqli_query($koneksi,"SELECT * FROM perbaikan_alkes where id_usulan_barang='$d[id_usulan_barang]'");
-															while ($pa=mysqli_fetch_array($perbaikan_alkes)) { ?>
-																<a href="../image/<?=$pa['file']?>" class="btn btn-sm btn-info" target="_BLANK"><i class="fa fa-file"></i> lihat surat</a>
-															<?php }  ?>
+														<td><?php if ($d["kondisi"]=='Rusak Ringan') { ?>
 															<?=$d["kondisi"]?>
 																	<a href="perbaikan-alkes.php?id_usulan_barang=<?=$d['id_usulan_barang'];?>&id_usulan=<?php echo $d['id_usulan']; ?>"><button type="button" class="btn btn-sm btn-primary" title="Buat Usulan Surat Perbaikan">
-															<i class="fa fa-plus"></i> <?= mysqli_num_rows($perbaikan_alkes); ?>
+															<i class="fa fa-file"></i>
 														</button></a>
-														<?php } elseif ($d["kondisi"]=='Rusak Berat') { ?>
-																<?php $penghapusan_alkes = mysqli_query($koneksi,"SELECT * FROM penghapusan_alkes where id_usulan_barang='$d[id_usulan_barang]'");
-															while ($pha=mysqli_fetch_array($penghapusan_alkes)) { ?>
-																<a href="../image/<?=$pha['file']?>" class="btn btn-sm btn-info" target="_BLANK"><i class="fa fa-file"></i> lihat surat</a>
-															<?php }  ?>
-															<?=$d["kondisi"]?>
-															<a href="penghapusan-alkes.php?id_usulan_barang=<?=$d['id_usulan_barang'];?>&id_usulan=<?php echo $d['id_usulan']; ?>"><button type="button" class="btn btn-sm btn-primary" title="Buat Usulan Surat Penghapusan">
-															<i class="fa fa-plus"></i> <?= mysqli_num_rows($penghapusan_alkes); ?>
-														</button></a>
-													<?php	} ?>  </td>
+														<?php } ?>  </td>
 														<td><?= $d["jumlah_kebutuhan"] ?></td>
 														<td><?= $d["justifikasi"] ?></td>
 														<td>
@@ -542,9 +480,7 @@ if($sql2){ // Cek jika proses simpan ke database sukses atau tidak  // Jika Suks
 		<!-- Modal Tambah Pegawai-->
 
 
-</form>
-</div>
-</div>
+
 
 
 		<?php include 'footer.php';?>

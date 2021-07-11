@@ -49,6 +49,9 @@
 	<!-- Sweet Alert -->
 	<script src="../assets/js/plugin/sweetalert/sweetalert.min.js"></script>
 
+	
+  
+
 	<!-- Atlantis JS -->
 	<script src="../assets/js/atlantis.min.js"></script>
 

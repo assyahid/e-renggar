@@ -11,7 +11,7 @@ while($d=mysqli_fetch_array($surat)){ $data[] = $d; }
       <div class="page-header">
         <h4 class="page-title">Alat Pengolah Data</h4>
         <ul class="breadcrumbs">
-          <a href="alkes.php?id_usulan=<?=$_GET['id_usulan'];?>" class="btn btn-info">Kembali ke menu usulan Pengolah Data</a>
+          <a href="p-data.php?id_usulan=<?=$_GET['id_usulan'];?>" class="btn btn-info">Kembali ke menu usulan Pengolah Data</a>
         </ul>
       </div>
 <div class="row">
@@ -24,8 +24,8 @@ while($d=mysqli_fetch_array($surat)){ $data[] = $d; }
           TAHUN 2022</b></p></h4>
 								</div>
 								<div class="card-body">
-          <?php $usulan_barang=mysqli_query($koneksi,"SELECT * FROM usulan_barang inner join barang on usulan_barang.id_barang=barang.id_barang WHERE id_usulan_barang='$_GET[id_usulan_barang]' and usulan_barang.id_usulan = '".$_GET['id_usulan']."'")or die(mysql_error());
-          $show=mysqli_fetch_array($usulan_barang);
+          <?php $pdata=mysqli_query($koneksi,"SELECT * FROM pdata inner join barang on pdata.id_barang=barang.id_barang WHERE id_pdata='$_GET[id_pdata]' and pdata.id_usulan = '".$_GET['id_usulan']."'")or die(mysql_error());
+          $show=mysqli_fetch_array($pdata);
           ?>
           <table class="table table-bordered">
             <tr>
@@ -61,9 +61,9 @@ while($d=mysqli_fetch_array($surat)){ $data[] = $d; }
             </thead>
             <tbody>
               <?php 
-              $usulan_barang=mysqli_query($koneksi,"SELECT * FROM merek_barang inner join usulan_barang on merek_barang.id_usulan_barang=usulan_barang.id_usulan_barang where merek_barang.id_usulan_barang='$show[id_usulan_barang]'")or die(mysql_error());
+              $pdata=mysqli_query($koneksi,"SELECT * FROM merek_pdata inner join pdata on merek_pdata.id_pdata=pdata.id_pdata where merek_pdata.id_pdata='$show[id_pdata]'")or die(mysql_error());
               $no=1;
-              while($d=mysqli_fetch_array($usulan_barang)){ 
+              while($d=mysqli_fetch_array($pdata)){ 
                 ?>
                 <tr>
                   <td><?=$no++;?></td>
@@ -72,17 +72,17 @@ while($d=mysqli_fetch_array($surat)){ $data[] = $d; }
                   <td>Rp <?= number_format($d["harga_merek"],0) ?></td>
                   <td>
                      <?php if ($data[0]['status']=="Pengajuan") { ?>
-                    <button type="button" class="btn btn-icon btn-round btn-primary" data-toggle="modal" data-target="#exampleEdit_<?php echo $d['id_merek_barang']; ?>">
+                    <button type="button" class="btn btn-icon btn-round btn-primary" data-toggle="modal" data-target="#exampleEdit_<?php echo $d['id_merek_pdata']; ?>">
                               <i class="fa fa-edit"></i>
                             </button>
-                    <a onclick="if(confirm('Apakah anda yakin ingin menghapus data ini ??')){ location.href='controller/v1.php?hapusmerekpdata&id_merek_barang=<?php echo $d['id_merek_barang']; ?>&id_usulan=<?php echo $d['id_usulan']; ?>&id_usulan_barang=<?php echo $d['id_usulan_barang']; ?>' }" class="btn btn-icon btn-round btn-danger"> <i class="fa fa-trash"></i></a>
+                    <a onclick="if(confirm('Apakah anda yakin ingin menghapus data ini ??')){ location.href='controller/v1.php?hapusmerekpdata&id_merek_pdata=<?php echo $d['id_merek_pdata']; ?>&id_usulan=<?php echo $d['id_usulan']; ?>&id_pdata=<?php echo $d['id_pdata']; ?>' }" class="btn btn-icon btn-round btn-danger"> <i class="fa fa-trash"></i></a>
                     <?php }  ?>
                   </td>
                 </tr> 
 
 
-<!-- Modal Edit usulan_barang-->
-    <div class="modal fade" id="exampleEdit_<?php echo $d['id_merek_barang']; ?>" tabindex="-1" role="dialog">
+<!-- Modal Edit pdata-->
+    <div class="modal fade" id="exampleEdit_<?php echo $d['id_merek_pdata']; ?>" tabindex="-1" role="dialog">
       <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -94,8 +94,8 @@ while($d=mysqli_fetch_array($surat)){ $data[] = $d; }
           <form method="POST" action="controller/v1.php">
             <div class="modal-body">
               <input type="hidden" name="id_usulan" class="form-control" id="email2" placeholder="Input Jumlah" value="<?=$_GET['id_usulan']?>">
-              <input type="hidden" name="id_merek_barang" class="form-control" id="email2" placeholder="Input Jumlah" value="<?=$d['id_merek_barang']?>">
-              <input type="hidden" name="id_usulan_barang" class="form-control" id="email2" placeholder="Input Jumlah" value="<?=$d['id_usulan_barang']?>">
+              <input type="hidden" name="id_merek_pdata" class="form-control" id="email2" placeholder="Input Jumlah" value="<?=$d['id_merek_pdata']?>">
+              <input type="hidden" name="id_pdata" class="form-control" id="email2" placeholder="Input Jumlah" value="<?=$d['id_pdata']?>">
              
             
             <div class="col-md-12 col-lg-12">
@@ -142,9 +142,9 @@ while($d=mysqli_fetch_array($surat)){ $data[] = $d; }
 
  <?php
     if(isset($_GET['hapusmerek'])){
-    $id_merek_barang=$_GET['id_merek_barang'];
+    $id_merek_pdata=$_GET['id_merek_pdata'];
     $id_usulan=$_GET['id_usulan'];
-$query2 = "DELETE FROM merek_barang WHERE id_merek_barang='$id_merek_barang'";
+$query2 = "DELETE FROM merek_pdata WHERE id_merek_pdata='$id_merek_pdata'";
 $sql2 = mysqli_query($koneksi,$query2); // Eksekusi/Jalankan query dari variabel $query
 if($sql2){ // Cek jika proses simpan ke database sukses atau tidak  // Jika Sukses, Lakukan :  
 ?><script type="text/javascript">
@@ -171,7 +171,7 @@ if($sql2){ // Cek jika proses simpan ke database sukses atau tidak  // Jika Suks
           </div>
 <form method="POST" action="controller/v1.php">
             <div class="modal-body">
-              <input type="hidden" name="id_usulan_barang" class="form-control" id="email2" placeholder="Input spesifikasi umum"value="<?=$show['id_usulan_barang'];?>">
+              <input type="hidden" name="id_pdata" class="form-control" id="email2" placeholder="Input spesifikasi umum"value="<?=$show['id_pdata'];?>">
               <input type="hidden" name="id_usulan" class="form-control" id="email2" placeholder="Input spesifikasi umum"value="<?=$show['id_usulan'];?>">
               <input type="hidden" name="status_merek" class="form-control" id="email2" placeholder="Input spesifikasi umum"value="pengajuan">
               <div class="col-md-12 col-lg-12">

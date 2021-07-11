@@ -6,13 +6,13 @@ $data_usulan = mysqli_fetch_array($usulan);
 
 $usulan_barang=mysqli_query($koneksi,"SELECT * FROM usulan_barang inner join barang on usulan_barang.id_barang=barang.id_barang WHERE usulan_barang.kategori='alkes' and usulan_barang.id_usulan = '".$_GET['id_usulan']."'")or die(mysql_error());
 
-$pdata=mysqli_query($koneksi,"SELECT * FROM usulan_barang inner join barang on usulan_barang.id_barang=barang.id_barang WHERE usulan_barang.kategori='Pengelola Data' and usulan_barang.id_usulan = '".$_GET['id_usulan']."'")or die(mysql_error());
+$pdata=mysqli_query($koneksi,"SELECT * FROM pdata inner join barang on pdata.id_barang=barang.id_barang WHERE pdata.id_usulan = '".$_GET['id_usulan']."'")or die(mysql_error());
 
 $pkantor=mysqli_query($koneksi,"SELECT * FROM usulan_barang inner join barang on usulan_barang.id_barang=barang.id_barang WHERE usulan_barang.kategori='Peralatan Kantor' and usulan_barang.id_usulan = '".$_GET['id_usulan']."'")or die(mysql_error());
 
 $art=mysqli_query($koneksi,"SELECT * FROM art inner join barang on art.id_barang=barang.id_barang WHERE id_usulan = '".$_GET['id_usulan']."'")or die(mysql_error());
 
-$reagen=mysqli_query($koneksi,"SELECT * FROM reagen inner join barang on reagen.id_barang=barang.id_barang WHERE id_usulan = '".$_GET['id_usulan']."'")or die(mysql_error());
+$reagen=mysqli_query($koneksi,"SELECT * FROM reagen  WHERE id_usulan = '".$_GET['id_usulan']."'")or die(mysql_error());
 
 $pelatihan=mysqli_query($koneksi,"SELECT * FROM pelatihan WHERE id_usulan = '".$_GET['id_usulan']."'")or die(mysql_error());
 
@@ -88,7 +88,7 @@ $data_pengusul = mysqli_fetch_array($pengusul);
 				</div>
 			</div>
 		</div>
-		<div class="page-inner mt--5">
+	<div class="page-inner mt--5">
 			<div class="row mt--2">
 				<div class="col-md-4">
 					<div class="card full-height">
@@ -113,7 +113,8 @@ $data_pengusul = mysqli_fetch_array($pengusul);
 									</span>
 									Lihat
 								</a>
-								<a href="../surat/cetak_kak.php?id_usulan=<?= $id_usulan; ?>" target="_blank" class="btn btn-default">
+								<?php $xx=mysqli_fetch_array($usulan_barang); ?>
+								<a href="../surat/cetak_usulan_barang.php?id_usulan=<?= $id_usulan; ?>&id_usulan_barang=<?= $xx['id_usulan_barang']; ?>" target="_blank" class="btn btn-default">
 									<span class="btn-label">
 										<i class="fas fa-print"></i>
 									</span>
@@ -146,7 +147,7 @@ $data_pengusul = mysqli_fetch_array($pengusul);
 									</span>
 									Lihat
 								</a>
-								<a href="../surat/cetak_kak.php?id_usulan=<?= $id_usulan; ?>" target="_blank" class="btn btn-default">
+								<a href="../surat/cetak_pengolah_data.php?id_usulan=<?= $id_usulan; ?>" target="_blank" class="btn btn-default">
 									<span class="btn-label">
 										<i class="fas fa-print"></i>
 									</span>
@@ -179,7 +180,7 @@ $data_pengusul = mysqli_fetch_array($pengusul);
 									</span>
 									Lihat
 								</a>
-								<a href="../surat/cetak_kak.php?id_usulan=<?= $id_usulan; ?>" target="_blank" class="btn btn-default">
+								<a href="../surat/cetak_alat_kantor.php?id_usulan=<?= $id_usulan; ?>" target="_blank" class="btn btn-default">
 									<span class="btn-label">
 										<i class="fas fa-print"></i>
 									</span>
@@ -217,7 +218,7 @@ $data_pengusul = mysqli_fetch_array($pengusul);
 									</span>
 									Lihat
 								</a>
-								<a href="../surat/cetak_kak.php?id_usulan=<?= $id_usulan; ?>" target="_blank" class="btn btn-default">
+								<a href="../surat/cetak_reagen.php?id_usulan=<?= $id_usulan; ?>" target="_blank" class="btn btn-default">
 									<span class="btn-label">
 										<i class="fas fa-print"></i>
 									</span>
@@ -250,7 +251,7 @@ $data_pengusul = mysqli_fetch_array($pengusul);
 									</span>
 									Lihat
 								</a>
-								<a href="../surat/cetak_kak.php?id_usulan=<?= $id_usulan; ?>" target="_blank" class="btn btn-default">
+								<a href="../surat/cetak_art.php?id_usulan=<?= $id_usulan; ?>" target="_blank" class="btn btn-default">
 									<span class="btn-label">
 										<i class="fas fa-print"></i>
 									</span>
@@ -283,7 +284,7 @@ $data_pengusul = mysqli_fetch_array($pengusul);
 									</span>
 									Lihat
 								</a>
-								<a href="../surat/cetak_kak.php?id_usulan=<?= $id_usulan; ?>" target="_blank" class="btn btn-default">
+								<a href="../surat/cetak_pelatihan.php?id_usulan=<?= $id_usulan; ?>" target="_blank" class="btn btn-default">
 									<span class="btn-label">
 										<i class="fas fa-print"></i>
 									</span>
@@ -292,6 +293,8 @@ $data_pengusul = mysqli_fetch_array($pengusul);
 							</div>
 						</div>
 					</div>
+				</div>
+			</div>
 				</div>
 			</div>
 			

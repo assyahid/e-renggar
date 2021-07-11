@@ -98,9 +98,7 @@ while($d=mysqli_fetch_array($surat)){ $data[] = $d; }
 													<th>Kode Katalog</th>
 													<th>Nama Reagen</th>
 													<th>Kemasan</th>
-													<th>Stok di Gudang</th>
 													<th>Jumlah Usulan</th>
-													<th>Merek</th>
 													<th>Satuan</th>
 													<th>Keterangan</th>
 													<th width="90px">Opsi</th>
@@ -116,9 +114,7 @@ while($d=mysqli_fetch_array($surat)){ $data[] = $d; }
 														<td><?= $d["catalog_code"] ?></td>
 														<td><?= $d["name"] ?></td>
 														<td><?= $d["kemasan"] ?></td>
-														<td><?= $d["current_stock"] ?></td>
 														<td><?= $d["jumlah_usulan"] ?></td>
-														<td><?= $d["merek_reagen"] ?></td>
 														<td><?= $d["unit"] ?></td>
 														<td><?= $d["ket_reagen"] ?></td>
 													<td>
@@ -253,51 +249,21 @@ if($sql2){ // Cek jika proses simpan ke database sukses atau tidak  // Jika Suks
 							<div class="col-md-12 col-lg-12">
 								<div class="form-group">
 									<label for="defaultSelect">Nama Barang</label><br>
-									<select  name="id_barang" id="id_barang" class="form-control select2" style="width: 100%">
-										<?php 
-										$reagen= mysqli_query($koneksi,"SELECT catalog_code,commodities.id as id_commodities, commodities.name as nama_barang,unit,kemasan,current_stock,price_per_unit,group_id,merk_id,commodity_groups.name as kategori FROM commodities inner join commodity_groups on commodities.group_id=commodity_groups.id where group_id=14 ORDER BY commodities.name ASC");
-										while($d=mysqli_fetch_array($barang)){
-											?>
-											<option value="<?= $d['id_commodities'] ?>"><?= $d['nama_barang'] ?></option>
-										<?php  } ?>
+									<select  name="id_barang" onkeyup="isi_otomatis()" id="id_barang" class="form-control select2" style="width: 100%">
+										<option value="" >- Pilih Barang -</option>
 									</select>
 								</div>
 							</div>
 							<div class="col-md-12 col-lg-12">
 								<div class="form-group">
-									<label for="email2">Kode Katalog</label>
-									<input type="text" name="catalog_code" id="catalog_code" class="form-control" id="email2" placeholder="" readonly="">
-								</div>
-							</div>
-							<div class="col-md-12 col-lg-12">
-								<div class="form-group">
-									<label for="email2">Satuan</label>
-									<input type="text" name="unit" id="unit" class="form-control" id="email2" placeholder="otomatis" readonly="">
-								</div>
-							</div>
-							<div class="col-md-12 col-lg-12">
-								<div class="form-group">
 									<label for="email2">Stok di Gudang</label>
-									<input type="text" name="current_stock" id="current_stock" class="form-control" id="email2" placeholder="otomatis" readonly="">
+									<input type="text" name="cureent_stock" id="current_stock" class="form-control" id="email2" placeholder="Input Jumlah">
 								</div>
 							</div>
 							<div class="col-md-12 col-lg-12">
 								<div class="form-group">
 									<label for="email2">Jumlah Usulan</label>
 									<input type="number" name="jumlah_usulan" class="form-control" id="email2" placeholder="Input Jumlah">
-								</div>
-							</div>
-							<div class="col-md-12 col-lg-12">
-								<div class="form-group">
-									<label for="email2">Merek</label>
-									<select  name="merek_reagen" id="merek_reagen" class="form-control select2" style="width: 100%">
-										<?php 
-										$merk= mysqli_query($koneksi,"SELECT * FROM merk");
-										while($d=mysqli_fetch_array($merk)){
-											?>
-											<option value="<?= $d['nama_merk'] ?>"><?= $d['nama_merk'] ?></option>
-										<?php  } ?>
-									</select>
 								</div>
 							</div>
 							<div class="col-md-12 col-lg-12">
@@ -322,29 +288,30 @@ if($sql2){ // Cek jika proses simpan ke database sukses atau tidak  // Jika Suks
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 <script type="text/javascript">
-$(document).ready(function(){
-
- $('#id_barang').change(function(){    // KETIKA ISI DARI FIEL 'NPM' BERUBAH MAKA ......
-  var npmfromfield = $('#id_barang').val();  // AMBIL isi dari fiel NPM masukkan variabel 'npmfromfield'
-  $.ajax({        // Memulai ajax
-    method: "POST",      
-    url: "proses-ajax.php",    // file PHP yang akan merespon ajax
-    data: "id_barang="+npmfromfield,   // data POST yang akan dikirim
-  })
-    .done(function(data) {
-    		var json = data,
-    		obj = JSON.parse(json);   // KETIKA PROSES Ajax Request Selesai
-        $('#current_stock').val(obj.current_stock);
-        $('#unit').val(obj.unit);
-        $('#catalog_code').val(obj.catalog_code);  // Isikan hasil dari ajak ke field 'nama' 
-    });
- })
-});
-</script>
-
-<script type="text/javascript">
     $(function(){
-       $('.select2').select2();
+       $('.select2').select2({
+           minimumInputLength: 3,
+           allowClear: true,
+           placeholder: 'masukkan nama reagen',
+           ajax: {
+              dataType: 'json',
+              url: 'daftarReagen.php',
+              delay: 800,
+              data: function(params) {
+                return {
+                  search: params.term
+                }
+              },
+              processResults: function (data, page) {
+              return {
+                results: data
+              };
+            },
+          }
+      }).on('select2:select', function (evt) {
+         var data = $(".select2 option:selected").text();
+         alert("Data yang dipilih adalah "+data);
+      });
  });
 
     function isi_otomatis(){
