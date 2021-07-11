@@ -42,7 +42,7 @@
 									<tbody>
 										<?php 
 										$index = 0;
-											 $query = mysqli_query($koneksi,"SELECT * FROM usulan");
+											 $query = mysqli_query($koneksi,"SELECT * FROM usulan where id_user='$_SESSION[id_user]'");
 									        $no=1;
 											 while ($d = mysqli_fetch_array($query)) :?>
 											<tr>

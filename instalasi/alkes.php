@@ -372,6 +372,7 @@ if($sql2){ // Cek jika proses simpan ke database sukses atau tidak  // Jika Suks
 					<form method="POST" action="controller/v1.php">
 						<div class="modal-body">
 							<input type="hidden" name="id_usulan" class="form-control" id="email2" placeholder="Input spesifikasi umum"value="<?=$_GET['id_usulan'];?>">
+							<input type="hidden" name="id_user" class="form-control" id="email2" placeholder="Input spesifikasi umum"value="<?=$_SESSION['id_user'];?>">
 							<input type="hidden" name="kategori" class="form-control" id="email2" placeholder="Input spesifikasi umum"value="alkes">
 							<div class="col-md-12 col-lg-12">
 								<div class="form-group">

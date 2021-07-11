@@ -140,7 +140,7 @@ while($d=mysqli_fetch_array($surat)){ $data[] = $d; }
 
 
 	<!-- Modal Edit reagen-->
-		<div class="modal fade" id="exampleEdit_<?php echo $d['id_reagen']; ?>" tabindex="-1" role="dialog">
+		<div class="modal fade" id="exampleEdit_<?php echo $d['id_reagen']; ?>"  role="dialog">
 			<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
@@ -153,20 +153,19 @@ while($d=mysqli_fetch_array($surat)){ $data[] = $d; }
 						<div class="modal-body">
 							<input type="hidden" name="id_usulan" class="form-control" id="email2" placeholder="Input Jumlah" value="<?=$d['id_usulan']?>">
 							<input type="hidden" name="id_reagen" class="form-control" id="email2" placeholder="Input Jumlah" value="<?=$d['id_reagen']?>">
+							<input type="hidden" name="id_user" class="form-control" id="email2" placeholder="Input Jumlah" value="<?=$d['id_user']?>">
 							<div class="col-md-12 col-lg-12">
 								<div class="form-group">
 									<label for="defaultSelect">Nama Barang</label>
-									 <select name="id_barang" class="form-control" required>
-                                                      <?php
-                                                      $x="SELECT * from barang where kategori='Reagen' ";
-                                                      $q=mysqli_query($koneksi,$x);
-                                                      while ($rmodal=mysqli_fetch_array($q)) 
-                                                        { 
-                                                          if($rmodal['id_barang']==$d['id_barang']) { $sel = 'selected';} else { $sel = ''; }
-                                                      ?>
-                                                            <option <?php echo $sel; ?> value="<?php echo $rmodal['id_barang']; ?>"> <?php echo $rmodal['nama_barang'].''; ?></option>
-                                                      <?php } ?>
-                                                    </select>
+                                    <select  name="id_barang" id="id_barang" class="form-control select2" style="width: 100%">
+										<?php 
+										$reagenx= mysqli_query($koneksi,"SELECT catalog_code,commodities.id as id_commodities, commodities.name as nama_barang,unit,kemasan,current_stock,price_per_unit,group_id,merk_id,commodity_groups.name as kategori FROM commodities inner join commodity_groups on commodities.group_id=commodity_groups.id where group_id=14 ORDER BY commodities.name ASC");
+										while($r=mysqli_fetch_array($reagenx)){
+											 if($r['id_commodities']==$d['id_barang']) { $sel = 'selected';} else { $sel = ''; }
+											?>
+											<option <?php echo $sel; ?> value="<?= $r['id_commodities'] ?>"><?= $r['nama_barang'] ?></option>
+										<?php  } ?>
+									</select>
 								</div>
 							</div>
 
@@ -250,13 +249,14 @@ if($sql2){ // Cek jika proses simpan ke database sukses atau tidak  // Jika Suks
 					<form method="POST" action="controller/v1.php">
 						<div class="modal-body">
 							<input type="hidden" name="id_usulan" class="form-control" id="email2" placeholder="Input spesifikasi umum"value="<?=$_GET['id_usulan'];?>">
+							<input type="hidden" name="id_user" class="form-control" id="email2" placeholder="Input spesifikasi umum"value="<?=$_SESSION['id_user'];?>">
 							<div class="col-md-12 col-lg-12">
 								<div class="form-group">
 									<label for="defaultSelect">Nama Barang</label><br>
 									<select  name="id_barang" id="id_barang" class="form-control select2" style="width: 100%">
 										<?php 
 										$reagen= mysqli_query($koneksi,"SELECT catalog_code,commodities.id as id_commodities, commodities.name as nama_barang,unit,kemasan,current_stock,price_per_unit,group_id,merk_id,commodity_groups.name as kategori FROM commodities inner join commodity_groups on commodities.group_id=commodity_groups.id where group_id=14 ORDER BY commodities.name ASC");
-										while($d=mysqli_fetch_array($barang)){
+										while($d=mysqli_fetch_array($reagen)){
 											?>
 											<option value="<?= $d['id_commodities'] ?>"><?= $d['nama_barang'] ?></option>
 										<?php  } ?>

@@ -36,3 +36,52 @@ if(isset($_GET['aksi']) && $_GET['aksi'] == "setujui_alkes_kasi"){
 	}
 }
 
+if(isset($_POST['update']) && $_POST['update'] == "Validasi Usulan Barang Reagen"){
+	$data = $_POST;
+
+	$query = "UPDATE `reagen` 
+	SET
+	`id_user` = '".$_POST['id_user']."',
+	`id_usulan` = '".$_POST['id_usulan']."', 
+	`id_barang` = '".$_POST['id_barang']."', 
+	`jumlah_usulan` = '".$_POST['jumlah_usulan']."', 
+	`ket_reagen` = '".$_POST['ket_reagen']."',
+	`status_reagen` = 'divalidasi oleh Kasi / Sub Koordinator'
+	
+	WHERE
+	`id_reagen` = '".$_POST['id_reagen']."' ;
+";
+	$sql = mysqli_query($koneksi,$query);  
+	if($sql){
+		header('Location: ../reagen.php?message=Data Reagen berhasil divalidasi,'.'&id_usulan='.$_POST["id_usulan"]);
+	}else{   
+		$err = mysqli_error($koneksi);
+		header('Location: ../reagen.php?id_usulan='.$_POST["id_usulan"]);
+	}
+}
+
+if(isset($_POST['update']) && $_POST['update'] == "Validasi Usulan Barang"){
+	$data = $_POST;
+
+	$query = "UPDATE `usulan_barang` 
+	SET
+	`id_usulan` = '".$_POST['id_usulan']."', 
+	`id_barang` = '".$_POST['id_barang']."', 
+	`jumlah_tersedia` = '".$_POST['jumlah_tersedia']."', 
+	`kondisi` = '".$_POST['kondisi']."', 
+	`jumlah_kebutuhan` = '".$_POST['jumlah_kebutuhan']."', 
+	`justifikasi` = '".$_POST['justifikasi']."',
+	`persetujuan` = 'divalidasi oleh Kasi / Sub Koordinator'
+	
+	WHERE
+	`id_usulan_barang` = '".$_POST['id_usulan_barang']."' ;
+";
+	$sql = mysqli_query($koneksi,$query);  
+	if($sql){
+		header('Location: ../alkes.php?message=update,'.'&id_usulan='.$_POST["id_usulan"]);
+	}else{   
+		$err = mysqli_error($koneksi);
+		header('Location: ../alkes.php?id_usulan='.$_POST["id_usulan"]);
+	}
+}
+

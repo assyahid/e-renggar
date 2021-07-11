@@ -308,13 +308,13 @@ $data_pengusul = mysqli_fetch_array($pengusul);
 			<div class="modal-content">
 				<form method="POST" action="Controller/KasiController.php">
 					<div class="modal-header">
-						<h5 class="modal-title">Verifikasi program kerja</h5>
+						<h5 class="modal-title">Verifikasi usulan belanja</h5>
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
 					<div class="modal-body">
-						<h2>Verifikasi Program Kerja ini ? </h2>
+						<h2>Verifikasi usulan belanja ini ? </h2>
 					</div>
 					<div class="modal-footer">
 						<input type="hidden" name="id_usulan" value="<?= $id_usulan ?>">

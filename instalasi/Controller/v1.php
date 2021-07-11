@@ -15,7 +15,7 @@ if(isset($_POST['submit']) && $_POST['submit'] == "Tambah Pegawai"){
 
 if(isset($_POST['submit']) && $_POST['submit'] == "Buat Usulan"){
 	$data = $_POST;
-	$query = "INSERT INTO `usulan` (`id_user`,`no_usulan`,`tgl_usulan`,`sent`)VALUES('".$_SESSION['id_user']."','".$_POST['no_usulan']."','".$_POST['tgl_usulan']."','0');";
+	$query = "INSERT INTO `usulan` (`id_user`,`no_usulan`,`anggaran`,`tgl_usulan`,`sent`)VALUES('".$_SESSION['id_user']."','".$_POST['no_usulan']."','".$_POST['anggaran']."','".$_POST['tgl_usulan']."','0');";
 	$sql = mysqli_query($koneksi,$query);  
 	if($sql){
 		header('Location: ../usulan.php?message=Berhasil!!, Data usulan berhasil ditambahkan');
@@ -55,8 +55,8 @@ if(isset($_POST['submit']) && $_POST['submit'] == "Tambah Justifikasi"){
 if(isset($_POST['submit']) && $_POST['submit'] == "Tambah Usulan Barang"){
 	$data = $_POST;
 
-	$query = "INSERT INTO `usulan_barang` (`id_usulan_barang`,`id_usulan`,`id_barang`,`jumlah_tersedia`,`kondisi`,`jumlah_kebutuhan`,`justifikasi`,`kategori`)
-	VALUES('','".$_POST['id_usulan']."','".$_POST['id_barang']."','".$_POST['jumlah_tersedia']."','".$_POST['kondisi']."','".$_POST['jumlah_kebutuhan']."','".$_POST['justifikasi']."','".$_POST['kategori']."');";
+	$query = "INSERT INTO `usulan_barang` (`id_usulan_barang`,`id_user`,`id_usulan`,`id_barang`,`jumlah_tersedia`,`kondisi`,`jumlah_kebutuhan`,`justifikasi`,`kategori`,`persetujuan`)
+	VALUES('','".$_POST['id_user']."','".$_POST['id_usulan']."','".$_POST['id_barang']."','".$_POST['jumlah_tersedia']."','".$_POST['kondisi']."','".$_POST['jumlah_kebutuhan']."','".$_POST['justifikasi']."','".$_POST['kategori']."','Pengajuan');";
 	$sql = mysqli_query($koneksi,$query);  
 	if($sql){
 		$tampil = mysqli_query($koneksi,"SELECT * FROM usulan_barang ORDER BY id_usulan_barang DESC LIMIT 1 ")or die(mysql_error());
@@ -120,8 +120,8 @@ if(isset($_POST['submit']) && $_POST['submit'] == "Tambah Usulan Barang ART"){
 if(isset($_POST['submit']) && $_POST['submit'] == "Tambah Usulan Barang Reagen"){
 	$data = $_POST;
 
-	$query = "INSERT INTO `reagen` (`id_reagen`,`id_usulan`,`id_barang`,`merek_reagen`,`jumlah_usulan`,`ket_reagen`)
-	VALUES('','".$_POST['id_usulan']."','".$_POST['id_barang']."','".$_POST['merek_reagen']."','".$_POST['jumlah_usulan']."','".$_POST['ket_reagen']."');";
+	$query = "INSERT INTO `reagen` (`id_reagen`,`id_user`,`id_usulan`,`id_barang`,`merek_reagen`,`jumlah_usulan`,`ket_reagen`,`status_reagen`)
+	VALUES('','".$_POST['id_user']."','".$_POST['id_usulan']."','".$_POST['id_barang']."','".$_POST['merek_reagen']."','".$_POST['jumlah_usulan']."','".$_POST['ket_reagen']."','Pengajuan');";
 	$sql = mysqli_query($koneksi,$query);  
 	if($sql){
 		header('Location: ../reagen.php?id_usulan='.$_POST["id_usulan"]);
@@ -385,6 +385,7 @@ if(isset($_POST['update']) && $_POST['update'] == "Update Usulan Barang Reagen")
 
 	$query = "UPDATE `reagen` 
 	SET
+	`id_user` = '".$_POST['id_user']."',
 	`id_usulan` = '".$_POST['id_usulan']."', 
 	`id_barang` = '".$_POST['id_barang']."', 
 	`jumlah_usulan` = '".$_POST['jumlah_usulan']."', 
