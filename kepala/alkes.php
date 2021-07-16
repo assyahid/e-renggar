@@ -175,7 +175,16 @@ while($d=mysqli_fetch_array($surat)){ $data[] = $d; }
 														 ?>
 														 	<!-- <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleMerek" style="float: right;">
 									<span class="fas fa-plus"></span> <?= mysqli_num_rows($merek); ?></button> -->
-										<a href="tambah_merek.php?id_usulan_barang=<?=$d['id_usulan_barang']?>&id_usulan=<?=$id_usulan?>" class="btn btn-sm btn-primary"><span class="fas fa-plus"></span> <?= mysqli_num_rows($merek); ?></a>
+										<a href="tambah_merek.php?id_usulan_barang=<?=$d['id_usulan_barang']?>&id_usulan=<?=$id_usulan?>" class="btn btn-sm btn-primary"><span class="fas fa-plus"></span> <?= mysqli_num_rows($merek); ?></a> <br>
+										<?php $mereks = mysqli_query($koneksi,"SELECT * FROM merek_barang where id_usulan_barang='$d[id_usulan_barang]' and status_merek='disetujui'");
+															while ($xms=mysqli_fetch_array($mereks)) { 
+																if($xms['status_merek']=='disetujui'){ ?>
+																	merek yang disetujui <button class="btn btn-outline-success"><?=$xms['nama_merek']?></button>
+															<?php	} else { ?>
+																	belum ada merek yang disetujui
+															<?php }	
+															 }
+														 ?>
 														 </td>
 														<td><?= $d["jumlah_tersedia"] ?></td>
 														<td> 
@@ -253,10 +262,26 @@ while($d=mysqli_fetch_array($surat)){ $data[] = $d; }
 								<div class="form-group">
 									<label for="email2">Merek</label><br>
 									<?php $merek = mysqli_query($koneksi,"SELECT * FROM merek_barang where id_usulan_barang='$d[id_usulan_barang]'");
-											while ($xm=mysqli_fetch_array($merek)) {
-												echo "-".$xm['nama_merek']."<br>";
-											}
+											while ($xm=mysqli_fetch_array($merek)) { ?>
+												<?=$xm['nama_merek'];?> | <?=$xm['spesifikasi_merek']?> | Rp <?=number_format($xm['harga_merek'],0)?><br>
+										<?php	}
 										 ?>
+								</div>
+							</div>
+							<div class="col-md-12 col-lg-12">
+								<div class="form-group">
+									<label for="defaultSelect">Pilih Merek</label>
+									 <select name="id_merek_barang" class="form-control">
+                                                      <?php
+                                                      $x="SELECT * FROM merek_barang where id_usulan_barang='$d[id_usulan_barang]'";
+                                                      $q=mysqli_query($koneksi,$x);
+                                                      while ($rmodal=mysqli_fetch_array($q)) 
+                                                        { 
+                                                          if($rmodal['nama_merek']==$d['nama_merek']) { $sel = 'selected';} else { $sel = ''; }
+                                                      ?>
+                                                       <option <?php echo $sel; ?> value="<?php echo $rmodal['id_merek_barang']; ?>"><?php echo $rmodal['nama_merek'].'-'.$rmodal['spesifikasi_merek'].'-'.'Rp '.number_format($rmodal['harga_merek'],0); ?></option>
+                                                      <?php } ?>
+                                                    </select>
 								</div>
 							</div>
 						

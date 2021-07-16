@@ -160,17 +160,6 @@ $countusulan = mysqli_num_rows($usulan);
 							</div>
 						</li>
 						<li class="nav-item">
-							<a href="usulan-proker.php">
-								<i class="fas fa-book-open"></i>
-								Usulan Proker
-								<?php  
-								if($count > 0){ ?>
-									<span class="badge badge-danger"><?= $count; ?></span>
-								<?php }
-								?>
-							</a>
-						</li>
-						<li class="nav-item">
 							<a href="logout.php">
 								<i class="fas fa-sign-out-alt"></i>
 								<span class="sub-item">Logout</span>

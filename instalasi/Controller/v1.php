@@ -150,7 +150,7 @@ if(isset($_POST['submit']) && $_POST['submit'] == "Tambah Usulan Pelatihan"){
 if(isset($_POST['submit']) && $_POST['submit'] == "Tambah Merek"){
 	$data = $_POST;
 
-	$query = "INSERT INTO `merek_barang` (`id_usulan_barang`,`nama_merek`,`spesifikasi_merek`,`harga_merek`) VALUES ('".$_POST['id_usulan_barang']."','".$_POST['nama_merek']."','".$_POST['spesifikasi_merek']."','".$_POST['harga_merek']."') ";
+	$query = "INSERT INTO `merek_barang` (`id_usulan_barang`,`nama_merek`,`spesifikasi_merek`,`harga_merek`,`status_merek`) VALUES ('".$_POST['id_usulan_barang']."','".$_POST['nama_merek']."','".$_POST['spesifikasi_merek']."','".$_POST['harga_merek']."','Pengajuan') ";
 	$sql = mysqli_query($koneksi,$query);  
 	if($sql){
 		header('Location: ../tambah_merek.php?id_usulan_barang='.$_POST["id_usulan_barang"]."&id_usulan=".$_POST["id_usulan"]);

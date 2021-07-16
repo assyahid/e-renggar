@@ -90,7 +90,13 @@ if(isset($_POST['update']) && $_POST['update'] == "Validasi Usulan Barang"){
 ";
 	$sql = mysqli_query($koneksi,$query);  
 	if($sql){
-		header('Location: ../alkes.php?message=update,'.'&id_usulan='.$_POST["id_usulan"]);
+		$updatemerek = mysqli_query($koneksi,"UPDATE merek_barang set status_merek='disetujui' where id_merek_barang='".$_POST['id_merek_barang']."' ");
+		if ($updatemerek) {
+			header('Location: ../alkes.php?message=update,'.'&id_usulan='.$_POST["id_usulan"]);
+		} else {
+			mysqli_error();
+		}
+		
 	}else{   
 		$err = mysqli_error($koneksi);
 		header('Location: ../alkes.php?id_usulan='.$_POST["id_usulan"]);

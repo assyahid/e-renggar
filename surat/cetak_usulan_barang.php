@@ -22,14 +22,14 @@ $data   = mysqli_fetch_array($query);
 <table border="1" cellspacing="0">
   <tr align="center">
      <th>NO</th>
-    <th width="150">JENIS BELANJA</th>
-    <th width="100">MEREK</th>
-    <th width="200">SPESIFIKASI</th>
-    <th>HARGA</th>
-    <th><?php echo wordwrap("JUMLAH YANG TERSEDIA DI UNIT KERJA",10,'<br />', true) ?></th>
+    <th width="170">JENIS BELANJA</th>
+    <th width="120">MEREK</th>
+    <th width="230">SPESIFIKASI</th>
+    <th width="100">HARGA</th>
+    <th width="70"><?php echo wordwrap("JUMLAH YANG TERSEDIA DI UNIT KERJA",10,'<br />', true) ?></th>
     <th>KONDISI</th>
     <th><?php echo wordwrap("JUMLAH KEBUTUHAN ALAT BARU (UNIT)",10,'<br />', true) ?></th>
-    <th width="200">JUSTIFIKASI</th>
+    <th width="230">JUSTIFIKASI</th>
   </tr>
   <?php
     $query = mysqli_query($koneksi,"SELECT * FROM usulan_barang inner join barang on usulan_barang.id_barang=barang.id_barang where id_usulan='$id_usulan' ");
@@ -73,10 +73,10 @@ $data   = mysqli_fetch_array($query);
      endforeach;?>
   <?php endforeach;?>
 </table>
-<p>Catatan 
+Catatan 
   * Untuk kondisi alat diisi (Baik/Rusak Ringan/Rusak Berat)
   * Apabila alat dalam kondisi Rusak atau Tidak Layak Pakai harap diusulkan penghapusan barang bmn ditujukan kepada Kepala BBLK Palembang cc Subkoordinator Keuangan dan BMN
-  * Justifikasi Kebutuhan diisi alasan kebutuhan alat yang diusulkan secara rinci dan jelas</p>
+  * Justifikasi Kebutuhan diisi alasan kebutuhan alat yang diusulkan secara rinci dan jelas
 <?php $q=mysqli_query($koneksi,"SELECT * FROM users where id_user='$data[id_user]'"); 
 $u=mysqli_fetch_array($q);
 ?>  
@@ -84,44 +84,41 @@ $u=mysqli_fetch_array($q);
 <?php $koor=mysqli_query($koneksi,"SELECT * FROM users where id_user=2"); $tkor=mysqli_fetch_array($koor);?>
 <?php $kasubbag=mysqli_query($koneksi,"SELECT * FROM users where id_user=3"); $tkas=mysqli_fetch_array($kasubbag);?>
 <?php $atasan=mysqli_query($koneksi,"SELECT * FROM users where id_user='$u[atasan]'"); $at=mysqli_fetch_array($atasan);  ?>
-
-
 <table >
   <tr>
-    <td width="200"><?php echo $tk['nama'] ?></td>
-    <td width="200"><?php echo $tkor['nama'] ?></td>
-    <td width="200"><?php echo $tkas['nama'] ?></td>
-    <td width="200"><?php echo $at['nama'] ?></td>
-    <td width="200"><?=$u['nama_instalasi']?></td>
+    <td width="230"><?php echo $tk['nama'] ?></td>
+    <td width="230"><?php echo $tkor['nama'] ?></td>
+    <td width="230"><?php echo $tkas['nama'] ?></td>
+    <td width="230"><?php echo $at['nama'] ?></td>
+    <td width="230"><?=$u['nama_instalasi']?></td>
   </tr>
   <tr>
-    <td><?php if($a['persetujuan'] == "divalidasi oleh Kepala BBLK Palembang") { ?><qrcode value="https://simka.bblkpalembang.com" ec="S" style="border: none; width: 20mm;"></qrcode>
+    <td><?php if($a['persetujuan'] == "divalidasi oleh Kepala BBLK Palembang") { ?><qrcode value="https://simka.bblkpalembang.com" ec="S" style="border: none; width: 15mm;"></qrcode>
     <?php }  ?></td>
     <td><?php if ($a['persetujuan'] == "divalidasi oleh Koordinator Tata Usaha") { ?>
-      <qrcode value="https://simka.bblkpalembang.com" ec="S" style="border: none; width: 20mm;"></qrcode> 
+      <qrcode value="https://simka.bblkpalembang.com" ec="S" style="border: none; width: 15mm;"></qrcode> 
       <?php } elseif ($a['persetujuan'] == "divalidasi oleh Kepala BBLK Palembang") { ?>
-      <qrcode value="https://simka.bblkpalembang.com" ec="S" style="border: none; width: 20mm;"></qrcode> 
+      <qrcode value="https://simka.bblkpalembang.com" ec="S" style="border: none; width: 15mm;"></qrcode> 
       <?php } ?></td>
     <td><?php if ($a['persetujuan'] == "divalidasi oleh Kasubbag Administrasi Umum") { ?>
-      <qrcode value="https://simka.bblkpalembang.com" ec="S" style="border: none; width: 20mm;"></qrcode>
+      <qrcode value="https://simka.bblkpalembang.com" ec="S" style="border: none; width: 15mm;"></qrcode>
    <?php } elseif ($a['persetujuan'] == "divalidasi oleh Koordinator Tata Usaha") { ?>
-      <qrcode value="https://simka.bblkpalembang.com" ec="S" style="border: none; width: 20mm;"></qrcode> 
+      <qrcode value="https://simka.bblkpalembang.com" ec="S" style="border: none; width: 15mm;"></qrcode> 
       <?php } elseif ($a['persetujuan'] == "divalidasi oleh Kepala BBLK Palembang") { ?>
-      <qrcode value="https://simka.bblkpalembang.com" ec="S" style="border: none; width: 20mm;"></qrcode> 
+      <qrcode value="https://simka.bblkpalembang.com" ec="S" style="border: none; width: 15mm;"></qrcode> 
       <?php } ?></td>
     <td><?php if($a['persetujuan'] == "divalidasi oleh Kasi / Sub Koordinator") { ?>
-      <qrcode value="https://simka.bblkpalembang.com" ec="S" style="border: none; width: 20mm;"></qrcode>
+      <qrcode value="https://simka.bblkpalembang.com" ec="S" style="border: none; width: 15mm;"></qrcode>
     <?php }  elseif ($a['persetujuan'] == "divalidasi oleh Kasubbag Administrasi Umum") { ?>
-      <qrcode value="https://simka.bblkpalembang.com" ec="S" style="border: none; width: 20mm;"></qrcode>
+      <qrcode value="https://simka.bblkpalembang.com" ec="S" style="border: none; width: 15mm;"></qrcode>
    <?php } elseif ($a['persetujuan'] == "divalidasi oleh Koordinator Tata Usaha") { ?>
-      <qrcode value="https://simka.bblkpalembang.com" ec="S" style="border: none; width: 20mm;"></qrcode> 
+      <qrcode value="https://simka.bblkpalembang.com" ec="S" style="border: none; width: 15mm;"></qrcode> 
       <?php } elseif ($a['persetujuan'] == "divalidasi oleh Kepala BBLK Palembang") { ?>
-      <qrcode value="https://simka.bblkpalembang.com" ec="S" style="border: none; width: 20mm;"></qrcode> 
+      <qrcode value="https://simka.bblkpalembang.com" ec="S" style="border: none; width: 15mm;"></qrcode> 
       <?php } ?></td>
-    <td><qrcode value="https://simka.bblkpalembang.com" ec="S" style="border: none; width: 20mm;"></qrcode></td>
+    <td><qrcode value="https://simka.bblkpalembang.com" ec="S" style="border: none; width: 15mm;"></qrcode></td>
   </tr>
   <tr>
-    
     <td><?=$tk['nama_kepala_instalasi']?><br>NIP.<?=$tk['nip']?></td>
     <td><?=$tkor['nama_kepala_instalasi']?><br>NIP.<?=$tkor['nip']?></td>
     <td><?=$tkas['nama_kepala_instalasi']?><br>NIP.<?=$tkas['nip']?></td>
@@ -130,7 +127,7 @@ $u=mysqli_fetch_array($q);
   </tr>
 </table>         
 <!-- <p align='right'><b><?=$u['nama_instalasi']?></b><br>
-<qrcode value="https://simka.bblkpalembang.com" ec="S" style="border: none; width: 20mm;"></qrcode>
+<qrcode value="https://simka.bblkpalembang.com" ec="S" style="border: none; width: 15mm;"></qrcode>
 <b><u><?=$u['nama_kepala_instalasi']?></u><br>NIP.<?=$u['nip']?></b></p> -->
 
 
@@ -148,7 +145,7 @@ $content = '<page style="font-family: freeserif">'.nl2br($content).'</page>';
 
  try
  {
-  $html2pdf = new HTML2PDF('L','F4','en', false, 'ISO-8859-15',array(20, 0, 20, 0));
+  $html2pdf = new HTML2PDF('L','F4','en', false, 'ISO-8859-15',array(10, 0, 0, 0));
   $html2pdf->setDefaultFont('Arial');
   $html2pdf->writeHTML($content, isset($_GET['vuehtml']));
   $html2pdf->Output($filename);
