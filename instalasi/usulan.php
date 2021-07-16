@@ -57,6 +57,12 @@
 														<a href="detail-usulan.php?id_usulan=<?= $d['id_usulan']; ?>" type="button" class="btn btn-secondary">Detail</a>&nbsp;
 														<!-- 	<button type="button" class="btn btn-secondary">Cetak Surat</button> -->
 													</div>
+
+													<?php if ($d['posisi'] == NULL) { ?>
+														<a onclick="if(confirm('Apakah anda yakin ingin menghapus data ini ??')){ location.href='?hapus&id_usulan=<?php echo $d['id_usulan']; ?>' }" class="btn btn-icon btn-round btn-danger"> <i class="fa fa-trash"></i></a>
+													<?php } ?>
+													
+
 												</td>
 											</tr>
 											<?php endwhile;?>
@@ -71,6 +77,48 @@
 				
 			</div>
 		</div>
+
+
+		<?php
+		if(isset($_GET['hapus'])){
+	    $id_usulan=$_GET['id_usulan'];
+		$query2 = "DELETE FROM usulan WHERE id_usulan='$id_usulan'";
+		$sql2 = mysqli_query($koneksi,$query2); // Eksekusi/Jalankan query dari variabel $query
+		if($sql2){ // Cek jika proses simpan ke database sukses atau tidak  // Jika Sukses, Lakukan :  
+		?><script type="text/javascript">
+		    //<![CDATA[
+		    alert ("Berhasil Hapus");
+		    window.location="usulan.php?id_usulan=<?=$id_usulan?>";
+		    //]]>
+		  </script><?php
+		} else {  // Jika Gagal, Lakukan :  
+		  echo "Data gagal dihapus. <a href='usulan.php?id_usulan=<?=$id_usulan?>'>Kembali</a>";
+		}
+		  }
+		  ?>
+
+
+
+		<?php
+		include "fungsi-romawi.php";
+		$bln = date('n');
+		$romawi = getRomawi($bln);
+		$tahun = date('Y');
+		$nomor = "/USU/".$romawi."/".$tahun;
+
+		// membaca kode / nilai tertinggi dari penomoran yang ada didatabase berdasarkan tanggal
+	    $query = "SELECT max(id_usulan) as maxKode FROM usulan WHERE month(tgl_usulan)='$bln'";
+	    $hasil = mysqli_query($koneksi,$query);
+	    $data  = mysqli_fetch_array($hasil);
+	    $no= $data['maxKode'];
+	    $noUrut= $no + 1;
+
+	    //membuat Nomor Surat Otomatis dengan awalan depan 0 misalnya , 01,02 
+	    //jika ingin 003 ,tinggal ganti %03
+	    $kode =  sprintf("%02s", $noUrut);
+	    $nomorbaru = $kode.$nomor;
+
+		?>
 
 		<!-- Modal Tambah Pegawai-->
 		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog">
@@ -87,7 +135,7 @@
 							<div class="col-md-12 col-lg-12">
 								<div class="form-group">
 									<label for="email2">No Usulan</label>
-									<input type="text" name="no_usulan" class="form-control" id="email2" placeholder="Input nomor usulan" required="">
+									<input type="text" name="no_usulan" class="form-control" id="email2" value="<?=$nomorbaru?>" placeholder="Input nomor usulan" required="" readonly>
 								</div>
 							</div>
 							<div class="col-md-12 col-lg-12">

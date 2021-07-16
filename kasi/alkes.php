@@ -311,9 +311,7 @@ while($d=mysqli_fetch_array($surat)){ $data[] = $d; }
 
 						</div>
 					</div>
-				</div>
-			</div>
-		</div>
+		\
 <?php
 		if(isset($_GET['hapus'])){
     $id_usulan_barang=$_GET['id_usulan_barang'];

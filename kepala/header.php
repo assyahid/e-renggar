@@ -1,4 +1,11 @@
-<?php include '../config.php'; include'cek.php';?>
+<?php include '../config.php';
+$proker=mysqli_query($koneksi,"SELECT * FROM proker INNER JOIN surat_permohonan ON surat_permohonan.id_surat_permohonan = proker.id_surat_permohonan INNER JOIN users ON users.id_user = proker.id_user WHERE posisi LIKE '".$_SESSION["nama"]."' AND status != 'diverifikasi' ORDER BY proker.id_surat_permohonan DESC ")or die(mysql_error());
+$count = mysqli_num_rows($proker);
+
+$usulan=mysqli_query($koneksi,"SELECT * FROM usulan INNER JOIN users ON users.id_user = usulan.id_user WHERE posisi LIKE '".$_SESSION["nama"]."' AND status != 'diverifikasi' ORDER BY usulan.id_usulan DESC ")or die(mysql_error());
+$countusulan = mysqli_num_rows($usulan);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,7 +32,6 @@
 
 	<!-- CSS Just for demo purpose, don't include it in your project -->
 	<link rel="stylesheet" href="../assets/css/demo.css">
- 
 </head>
 <body>
 	<div class="wrapper">
@@ -71,8 +77,8 @@
 									<li>
 										<div class="user-box">
 											<div class="avatar-lg">
-									<img src="../image/user.png" alt="image profile" class="avatar-img rounded">
-								</div>
+												<img src="../image/user.png" alt="image profile" class="avatar-img rounded">
+											</div>
 											<div class="u-text">
 												<h4><?php echo $_SESSION['nama'];?></h4>
 												<p class="text-muted"><?php echo $_SESSION['level'];?></p><a href="profile.php?data" class="btn btn-xs btn-secondary btn-sm">View Profile</a> <a href="logout.php" class="btn btn-xs btn-danger btn-sm">Logout</a>
@@ -95,8 +101,8 @@
 					<div class="user">
 						<div class="avatar-sm float-left mr-2">
 							
-									<img src="../image/user.png" alt="..." class="avatar-img rounded-circle">
-								
+							<img src="../image/user.png" alt="..." class="avatar-img rounded-circle">
+
 							
 						</div>
 						<div class="info">
@@ -104,7 +110,7 @@
 								<span>
 									<?php echo $_SESSION['nama'];?>
 									<span class="user-level"><?php echo $_SESSION['level'];?></span>
-								
+
 								</span>
 							</a>
 							<div class="clearfix"></div>
@@ -125,23 +131,52 @@
 							</span>
 							<h4 class="text-section">Components</h4>
 						</li>
-				
 						<li class="nav-item">
-							
-							<a href="surat_permohonan.php?data">
-								<i class="fas fa-th-list"></i>
-								<span class="sub-item">Surat Permohonan</span>
+							<a data-toggle="collapse" href="#forms">
+								<i class="fas fa-pen-square"></i>
+								<p>Pengajuan Usulan</p>
+								<span class="caret"></span>
+							</a>
+							<div class="collapse" id="forms">
+								<ul class="nav nav-collapse">
+									<li>
+										<a href="usulan-belanja.php">
+											<i class="fas fa-book-open"></i>
+											Usulan Instalasi
+											<?php  
+											if($countusulan > 0){ ?>
+												<span class="badge badge-success"><?= $countusulan; ?></span>
+											<?php }
+											?>
+										</a>
+									</li>
+									<li>
+										<a href="usulan-belanja-all.php">
+											<i class="fas fa-file"></i>
+											Data semua Usulan
+										</a>
+									</li>
+								</ul>
+							</div>
+						</li>
+						<li class="nav-item">
+							<a href="usulan-proker.php">
+								<i class="fas fa-book-open"></i>
+								Usulan Proker
+								<?php  
+								if($count > 0){ ?>
+									<span class="badge badge-danger"><?= $count; ?></span>
+								<?php }
+								?>
 							</a>
 						</li>
-
 						<li class="nav-item">
-							
 							<a href="logout.php">
 								<i class="fas fa-sign-out-alt"></i>
 								<span class="sub-item">Logout</span>
 							</a>
 						</li>
-									
+
 						
 						
 					</ul>

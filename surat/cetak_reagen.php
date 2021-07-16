@@ -35,7 +35,7 @@ $data   = mysqli_fetch_array($query);
   <?php
     $query = mysqli_query($koneksi,"SELECT * FROM reagen inner join commodities on reagen.id_barang=commodities.id where id_usulan=$id_usulan ");
     $no=1;
-    while ($a = mysqli_fetch_array($query)) :?>
+    foreach ($query as $a) : ?>
     <tr>
       <td><?php echo $no++; ?></td>
       <td width="250"><?php echo $a['name'] ?></td>
@@ -45,12 +45,60 @@ $data   = mysqli_fetch_array($query);
       <td align="center"><?php echo $a['jumlah_usulan'] ?></td>
       <td><?php echo $a['unit'] ?></td>
     </tr>
-  <?php endwhile;?>
+   <?php endforeach;?>
 </table>
+<?php $q=mysqli_query($koneksi,"SELECT * FROM users where id_user='$data[id_user]'"); 
+$u=mysqli_fetch_array($q);
+?>  
+<?php $kepala=mysqli_query($koneksi,"SELECT * FROM users where id_user=1"); $tk=mysqli_fetch_array($kepala);?>
+<?php $koor=mysqli_query($koneksi,"SELECT * FROM users where id_user=2"); $tkor=mysqli_fetch_array($koor);?>
+<?php $kasubbag=mysqli_query($koneksi,"SELECT * FROM users where id_user=3"); $tkas=mysqli_fetch_array($kasubbag);?>
+<?php $atasan=mysqli_query($koneksi,"SELECT * FROM users where id_user='$u[atasan]'"); $at=mysqli_fetch_array($atasan);  ?>
 
-<p align='right'><b><?=$_SESSION['nama_instalasi']?></b><br>
-<qrcode value="https://simka.bblkpalembang.com" ec="S" style="border: none; width: 20mm;"></qrcode>
-<b><u><?=$_SESSION['nama_kepala_instalasi']?></u><br>NIP.<?=$_SESSION['nip']?></b></p>
+
+<table >
+  <tr>
+    <td width="200"><?php echo $tk['nama'] ?></td>
+    <td width="200"><?php echo $tkor['nama'] ?></td>
+    <td width="200"><?php echo $tkas['nama'] ?></td>
+    <td width="200"><?php echo $at['nama'] ?></td>
+    <td width="200"><?=$u['nama_instalasi']?></td>
+  </tr>
+ <tr>
+    <td><?php if($a['status_reagen'] == "divalidasi oleh Kepala BBLK Palembang") { ?><qrcode value="https://simka.bblkpalembang.com" ec="S" style="border: none; width: 20mm;"></qrcode>
+    <?php }  ?></td>
+    <td><?php if ($a['status_reagen'] == "divalidasi oleh Koordinator Tata Usaha") { ?>
+      <qrcode value="https://simka.bblkpalembang.com" ec="S" style="border: none; width: 20mm;"></qrcode> 
+      <?php } elseif ($a['status_reagen'] == "divalidasi oleh Kepala BBLK Palembang") { ?>
+      <qrcode value="https://simka.bblkpalembang.com" ec="S" style="border: none; width: 20mm;"></qrcode> 
+      <?php } ?></td>
+    <td><?php if ($a['status_reagen'] == "divalidasi oleh Kasubbag Administrasi Umum") { ?>
+      <qrcode value="https://simka.bblkpalembang.com" ec="S" style="border: none; width: 20mm;"></qrcode>
+   <?php } elseif ($a['status_reagen'] == "divalidasi oleh Koordinator Tata Usaha") { ?>
+      <qrcode value="https://simka.bblkpalembang.com" ec="S" style="border: none; width: 20mm;"></qrcode> 
+      <?php } elseif ($a['status_reagen'] == "divalidasi oleh Kepala BBLK Palembang") { ?>
+      <qrcode value="https://simka.bblkpalembang.com" ec="S" style="border: none; width: 20mm;"></qrcode> 
+      <?php } ?></td>
+    <td><?php if($a['status_reagen'] == "divalidasi oleh Kasi / Sub Koordinator") { ?>
+      <qrcode value="https://simka.bblkpalembang.com" ec="S" style="border: none; width: 20mm;"></qrcode>
+    <?php }  elseif ($a['status_reagen'] == "divalidasi oleh Kasubbag Administrasi Umum") { ?>
+      <qrcode value="https://simka.bblkpalembang.com" ec="S" style="border: none; width: 20mm;"></qrcode>
+   <?php } elseif ($a['status_reagen'] == "divalidasi oleh Koordinator Tata Usaha") { ?>
+      <qrcode value="https://simka.bblkpalembang.com" ec="S" style="border: none; width: 20mm;"></qrcode> 
+      <?php } elseif ($a['status_reagen'] == "divalidasi oleh Kepala BBLK Palembang") { ?>
+      <qrcode value="https://simka.bblkpalembang.com" ec="S" style="border: none; width: 20mm;"></qrcode> 
+      <?php } ?></td>
+    <td><qrcode value="https://simka.bblkpalembang.com" ec="S" style="border: none; width: 20mm;"></qrcode></td>
+  </tr>
+  <tr>
+    
+    <td><?=$tk['nama_kepala_instalasi']?><br>NIP.<?=$tk['nip']?></td>
+    <td><?=$tkor['nama_kepala_instalasi']?><br>NIP.<?=$tkor['nip']?></td>
+    <td><?=$tkas['nama_kepala_instalasi']?><br>NIP.<?=$tkas['nip']?></td>
+    <td><?=$at['nama_kepala_instalasi']?><br>NIP.<?=$at['nip']?></td>
+    <td><?=$u['nama_kepala_instalasi']?><br>NIP.<?=$u['nip']?></td>
+  </tr>
+</table>   
 </body>
 </html><!-- Akhir halaman HTML yang akan di konvert -->
 

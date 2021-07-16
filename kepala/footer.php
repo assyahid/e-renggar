@@ -49,12 +49,22 @@
 	<!-- Sweet Alert -->
 	<script src="../assets/js/plugin/sweetalert/sweetalert.min.js"></script>
 
+	
+  
+
 	<!-- Atlantis JS -->
 	<script src="../assets/js/atlantis.min.js"></script>
 
 	<!-- Atlantis DEMO methods, don't include it in your project! -->
 	<script src="../assets/js/setting-demo.js"></script>
 	<script src="../assets/js/demo.js"></script>
+	<script>
+  window.setTimeout(function() {
+    $(".alert").fadeTo(500, 0).slideUp(500, function(){
+      $(this).remove(); 
+    });
+  }, 5000);
+</script>
 	<script>
 		$(document).ready(function() {
 			$('#basic-datatables').DataTable({
@@ -197,13 +207,5 @@
 			fillColor: 'rgba(255, 165, 52, .14)'
 		});
 	</script>
-
-	<script src="../assets/ckeditor/ckeditor.js"></script>
-  <script src="../assets/ckeditor/styles.js"></script>
-
-  <script type="text/javascript">
-   CKEDITOR.replace('artikel');
-  </script>
-	
 </body>
 </html>

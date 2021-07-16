@@ -132,26 +132,32 @@ $countusulan = mysqli_num_rows($usulan);
 							<h4 class="text-section">Components</h4>
 						</li>
 						<li class="nav-item">
-							<a href="usulan-belanja.php">
-								<i class="fas fa-book-open"></i>
-								Usulan Belanja
-								<?php  
-								if($countusulan > 0){ ?>
-									<span class="badge badge-danger"><?= $countusulan; ?></span>
-								<?php }
-								?>
+							<a data-toggle="collapse" href="#forms">
+								<i class="fas fa-pen-square"></i>
+								<p>Pengajuan Usulan</p>
+								<span class="caret"></span>
 							</a>
-						</li>
-						<li class="nav-item">
-							<a href="usulan-proker.php">
-								<i class="fas fa-book-open"></i>
-								Usulan Proker
-								<?php  
-								if($count > 0){ ?>
-									<span class="badge badge-danger"><?= $count; ?></span>
-								<?php }
-								?>
-							</a>
+							<div class="collapse" id="forms">
+								<ul class="nav nav-collapse">
+									<li>
+										<a href="usulan-belanja.php">
+											<i class="fas fa-book-open"></i>
+											Persetujuan Usulan
+											<?php  
+											if($countusulan > 0){ ?>
+												<span class="badge badge-success"><?= $countusulan; ?></span>
+											<?php }
+											?>
+										</a>
+									</li>
+									<li>
+										<a href="usulan-belanja-all.php">
+											<i class="fas fa-file"></i>
+											Data semua Usulan
+										</a>
+									</li>
+								</ul>
+							</div>
 						</li>
 						<li class="nav-item">
 							<a href="logout.php">

@@ -157,6 +157,7 @@ while($d=mysqli_fetch_array($surat)){ $data[] = $d; }
 													<th>Kondisi</th>
 													<th>Jumlah Kebutuhan</th>
 													<th>Justifikasi</th>
+													<th>Pengajuan</th>
 													<th width="90px">Opsi</th>
 												</tr>
 											</thead>
@@ -201,6 +202,7 @@ while($d=mysqli_fetch_array($surat)){ $data[] = $d; }
 													<?php	} ?>  </td>
 														<td><?= $d["jumlah_kebutuhan"] ?></td>
 														<td><?= $d["justifikasi"] ?></td>
+														<td><?= $d["persetujuan"] ?></td>
 														<td>
 															<?php if ($data[0]['status']=="Pengajuan") { ?>
 															<button type="button" class="btn btn-icon btn-round btn-primary" data-toggle="modal" data-target="#exampleEdit_<?php echo $d['id_usulan_barang']; ?>">
@@ -311,9 +313,7 @@ while($d=mysqli_fetch_array($surat)){ $data[] = $d; }
 
 						</div>
 					</div>
-				</div>
-			</div>
-		</div>
+	
 <?php
 		if(isset($_GET['hapus'])){
     $id_usulan_barang=$_GET['id_usulan_barang'];

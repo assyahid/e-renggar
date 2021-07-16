@@ -2,12 +2,12 @@
 
 $pegawai=mysqli_query($koneksi,"SELECT * FROM pegawai WHERE id_user = '".$_SESSION['id_user']."'")or die(mysql_error());
 $peralatan=mysqli_query($koneksi,"SELECT * FROM peralatan WHERE id_user = '".$_SESSION['id_user']."'")or die(mysql_error());
-$baru = mysqli_query($koneksi,"SELECT * FROM surat_permohonan LEFT JOIN proker ON proker.id_surat_permohonan = surat_permohonan.id_surat_permohonan WHERE (proker.status = 'baru' OR proker.status is null) AND (proker.id_user = ".$_SESSION['id_user']." OR proker.id_user IS NULL) AND surat_permohonan.status_surat = 'Telah divalidasi Kepala'")or die(mysql_error());
-$proses = mysqli_query($koneksi,"SELECT * FROM `proker` WHERE proker.status = 'proses' AND id_user = ".$_SESSION['id_user']."
+$baru = mysqli_query($koneksi,"SELECT * FROM usulan where status='Pengajuan'  and id_user = ".$_SESSION['id_user']." ")or die(mysql_error());
+$proses = mysqli_query($koneksi,"SELECT * FROM `usulan` WHERE status != 'Pengajuan' AND status !='Revisi' and id_user = ".$_SESSION['id_user']."
 	")or die(mysql_error());
-$revisi = mysqli_query($koneksi,"SELECT * FROM `proker` WHERE proker.status = 'revisi' AND id_user = ".$_SESSION['id_user']."
+$revisi = mysqli_query($koneksi,"SELECT * FROM `usulan` WHERE status = 'revisi' AND id_user = ".$_SESSION['id_user']."
 	")or die(mysql_error());
-$verif = mysqli_query($koneksi,"SELECT * FROM `proker` WHERE proker.status = 'diverifikasi' AND id_user = ".$_SESSION['id_user']."
+$verif = mysqli_query($koneksi,"SELECT * FROM `usulan` WHERE status = 'divalidasi oleh Kepala BBLK Palembang' AND id_user = ".$_SESSION['id_user']."
 ")or die(mysql_error()); ?>
 
 <div class="main-panel">

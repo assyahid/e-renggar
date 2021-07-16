@@ -139,34 +139,8 @@
 								<span class="sub-item">Usulan</span>
 							</a>
 						</li>
-						<li class="nav-item">
-							<a href="proker.php">
-								<i class="fas fa-book-open"></i>
-								<span class="sub-item">Program Kerja</span>
-							</a>
-						</li>
-						<li class="nav-item">
-							<a data-toggle="collapse" href="#sidebarLayouts" class="collapsed" aria-expanded="false">
-								<i class="fas fa-cogs"></i>
-								<p>Master Data</p>
-								<span class="caret"></span>
-							</a>
-							<div class="collapse" id="sidebarLayouts" style="">
-								<ul class="nav nav-collapse">
-									<li>
-										<a href="master_pegawai.php">
-											<span class="sub-item">Data Pegawai</span>
-										</a>
-									</li>
-									<li>
-										<a href="master_peralatan.php">
-											<span class="sub-item">Data Peralatan</span>
-										</a>
-									</li>
-									
-								</ul>
-							</div>
-						</li>
+						
+						
 						<li class="nav-item">
 							<a href="logout.php">
 								<i class="fas fa-sign-out-alt"></i>

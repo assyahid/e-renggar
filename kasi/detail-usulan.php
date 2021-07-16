@@ -59,7 +59,7 @@ $data_pengusul = mysqli_fetch_array($pengusul);
 						</div>
 
 						<?php 
-						if($data_usulan['status'] != 'revisi'){ ?>
+						if($data_usulan['status'] != 'revisi' and $data_usulan['status']== 'Proses'){ ?>
 							<div class="col-2 col-md-2">
 								<button class="btn btn-success" data-toggle="modal" data-target="#modalSetujuiusulan" style="float: right;"><span class="btn-label">
 									<i class="far fa-paper-plane"></i>&nbsp;
@@ -73,6 +73,12 @@ $data_pengusul = mysqli_fetch_array($pengusul);
 								</span>Revisi Usulan Ini</button>
 
 
+							</div>
+						<?php } elseif($data_usulan['status'] =='diverifikasi kasi / sub koordinator'){ ?>
+							<div class="col-4 col-md-4" style="    margin-left: 0px;">
+							<button class="btn btn-primary" style="float: right;"><span class="btn-label">
+									<i class="far fa-paper-plane"></i>&nbsp;
+								</span> Telah terkirim pada <?= date_format(new DateTime($data_usulan['tgl_kirim']),'d-m-Y') ?></button>
 							</div>
 						<?php }else{ ?>
 							<div class="col-4 col-md-4" style="    margin-left: 0px;">
@@ -298,8 +304,7 @@ $data_pengusul = mysqli_fetch_array($pengusul);
 				</div>
 			</div>
 			
-		</div>
-	</div>
+		
 
 
 	<!-- Modal Tambah Peralatan-->
@@ -319,7 +324,7 @@ $data_pengusul = mysqli_fetch_array($pengusul);
 					<div class="modal-footer">
 						<input type="hidden" name="id_usulan" value="<?= $id_usulan ?>">
 						<input type="hidden" name="id_surat" value="<?= $id_surat ?>">
-						<input type="submit" class="btn btn-primary" name="submit" value="Verifikasi  usulan ini">
+						<input type="submit" class="btn btn-primary" name="submit" value="Verifikasi usulan ini">
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 					</div>
 				</form>
@@ -357,6 +362,8 @@ $data_pengusul = mysqli_fetch_array($pengusul);
 		</div>
 	</div>
 	<!-- Modal Tambah Peralatan-->
+
+
 
 
 	<?php include'footer.php';?>

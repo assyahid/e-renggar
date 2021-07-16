@@ -62,7 +62,23 @@ while($d=mysqli_fetch_array($surat)){ $data[] = $d; }
 								<button class="btn btn-primary" style="float: right;"><span class="btn-label">
 									<i class="far fa-paper-plane"></i>&nbsp;
 								</span> Telah terkirim pada <?= date_format(new DateTime($data[0]['tgl_kirim']),'d-m-Y') ?></button>
-							<?php } else{ ?>
+							<?php } elseif($data[0]['sent'] == 2) { ?>
+								<button class="btn btn-primary" style="float: right;"><span class="btn-label">
+									<i class="far fa-paper-plane"></i>&nbsp;
+								</span> Sudah divalidasi oleh Kasi / SubKoordinator</button>
+							<?php } elseif($data[0]['sent'] == 3) { ?>
+								<button class="btn btn-primary" style="float: right;"><span class="btn-label">
+									<i class="far fa-paper-plane"></i>&nbsp;
+								</span> Sudah divalidasi oleh Kasubbag Administrasi Umum</button>
+							<?php } elseif($data[0]['sent'] == 4) { ?>
+								<button class="btn btn-primary" style="float: right;"><span class="btn-label">
+									<i class="far fa-paper-plane"></i>&nbsp;
+								</span> Sudah divalidasi oleh Koordinator Tata Usaha</button>
+							<?php } elseif($data[0]['sent'] == 5) { ?>
+								<button class="btn btn-primary" style="float: right;"><span class="btn-label">
+									<i class="far fa-paper-plane"></i>&nbsp;
+								</span> Sudah divalidasi oleh Kepala BBLK Palembang</button>
+						<?php } else{ ?>
 								<button data-toggle="modal" data-target="#modalVerifikasiProker" class="btn btn-success" style="float: right;"><span class="btn-label">
 									<i class="fa fa-plus"></i>&nbsp;
 								</span> <?= ($data[0]['status'] == 'revisi')? "Kirim perbaikan usulan saya" :"Kirim Usulan Saya" ?></button>
@@ -78,12 +94,13 @@ while($d=mysqli_fetch_array($surat)){ $data[] = $d; }
 				<div class="col-md-4">
 					<div class="card full-height">
 						<div class="card-body">
+							<?php $xx=mysqli_fetch_array($usulan_barang); ?>
 							<div class="card-title"><b>Alat Kesehatan</b> <span class="badge badge-danger"> <?= mysqli_num_rows($usulan_barang); ?></span></div>
 							<div class="card-category">Belanja Modal</div>
 							<div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
 								<div class="px-2 pb-2 pb-md-0 text-center">
 									
-
+							<!-- 		<?= $xx['persetujuan']; ?> -->
 								</div>
 								<div class="px-12 pb-12 pb-md-12 text-center">
 
@@ -98,7 +115,7 @@ while($d=mysqli_fetch_array($surat)){ $data[] = $d; }
 									</span>
 									Lihat
 								</a>
-								<?php $xx=mysqli_fetch_array($usulan_barang); ?>
+								
 								<a href="../surat/cetak_usulan_barang.php?id_usulan=<?= $id_usulan; ?>&id_usulan_barang=<?= $xx['id_usulan_barang']; ?>" target="_blank" class="btn btn-default">
 									<span class="btn-label">
 										<i class="fas fa-print"></i>
@@ -112,12 +129,13 @@ while($d=mysqli_fetch_array($surat)){ $data[] = $d; }
 				<div class="col-md-4">
 					<div class="card full-height">
 						<div class="card-body">
+							<?php $pd=mysqli_fetch_array($pdata); ?>
 							<div class="card-title"><b>Pengelola Data</b> <span class="badge badge-danger"> <?= mysqli_num_rows($pdata); ?></span></div>
 							<div class="card-category">Belanja Modal</div>
 							<div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
 								<div class="px-2 pb-2 pb-md-0 text-center">
 									
-
+									
 								</div>
 								<div class="px-2 pb-2 pb-md-0 text-center">
 
@@ -281,8 +299,8 @@ while($d=mysqli_fetch_array($surat)){ $data[] = $d; }
 				</div>
 			</div>
 			
-				</div>
-			</div>
+			
+			
 		</div>
 	</div>
 
