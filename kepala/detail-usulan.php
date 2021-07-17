@@ -76,10 +76,16 @@ $data_pengusul = mysqli_fetch_array($pengusul);
 						<?php } elseif($data_usulan['status'] =='diverifikasi oleh Koordinator Tata Usaha'){ ?>
 							<div class="col-4 col-md-4" style="    margin-left: 0px;">
 							<button class="btn btn-primary" style="float: right;"><span class="btn-label">
-									<i class="far fa-paper-plane"></i>&nbsp;
+									<i class="fas fa-paper-plane"></i>&nbsp;
 								</span> Telah terkirim pada <?= date_format(new DateTime($data_usulan['tgl_kirim']),'d-m-Y') ?></button>
 							</div>
-						<?php }else{ ?>
+						<?php }elseif($data_usulan['status'] =='diverifikasi oleh Kepala BBLK Palembang'){ ?>
+							<div class="col-4 col-md-4" style="    margin-left: 0px;">
+							<button class="btn btn-primary" style="float: right;"><span class="btn-label">
+									<i class="fas fa-check-circle"></i>&nbsp;
+								</span> Usulan Sudah di validasi Kepala</button>
+							</div>
+						<?php } else { ?>
 							<div class="col-4 col-md-4" style="    margin-left: 0px;">
 								<button class="btn btn-danger" style="float: right;"><span class="btn-label">
 									<i class="fas fa-asterisk"></i>&nbsp;
