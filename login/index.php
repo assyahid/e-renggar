@@ -37,7 +37,7 @@
 		<div class="login-aside w-50 d-flex align-items-center justify-content-center bg-white">
 			<div class="container container-login container-transparent animated fadeIn">
 				 <center><img src="../image/logo.png" alt="IMG" height="90" width="75"></center><br>
-				<h3 class="text-center">Sign In To Admin</h3>
+				<h3 class="text-center">Sign In</h3>
 				<div class="login-form">
 					<div class="form-group">
 						<label for="username" class="placeholder"><b>Username</b></label>
