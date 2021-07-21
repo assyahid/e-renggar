@@ -131,7 +131,7 @@ $countusulan = mysqli_num_rows($usulan);
 							</span>
 							<h4 class="text-section">Components</h4>
 						</li>
-						<li class="nav-item">
+						<!-- <li class="nav-item">
 							<a data-toggle="collapse" href="#forms">
 								<i class="fas fa-pen-square"></i>
 								<p>Pengajuan Usulan</p>
@@ -158,8 +158,48 @@ $countusulan = mysqli_num_rows($usulan);
 									</li>
 								</ul>
 							</div>
-						</li>
+						</li> -->
 						
+							<li class="nav-item">
+							<a href="usulan-belanja.php">
+								<i class="fas fa-chalkboard-teacher"></i>
+								Validasi Usulan
+								<?php  
+								if($countusulan > 0){ ?>
+									<span class="badge badge-success"><?= $countusulan; ?></span>
+								<?php }
+								?>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="usulan-belanja-all.php">
+								<i class="fas fa-clipboard-list"></i>
+								Data Usulan
+							</a>
+						</li>
+						<li class="nav-item">
+							<a data-toggle="collapse" href="#report">
+								<i class="fas fa-file-medical-alt"></i>
+								<p>Laporan</p>
+								<span class="caret"></span>
+							</a>
+							<div class="collapse" id="report">
+								<ul class="nav nav-collapse">
+									<li>
+										<a href="data-alkes.php">
+											<i class="fas fa-thermometer-half"></i>
+											Alat Kesehatan
+										</a>
+									</li>
+									<li>
+										<a href="data-reagen.php">
+											<i class="fas fa-flask"></i>
+											Reagen
+										</a>
+									</li>
+								</ul>
+							</div>
+						</li>
 						<li class="nav-item">
 							<a href="logout.php">
 								<i class="fas fa-sign-out-alt"></i>

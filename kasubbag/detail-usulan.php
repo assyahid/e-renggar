@@ -79,7 +79,13 @@ $data_pengusul = mysqli_fetch_array($pengusul);
 									<i class="far fa-paper-plane"></i>&nbsp;
 								</span> Telah terkirim pada <?= date_format(new DateTime($data_usulan['tgl_kirim']),'d-m-Y') ?></button>
 							</div>
-						<?php }else{ ?>
+						<?php }elseif($data_usulan['status'] =='diverifikasi oleh Kepala BBLK Palembang'){ ?>
+							<div class="col-4 col-md-4" style="    margin-left: 0px;">
+							<button class="btn btn-primary" style="float: right;"><span class="btn-label">
+									<i class="fas fa-check-circle"></i>&nbsp;
+								</span> Usulan Sudah di validasi Kepala</button>
+							</div>
+						<?php } else { ?>
 							<div class="col-4 col-md-4" style="    margin-left: 0px;">
 								<button class="btn btn-danger" style="float: right;"><span class="btn-label">
 									<i class="fas fa-asterisk"></i>&nbsp;
@@ -98,7 +104,7 @@ $data_pengusul = mysqli_fetch_array($pengusul);
 				<div class="col-md-4">
 					<div class="card full-height">
 						<div class="card-body">
-							<div class="card-title"><b>Alat Kesehatan</b> <span class="badge badge-danger"> <?= mysqli_num_rows($usulan_barang); ?></span></div>
+							<div class="card-title"><b>Alat Kesehatan</b> <span class="badge badge-danger"> <?= $hu=mysqli_num_rows($usulan_barang); ?></span></div>
 							<div class="card-category">Belanja Modal</div>
 							<div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
 								<div class="px-2 pb-2 pb-md-0 text-center">
@@ -112,7 +118,8 @@ $data_pengusul = mysqli_fetch_array($pengusul);
 
 
 								</div>
-								<a href="alkes.php?id_usulan=<?= $id_usulan; ?>" class="btn btn-default">
+								<?php if ($hu > 0) { ?>
+									<a href="alkes.php?id_usulan=<?= $id_usulan; ?>" class="btn btn-default">
 									<span class="btn-label">
 										<i class="fas fa-bullseye"></i>
 									</span>
@@ -125,6 +132,11 @@ $data_pengusul = mysqli_fetch_array($pengusul);
 									</span>
 									Cetak
 								</a>
+								<?php } else { 
+									echo "Tidak ada usulan";
+								}?>
+								
+
 							</div>
 						</div>
 					</div>
@@ -132,7 +144,7 @@ $data_pengusul = mysqli_fetch_array($pengusul);
 				<div class="col-md-4">
 					<div class="card full-height">
 						<div class="card-body">
-							<div class="card-title"><b>Pengelola Data</b> <span class="badge badge-danger"> <?= mysqli_num_rows($pdata); ?></span></div>
+							<div class="card-title"><b>Pengelola Data</b> <span class="badge badge-danger"> <?= $hpd=mysqli_num_rows($pdata); ?></span></div>
 							<div class="card-category">Belanja Modal</div>
 							<div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
 								<div class="px-2 pb-2 pb-md-0 text-center">
@@ -146,7 +158,8 @@ $data_pengusul = mysqli_fetch_array($pengusul);
 
 
 								</div>
-								<a href="p-data.php?id_usulan=<?= $id_usulan; ?>" class="btn btn-default">
+								<?php if ($hpd > 0) { ?>
+									<a href="p-data.php?id_usulan=<?= $id_usulan; ?>" class="btn btn-default">
 									<span class="btn-label">
 										<i class="fas fa-bullseye"></i>
 									</span>
@@ -158,6 +171,10 @@ $data_pengusul = mysqli_fetch_array($pengusul);
 									</span>
 									Cetak
 								</a>
+								<?php } else { 
+									echo "Tidak ada usulan";
+								}?>
+								
 							</div>
 						</div>
 					</div>
@@ -165,7 +182,7 @@ $data_pengusul = mysqli_fetch_array($pengusul);
 				<div class="col-md-4">
 					<div class="card full-height">
 						<div class="card-body">
-							<div class="card-title"><b>Peralatan Kantor</b> <span class="badge badge-danger"> <?= mysqli_num_rows($pkantor); ?></span></div>
+							<div class="card-title"><b>Peralatan Kantor</b> <span class="badge badge-danger"> <?= $hpk=mysqli_num_rows($pkantor); ?></span></div>
 							<div class="card-category">Belanja Modal</div>
 							<div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
 								<div class="px-2 pb-2 pb-md-0 text-center">
@@ -179,7 +196,8 @@ $data_pengusul = mysqli_fetch_array($pengusul);
 
 
 								</div>
-								<a href="p-kantor.php?id_usulan=<?= $id_usulan; ?>" class="btn btn-default">
+								<?php if ($hpk > 0) { ?>
+									<a href="p-kantor.php?id_usulan=<?= $id_usulan; ?>" class="btn btn-default">
 									<span class="btn-label">
 										<i class="fas fa-bullseye"></i>
 									</span>
@@ -191,6 +209,10 @@ $data_pengusul = mysqli_fetch_array($pengusul);
 									</span>
 									Cetak
 								</a>
+								<?php } else { 
+									echo "Tidak ada usulan";
+								}?>
+								
 							</div>
 						</div>
 					</div>
@@ -203,7 +225,7 @@ $data_pengusul = mysqli_fetch_array($pengusul);
 				<div class="col-md-4">
 					<div class="card full-height">
 						<div class="card-body">
-							<div class="card-title"><b>Reagen</b> <span class="badge badge-danger"> <?= mysqli_num_rows($reagen); ?></span></div>
+							<div class="card-title"><b>Reagen</b> <span class="badge badge-danger"> <?= $hr=mysqli_num_rows($reagen); ?></span></div>
 							<div class="card-category">Belanja Barang</div>
 							<div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
 								<div class="px-2 pb-2 pb-md-0 text-center">
@@ -217,7 +239,8 @@ $data_pengusul = mysqli_fetch_array($pengusul);
 
 
 								</div>
-								<a href="reagen.php?id_usulan=<?= $id_usulan; ?>" class="btn btn-default">
+								<?php if ($hr > 0) { ?>
+									<a href="reagen.php?id_usulan=<?= $id_usulan; ?>" class="btn btn-default">
 									<span class="btn-label">
 										<i class="fas fa-bullseye"></i>
 									</span>
@@ -229,6 +252,10 @@ $data_pengusul = mysqli_fetch_array($pengusul);
 									</span>
 									Cetak
 								</a>
+								<?php } else { 
+									echo "Tidak ada usulan";
+								}?>
+								
 							</div>
 						</div>
 					</div>
@@ -236,7 +263,7 @@ $data_pengusul = mysqli_fetch_array($pengusul);
 				<div class="col-md-4">
 					<div class="card full-height">
 						<div class="card-body">
-							<div class="card-title"><b>ART / Alat Kebersihan</b> <span class="badge badge-danger"> <?= mysqli_num_rows($art); ?></span></div>
+							<div class="card-title"><b>ART / Alat Kebersihan</b> <span class="badge badge-danger"> <?= $ha=mysqli_num_rows($art); ?></span></div>
 							<div class="card-category">Belanja Barang</div>
 							<div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
 								<div class="px-2 pb-2 pb-md-0 text-center">
@@ -250,7 +277,8 @@ $data_pengusul = mysqli_fetch_array($pengusul);
 
 
 								</div>
-								<a href="art.php?id_usulan=<?= $id_usulan; ?>" class="btn btn-default">
+								<?php if ($ha > 0) { ?>
+									<a href="art.php?id_usulan=<?= $id_usulan; ?>" class="btn btn-default">
 									<span class="btn-label">
 										<i class="fas fa-bullseye"></i>
 									</span>
@@ -262,6 +290,10 @@ $data_pengusul = mysqli_fetch_array($pengusul);
 									</span>
 									Cetak
 								</a>
+								<?php } else { 
+									echo "Tidak ada usulan";
+								}?>
+								
 							</div>
 						</div>
 					</div>
@@ -269,7 +301,7 @@ $data_pengusul = mysqli_fetch_array($pengusul);
 				<div class="col-md-4">
 					<div class="card full-height">
 						<div class="card-body">
-							<div class="card-title"><b>Pelatihan</b> <span class="badge badge-danger"> <?= mysqli_num_rows($pelatihan); ?></span></div>
+							<div class="card-title"><b>Pelatihan</b> <span class="badge badge-danger"> <?= $hp=mysqli_num_rows($pelatihan); ?></span></div>
 							<div class="card-category">Belanja Barang</div>
 							<div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
 								<div class="px-2 pb-2 pb-md-0 text-center">
@@ -283,7 +315,8 @@ $data_pengusul = mysqli_fetch_array($pengusul);
 
 
 								</div>
-								<a href="pelatihan.php?id_usulan=<?= $id_usulan; ?>" class="btn btn-default">
+								<?php if ($hp > 0) { ?>
+									<a href="pelatihan.php?id_usulan=<?= $id_usulan; ?>" class="btn btn-default">
 									<span class="btn-label">
 										<i class="fas fa-bullseye"></i>
 									</span>
@@ -295,6 +328,10 @@ $data_pengusul = mysqli_fetch_array($pengusul);
 									</span>
 									Cetak
 								</a>
+								<?php } else { 
+									echo "Tidak ada usulan";
+								}?>
+								
 							</div>
 						</div>
 					</div>

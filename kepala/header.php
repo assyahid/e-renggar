@@ -185,13 +185,13 @@ $countusulan = mysqli_num_rows($usulan);
 							<div class="collapse" id="report">
 								<ul class="nav nav-collapse">
 									<li>
-										<a href="usulan-belanja.php">
+										<a href="data-alkes.php">
 											<i class="fas fa-thermometer-half"></i>
 											Alat Kesehatan
 										</a>
 									</li>
 									<li>
-										<a href="usulan-belanja-all.php">
+										<a href="data-reagen.php">
 											<i class="fas fa-flask"></i>
 											Reagen
 										</a>
