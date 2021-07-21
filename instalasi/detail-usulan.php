@@ -22,11 +22,14 @@ while($d=mysqli_fetch_array($surat)){ $data[] = $d; }
 
 <div class="main-panel">
 	<div class="content">
+
 		<div class="panel-header bg-primary-gradient">
 			<div class="page-inner py-5">
+
 				<div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
 					<div class="row" style="width: 100%;">
 						<div class="col-8 col-md-8">
+							
 							<h2 class="text-white pb-2 fw-bold">Usulan</h2>
 							<table>
 								<tr>
@@ -55,6 +58,9 @@ while($d=mysqli_fetch_array($surat)){ $data[] = $d; }
 									<td class="text-white op-7 mb-2"><?= $data[0]['posisi'] ?></td>
 								</tr>
 							</table>
+							<a class="btn btn-light" href="usulan.php">
+										<i class="fa fa-flip-horizontal fa-share"></i>
+							</a>
 						</div>
 						<div class="col-4 col-md-4">
 							<?php  

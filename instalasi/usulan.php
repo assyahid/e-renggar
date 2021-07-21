@@ -1,6 +1,4 @@
-<?php include 'header.php'; 
-
-?>
+<?php include 'header.php';?>
 <div class="main-panel">
 	<div class="content">
 		<div class="page-inner">
@@ -53,14 +51,20 @@
 												<td><?= $d["status"]; ?></td>
 												<td><?= $d["posisi"]; ?></td>
 												<td>
-													<div class="btn-group" role="group" aria-label="Basic example">
+													<!-- <div class="btn-group" role="group" aria-label="Basic example">
 														<a href="detail-usulan.php?id_usulan=<?= $d['id_usulan']; ?>" type="button" class="btn btn-secondary">Detail</a>&nbsp;
-														<!-- 	<button type="button" class="btn btn-secondary">Cetak Surat</button> -->
-													</div>
+													</div> -->
+													<a href="detail-usulan.php?id_usulan=<?= $d['id_usulan']; ?>"><button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Lihat Detail Usulan"><i class="fas fa-clipboard-list"></i></button></a>
 
 													<?php if ($d['posisi'] == NULL) { ?>
-														<a onclick="if(confirm('Apakah anda yakin ingin menghapus data ini ??')){ location.href='?hapus&id_usulan=<?php echo $d['id_usulan']; ?>' }" class="btn btn-icon btn-round btn-danger"> <i class="fa fa-trash"></i></a>
+														<a onclick="if(confirm('Apakah anda yakin ingin menghapus data ini ??')){ location.href='?hapus&id_usulan=<?php echo $d['id_usulan']; ?>' }"><button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove">
+														<i class="fa fa-times"></i>
+													</button></a>
 													<?php } ?>
+
+													
+
+													
 													
 
 												</td>

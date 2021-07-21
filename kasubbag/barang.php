@@ -3,7 +3,7 @@
 			<div class="content">
 				<div class="page-inner">
 					<div class="page-header">
-						<h4 class="page-title">Users</h4>
+						<h4 class="page-title">Barang</h4>
 						<ul class="breadcrumbs">
 							<li class="nav-home">
 								<a href="#">
@@ -20,7 +20,7 @@
 								<i class="flaticon-right-arrow"></i>
 							</li>
 							<li class="nav-item">
-								<a href="#">Users</a>
+								<a href="#">Barangs</a>
 							</li>
 						</ul>
 					</div>
@@ -38,34 +38,28 @@
 											<thead>
 												<tr>
 													<th>No</th>
+													<th>Kode Katalog</th>
 													<th>Nama</th>
-													<th>Password</th>
-                          <th>Atasan</th>
-													<th>Level</th>
-                          <th>NIP</th>
-                          <th>Instalasi</th>
-                          <th>Kepala Instalasi</th>
+													<th>Unit</th>
+                          							<th>Kemasan</th>
+													<th>Stok</th>
+                          							<th>Kategori</th>
 													<th>Opsi</th>
 												</tr>
 											</thead>
 											<tbody>
 											<?php
-									        $query = mysqli_query($koneksi,"SELECT * FROM users ");
+									        $query = mysqli_query($koneksi,"SELECT catalog_code,commodities.id as id_commodities, commodities.name as nama_barang,unit,kemasan,current_stock,price_per_unit,group_id,merk_id,commodity_groups.name as kategori FROM commodities inner join commodity_groups on commodities.group_id=commodity_groups.id");
 									        $no=1;
 									        while ($a = mysqli_fetch_array($query)) :?>
 												<tr>
 													<td><?php echo $no++; ?></td>
-													<td><?php echo $a['nama'] ?></td>
-													<td><?php echo $a['password'] ?></td>
-													<td><?php $q=mysqli_query($koneksi,"SELECT * FROM users where id_user='$a[atasan]' "); $x=mysqli_fetch_array($q); if (empty($x['nama'])) {
-                            echo "";
-                          } else {
-                            echo $x['nama'];
-                          } ?></td>
-													<td><?php echo $a['level'] ?></td>
-                          <td><?php echo $a['nip'] ?></td>
-                          <td><?php echo $a['nama_instalasi'] ?></td>
-                          <td><?php echo $a['nama_kepala_instalasi'] ?></td>
+													<td><?php echo $a['catalog_code'] ?></td>
+													<td><?php echo $a['nama_barang'] ?></td>
+													<td><?php echo $a['unit'] ?></td>
+													<td><?php echo $a['kemasan'] ?></td>
+                          							<td><?php echo $a['current_stock'] ?></td>
+                          							<td><?php echo $a['kategori'] ?></td>
 													<td><a class="btn btn-warning" href="?edit&id_user=<?php echo $a['id_user']; ?>">Edit</a>
 														
 													</td>

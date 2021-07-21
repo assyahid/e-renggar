@@ -131,34 +131,29 @@ $countusulan = mysqli_num_rows($usulan);
 							</span>
 							<h4 class="text-section">Components</h4>
 						</li>
-						<!-- <li class="nav-item">
+						<li class="nav-item">
 							<a data-toggle="collapse" href="#forms">
 								<i class="fas fa-pen-square"></i>
-								<p>Pengajuan Usulan</p>
+								<p>Master Data</p>
 								<span class="caret"></span>
 							</a>
 							<div class="collapse" id="forms">
 								<ul class="nav nav-collapse">
 									<li>
-										<a href="usulan-belanja.php">
-											<i class="fas fa-book-open"></i>
-											Persetujuan Usulan
-											<?php  
-											if($countusulan > 0){ ?>
-												<span class="badge badge-success"><?= $countusulan; ?></span>
-											<?php }
-											?>
+										<a href="barang.php?data">
+											<i class="fas fa-laptop"></i>
+											Data Barang
 										</a>
 									</li>
 									<li>
-										<a href="usulan-belanja-all.php">
-											<i class="fas fa-file"></i>
-											Data semua Usulan
+										<a href="user.php?data">
+											<i class="fas fa-users"></i>
+											Data User
 										</a>
 									</li>
 								</ul>
 							</div>
-						</li> -->
+						</li>
 						
 							<li class="nav-item">
 							<a href="usulan-belanja.php">

@@ -18,32 +18,39 @@
 				</div>
 				<div class="page-inner mt--5">
 					<div class="row mt--2">
-						<div class="col-md-6">
+						<div class="col-md-12">
 							<div class="card full-height">
 								<div class="card-body">
-									<div class="card-title">Detail Data</div>
-									<div class="card-category">Segera lakukan update data anda</div>
-									<div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
-
-
-									</div>
+									<h4 class="card-title"></h4>
+							<div class="row row-demo-grid">
+								<div class="col-sm-3">
+									
+									<button class="btn btn-outline-success"><i class="fas fa-chalkboard-teacher"></i><br> Validasi Usulan</button>
+									
+								</div>
+								<div class="col-sm-3">
+									
+									<button class="btn btn-outline-info"><span class="icon-notebook"></span><br> Data Usulan</button>
+									
+								</div>
+								<div class="col-sm-3">
+									
+									<button class="btn btn-outline-warning"><i class="fas fa-chalkboard-teacher"></i><br> Validasi Usulan</button>
+									
+								</div>
+								<div class="col-sm-3">
+									
+									<button class="btn btn-outline-danger"><i class="fas fa-chalkboard-teacher"></i><br> Validasi Usulan</button>
+									
 								</div>
 							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="card full-height">
-								<div class="card-body">
-									<div class="card-title">Detail akun</div>
-									<div class="row py-3">
-										
-
-									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 					
 				</div>
+
 			</div>
 			
 			<?php include'footer.php';?>
