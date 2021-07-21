@@ -16,18 +16,18 @@ Circles.create({
 })
 
 //Notify
-$.notify({
-	icon: 'flaticon-alarm-1',
-	title: 'E-Renggar',
-	message: 'Selamat datang di aplikasi E-Renggar BBLK Palembang',
-},{
-	type: 'secondary',
-	placement: {
-		from: "bottom",
-		align: "right"
-	},
-	time: 1000,
-});
+// $.notify({
+// 	icon: 'flaticon-alarm-1',
+// 	title: 'E-Renggar',
+// 	message: 'Selamat datang di aplikasi E-Renggar BBLK Palembang xx',
+// },{
+// 	type: 'secondary',
+// 	placement: {
+// 		from: "bottom",
+// 		align: "right"
+// 	},
+// 	time: 1000,
+// });
 
 // JQVmap
 $('#map-example').vectorMap(
