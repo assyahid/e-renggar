@@ -59,8 +59,11 @@ while($d=mysqli_fetch_array($surat)){ $data[] = $d; }
 								</tr>
 							</table>
 							<a class="btn btn-light" href="usulan.php">
-										<i class="fa fa-flip-horizontal fa-share"></i>
+								<i class="fa fa-flip-horizontal fa-share"></i>
 							</a>
+							<!-- <a class="btn btn-warning" href="permintaan-pembelian.php?id_usulan=<?=$_GET['id_usulan']?>">
+								<i class="fa fa-laptop"></i>
+							</a> -->
 						</div>
 						<div class="col-4 col-md-4">
 							<?php  
@@ -81,9 +84,15 @@ while($d=mysqli_fetch_array($surat)){ $data[] = $d; }
 									<i class="far fa-paper-plane"></i>&nbsp;
 								</span> Sudah divalidasi oleh Koordinator Tata Usaha</button>
 							<?php } elseif($data[0]['sent'] == 5) { ?>
-								<button class="btn btn-primary" style="float: right;"><span class="btn-label">
+								<button class="btn btn-success" style="float: right;"><span class="btn-label">
 									<i class="far fa-paper-plane"></i>&nbsp;
 								</span> Sudah divalidasi oleh Kepala BBLK Palembang</button>
+
+								<a href="../surat/cetak_usulan.php?id_usulan=<?= $data[0]['id_usulan'] ?>" target="_BLANK"><button class="btn btn-warning" style="float: right;"><span class="btn-label">
+									<i class="fas fa-print"></i>&nbsp;
+								</span> Cetak</button></a>
+
+								
 						<?php } else{ ?>
 								<button data-toggle="modal" data-target="#modalVerifikasiProker" class="btn btn-success" style="float: right;"><span class="btn-label">
 									<i class="fa fa-plus"></i>&nbsp;
@@ -210,17 +219,23 @@ while($d=mysqli_fetch_array($surat)){ $data[] = $d; }
 							<div class="card-title"><b>Reagen</b> <span class="badge badge-danger"> <?= mysqli_num_rows($reagen); ?></span></div>
 							<div class="card-category">Belanja Barang</div>
 							<div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
-								<div class="px-2 pb-2 pb-md-0 text-center">
-									
+								<!-- <div class="px-2 pb-2 pb-md-0 text-center">
+									<a href="usulan-reagen.php?id_usulan=<?= $id_usulan; ?>" class="btn btn-info">
+									<span class="btn-label">
+										<i class="fas fa-bullseye"></i>
+									</span>
+									Lihat
+								</a>
 
-								</div>
+								</div> -->
 								<div class="px-12 pb-12 pb-md-12 text-center">
 
 								</div>
 								<div class="px-2 pb-2 pb-md-0 text-center">
-
+									
 
 								</div>
+								
 								<a href="reagen.php?id_usulan=<?= $id_usulan; ?>" class="btn btn-default">
 									<span class="btn-label">
 										<i class="fas fa-bullseye"></i>

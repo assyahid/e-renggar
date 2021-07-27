@@ -31,8 +31,8 @@
 <body class="login">
 	<div class="wrapper wrapper-login wrapper-login-full p-0">
 		<div class="login-aside w-50 d-flex flex-column align-items-center justify-content-center text-center bg-secondary-gradient">
-			<h1 class="title fw-bold text-white mb-3">SIRENGGAR</h1>
-			<p class="subtitle text-white op-7">SISTEM INFORMASI RENCANA ANGGARAN<br>BALAI BESAR LABORATORIUM KESEHATAN PALEMBANG</p>
+			<h1 class="title fw-bold text-white mb-3">E-RENGGAR</h1>
+			<p class="subtitle text-white op-7">SRENCANA ANGGARAN<br>BALAI BESAR LABORATORIUM KESEHATAN PALEMBANG</p>
 		</div>
 		<div class="login-aside w-50 d-flex align-items-center justify-content-center bg-white">
 			<div class="container container-login container-transparent animated fadeIn">

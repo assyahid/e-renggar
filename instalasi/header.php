@@ -23,8 +23,6 @@
 	<link rel="stylesheet" href="../assets/css/bootstrap.min.css">
 	<link rel="stylesheet" href="../assets/css/atlantis.min.css">
 
-
-
 	<!-- CSS Just for demo purpose, don't include it in your project -->
 	<link rel="stylesheet" href="../assets/css/demo.css">
 </head>
@@ -138,6 +136,43 @@
 								<i class="fas fa-th-list"></i>
 								<span class="sub-item">Usulan</span>
 							</a>
+						</li>
+
+
+						<li class="nav-item">
+							<a data-toggle="collapse" href="#forms">
+								<i class="fas fa-database"></i>
+								<p>Master Data</p>
+								<span class="caret"></span>
+							</a>
+							<div class="collapse" id="forms">
+								<ul class="nav nav-collapse">
+									<li>
+										<a href="master-alkes.php?data">
+											<i class="fas fa-thermometer-half"></i>
+											Alat Kesehatan
+										</a>
+									</li>
+									<li>
+										<a href="master-pengolah-data.php?data">
+											<i class="fas fa-laptop"></i>
+											Pengolah Data
+										</a>
+									</li>
+									<li>
+										<a href="master-peralatan-kantor.php?data">
+											<i class="fas fa-table"></i>
+											Peralatan Kantor
+										</a>
+									</li>
+									<li>
+										<a href="master-reagen.php?data">
+											<i class="fas fa-flask"></i>
+											Reagen
+										</a>
+									</li>
+								</ul>
+							</div>
 						</li>
 						
 						

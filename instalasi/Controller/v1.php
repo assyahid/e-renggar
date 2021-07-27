@@ -13,6 +13,19 @@ if(isset($_POST['submit']) && $_POST['submit'] == "Tambah Pegawai"){
 
 }
 
+if(isset($_POST['submit']) && $_POST['submit'] == "Tambah Permintaan Pembelian"){
+	$data = $_POST;
+	$query = "INSERT INTO `usulan` (`id_user`,`no_usulan`,`anggaran`,`tgl_usulan`,`sent`)VALUES('".$_SESSION['id_user']."','".$_POST['no_usulan']."','".$_POST['anggaran']."','".$_POST['tgl_usulan']."','0');";
+	$sql = mysqli_query($koneksi,$query);  
+	if($sql){
+		header('Location: ../usulan.php?message=Berhasil!!, Data usulan berhasil ditambahkan');
+	}else{   
+		$err = mysqli_error($koneksi);
+		header('Location: ../usulan.php?message=Gagal!, '.$err);
+	}
+
+}
+
 if(isset($_POST['submit']) && $_POST['submit'] == "Buat Usulan"){
 	$data = $_POST;
 	$query = "INSERT INTO `usulan` (`id_user`,`no_usulan`,`anggaran`,`tgl_usulan`,`sent`)VALUES('".$_SESSION['id_user']."','".$_POST['no_usulan']."','".$_POST['anggaran']."','".$_POST['tgl_usulan']."','0');";
