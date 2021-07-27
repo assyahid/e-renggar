@@ -78,7 +78,6 @@ Catatan
   * Apabila alat dalam kondisi Rusak atau Tidak Layak Pakai harap diusulkan penghapusan barang bmn ditujukan kepada Kepala BBLK Palembang cc Subkoordinator Keuangan dan BMN
   * Justifikasi Kebutuhan diisi alasan kebutuhan alat yang diusulkan secara rinci dan jelas
 
-
  <h4 align="center">USULAN KEBUTUHAN PEMBELIAN BARANG/ALAT PENGOLAH DATA<br>UNTUK OPERASIONAL BBLK PALEMBANG TA 2022</h4>
 
 <table border="1" cellspacing="0">
