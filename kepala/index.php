@@ -35,12 +35,12 @@
 								</div>
 								<div class="col-sm-3">
 									
-									<button class="btn btn-outline-warning"><i class="fas fa-chalkboard-teacher"></i><br> Validasi Usulan</button>
+									<!-- <button class="btn btn-outline-warning"><i class="fas fa-chalkboard-teacher"></i><br> Validasi Usulan</button> -->
 									
 								</div>
 								<div class="col-sm-3">
 									
-									<button class="btn btn-outline-danger"><i class="fas fa-chalkboard-teacher"></i><br> Validasi Usulan</button>
+									<!-- <button class="btn btn-outline-danger"><i class="fas fa-chalkboard-teacher"></i><br> Validasi Usulan</button> -->
 									
 								</div>
 							</div>

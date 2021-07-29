@@ -176,6 +176,54 @@ $countusulan = mysqli_num_rows($usulan);
 								Data Usulan
 							</a>
 						</li>
+
+						<li class="nav-item">
+							<a data-toggle="collapse" href="#forms">
+								<i class="fas fa-database"></i>
+								<p>Master Data</p>
+								<span class="caret"></span>
+							</a>
+							<div class="collapse" id="forms">
+								<ul class="nav nav-collapse">
+									<li>
+										<a href="master-alkes.php?data">
+											<i class="fas fa-thermometer-half"></i>
+											Alat Kesehatan
+										</a>
+									</li>
+									<li>
+										<a href="master-pengolah-data.php?data">
+											<i class="fas fa-laptop"></i>
+											Pengolah Data
+										</a>
+									</li>
+									<li>
+										<a href="master-peralatan-kantor.php?data">
+											<i class="fas fa-table"></i>
+											Peralatan Kantor
+										</a>
+									</li>
+									<li>
+										<a href="master-reagen.php?data">
+											<i class="fas fa-flask"></i>
+											Reagen
+										</a>
+									</li>
+									<li>
+										<a href="master-art.php?data">
+											<i class="fas fa-broom"></i>
+											ART / Alat Kebersihan
+										</a>
+									</li>
+									<li>
+										<a href="user.php?data">
+											<i class="fas fa-users"></i>
+											Data User
+										</a>
+									</li>
+								</ul>
+							</div>
+						</li>
 						<li class="nav-item">
 							<a data-toggle="collapse" href="#report">
 								<i class="fas fa-file-medical-alt"></i>

@@ -130,7 +130,7 @@ $countusulan = mysqli_num_rows($usulan);
 								<i class="fa fa-ellipsis-h"></i>
 							</span>
 							<h4 class="text-section">Components</h4>
-						</li>
+						<!-- </li>
 						<li class="nav-item">
 							<a data-toggle="collapse" href="#forms">
 								<i class="fas fa-pen-square"></i>
@@ -158,7 +158,67 @@ $countusulan = mysqli_num_rows($usulan);
 									</li>
 								</ul>
 							</div>
+						</li> -->
+							<li class="nav-item">
+							<a href="usulan-belanja.php">
+								<i class="fas fa-chalkboard-teacher"></i>
+								Validasi Usulan
+								<?php  
+								if($countusulan > 0){ ?>
+									<span class="badge badge-success"><?= $countusulan; ?></span>
+								<?php }
+								?>
+							</a>
 						</li>
+						<li class="nav-item">
+							<a href="usulan-belanja-all.php">
+								<i class="fas fa-clipboard-list"></i>
+								Data Usulan
+							</a>
+						</li>
+
+						<li class="nav-item">
+							<a data-toggle="collapse" href="#master">
+								<i class="fas fa-database"></i>
+								<p>Master Data</p>
+								<span class="caret"></span>
+							</a>
+							<div class="collapse" id="master">
+								<ul class="nav nav-collapse">
+									<li>
+										<a href="master-alkes.php?data">
+											<i class="fas fa-thermometer-half"></i>
+											Alat Kesehatan
+										</a>
+									</li>
+									<li>
+										<a href="master-pengolah-data.php?data">
+											<i class="fas fa-laptop"></i>
+											Pengolah Data
+										</a>
+									</li>
+									<li>
+										<a href="master-peralatan-kantor.php?data">
+											<i class="fas fa-table"></i>
+											Peralatan Kantor
+										</a>
+									</li>
+									<li>
+										<a href="master-reagen.php?data">
+											<i class="fas fa-flask"></i>
+											Reagen
+										</a>
+									</li>
+									<li>
+										<a href="master-art.php?data">
+											<i class="fas fa-broom"></i>
+											ART / Alat Kebersihan
+										</a>
+									</li>
+								</ul>
+							</div>
+						</li>
+
 						<li class="nav-item">
 							<a href="logout.php">
 								<i class="fas fa-sign-out-alt"></i>

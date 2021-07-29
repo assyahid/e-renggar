@@ -131,29 +131,66 @@ $countusulan = mysqli_num_rows($usulan);
 							</span>
 							<h4 class="text-section">Components</h4>
 						</li>
+							<li class="nav-item">
+							<a href="usulan-belanja.php">
+								<i class="fas fa-chalkboard-teacher"></i>
+								Validasi Usulan
+								<?php  
+								if($countusulan > 0){ ?>
+									<span class="badge badge-success"><?= $countusulan; ?></span>
+								<?php }
+								?>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="usulan-belanja-all.php">
+								<i class="fas fa-clipboard-list"></i>
+								Data Usulan
+							</a>
+						</li>
+
 						<li class="nav-item">
 							<a data-toggle="collapse" href="#forms">
-								<i class="fas fa-pen-square"></i>
-								<p>Pengajuan Usulan</p>
+								<i class="fas fa-database"></i>
+								<p>Master Data</p>
 								<span class="caret"></span>
 							</a>
 							<div class="collapse" id="forms">
 								<ul class="nav nav-collapse">
 									<li>
-										<a href="usulan-belanja.php">
-											<i class="fas fa-book-open"></i>
-											Persetujuan Usulan
-											<?php  
-											if($countusulan > 0){ ?>
-												<span class="badge badge-success"><?= $countusulan; ?></span>
-											<?php }
-											?>
+										<a href="master-alkes.php?data">
+											<i class="fas fa-thermometer-half"></i>
+											Alat Kesehatan
 										</a>
 									</li>
 									<li>
-										<a href="usulan-belanja-all.php">
-											<i class="fas fa-file"></i>
-											Data semua Usulan
+										<a href="master-pengolah-data.php?data">
+											<i class="fas fa-laptop"></i>
+											Pengolah Data
+										</a>
+									</li>
+									<li>
+										<a href="master-peralatan-kantor.php?data">
+											<i class="fas fa-table"></i>
+											Peralatan Kantor
+										</a>
+									</li>
+									<li>
+										<a href="master-reagen.php?data">
+											<i class="fas fa-flask"></i>
+											Reagen
+										</a>
+									</li>
+									<li>
+										<a href="master-art.php?data">
+											<i class="fas fa-broom"></i>
+											ART / Alat Kebersihan
+										</a>
+									</li>
+									<li>
+										<a href="user.php?data">
+											<i class="fas fa-users"></i>
+											Data User
 										</a>
 									</li>
 								</ul>
