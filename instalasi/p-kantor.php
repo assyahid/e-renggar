@@ -13,6 +13,7 @@ $data = [];
 while($d=mysqli_fetch_array($surat)){ $data[] = $d; }
 
 ?>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <div class="main-panel">
 	<div class="content">
 		<div class="page-inner">
@@ -294,8 +295,9 @@ if($sql2){ // Cek jika proses simpan ke database sukses atau tidak  // Jika Suks
 							<input type="hidden" name="id_usulan" class="form-control" id="email2" placeholder="Input spesifikasi umum"value="<?=$_GET['id_usulan'];?>">
 							<div class="col-md-12 col-lg-12">
 								<div class="form-group">
-									<label for="defaultSelect">Nama Barang</label>
-									<select name="id_barang" class="form-control form-control" id="defaultSelect">
+									<label for="defaultSelect">Nama Barang</label><button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal-default">
+                <span class="fas fa-plus"></span> Tambah Data Barang</button>
+									<select name="id_barang" class="form-control select2" id="defaultSelect" style="width: 100%">
 										<?php 
 										while($d=mysqli_fetch_array($barang)){
 											?>
@@ -350,9 +352,157 @@ if($sql2){ // Cek jika proses simpan ke database sukses atau tidak  // Jika Suks
 		</div>
 		<!-- Modal Tambah Pegawai-->
 
+<!-- tambah -->
+<div class="modal fade" id="modal-default">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title">Tambah Data Barang</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                
+              </div>
+              <div class="modal-body">
+               <form action="" method="post" class="niceform" enctype="multipart/form-data">
+            <form class="form-horizontal" role="form" method="post" action="">
+  
+   <div class="form-group">
+    <label class="col-sm-3 control-label no-padding-right" for="form-field-1-1">Kode Katalog </label>
+
+    <div class="col-sm-12">
+      <input type="text" placeholder="" name="kode_katalog" class="form-control" />
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="col-sm-3 control-label no-padding-right" for="form-field-1-1">Nama Barang </label>
+
+    <div class="col-sm-12">
+      <input type="text" placeholder="" name="nama_barang" class="form-control" />
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Nama Umum</label>
+
+    <div class="col-sm-12">
+      <input type="text" placeholder="" name="nama_umum" class="form-control" />
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Satuan</label>
+
+    <div class="col-sm-12">
+      <input type="text"  placeholder="" name="satuan" class="form-control" />
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Kemasan</label>
+
+    <div class="col-sm-12">
+      <input type="text"  placeholder="" name="kemasan" class="form-control" />
+    </div>
+  </div>
+
+
+  <div class="form-group">
+    <label class="col-sm-3 control-label no-padding-right" for="bird"> Kategori</label>
+
+    <div class="col-sm-12 select2-input">
+      <select class="form-control select2" name="kategori" style="width: 100%">
+        <!-- <option value="" disabled="">Pilih</option> -->
+        <!-- <option value="Alat Kesehatan">Alat Kesehatan</option> -->
+        <!-- <option value="Pengolah Data">Pengolah Data</option> -->
+        <option value="Peralatan Kantor">Peralatan Kantor</option>
+      </select>
+    </div>
+  </div>
+
+
+  
+<?php
+if(isset($_POST['submit'])){
+$kode_katalog = $_POST['kode_katalog'];
+$nama_barang = $_POST['nama_barang'];
+$nama_umum = $_POST['nama_umum'];
+$satuan = $_POST['satuan'];
+$kemasan = $_POST['kemasan'];
+$kategori = $_POST['kategori'];
+
+
+$query = "INSERT INTO `barang` 
+  (`id_barang`, 
+  `kode_katalog`,
+  `nama_barang`, 
+  `nama_umum`, 
+  `satuan`, 
+  `kemasan`,
+  `kategori`
+  )
+  VALUES
+  ('', 
+  '$kode_katalog',
+  '$nama_barang', 
+  '$nama_umum', 
+  '$satuan',
+  '$kemasan', 
+  '$kategori'
+  );
+
+";
+
+$sql = mysqli_query($koneksi,$query); // Eksekusi/ Jalankan query dari variabel $query  
+if($sql){ // Cek jika proses simpan ke database sukses atau tidak    // Jika Sukses, Lakukan :    ?>
+<script type="text/javascript">
+    //<![CDATA[
+    alert ("Data Berhasil Dinput");
+    window.location="alkes.php?id_usulan=<?=$_GET['id_usulan']?>";
+    //]]>
+  </script>
+<?php }else{    // Jika Gagal, Lakukan :    
+echo "Maaf, Terjadi kesalahan saat mencoba untuk menyimpan data ke database.";    
+echo "<br><a href='?data'>Kembali Ke Form</a>";  
+}
+}
+?>
+
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                <input type="submit" name="submit" class="btn btn-primary" value="Save"> 
+              </form>
+              </div>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
 	
 
 
 
 		<?php include 'footer.php';?>
+
+			<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+		<script type="text/javascript">
+    $(function(){
+       $('.select2').select2();
+ });
+
+    function isi_otomatis(){
+                var id = $("#id_barang").val();
+                $.ajax({
+                    url: 'proses-ajax.php',
+                    data:"id_barang="+id_barang ,
+                }).success(function (data) {
+                    var json = data,
+                    obj = JSON.parse(json);
+                    $('#current_stock').val(obj.current_stock);
+                   
+                });
+            }
+</script>
 

@@ -171,6 +171,12 @@
 											Reagen
 										</a>
 									</li>
+									<li>
+										<a href="master-art.php?data">
+											<i class="fas fa-broom"></i>
+											ART / Alat Kebersihan
+										</a>
+									</li>
 								</ul>
 							</div>
 						</li>
