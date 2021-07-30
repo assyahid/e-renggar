@@ -65,6 +65,24 @@ if(isset($_POST['submit']) && $_POST['submit'] == "Tambah Justifikasi"){
 	}
 }
 
+if(isset($_POST['submit']) && $_POST['submit'] == "Tambah Usulan Alkes"){
+	$data = $_POST;
+
+	$query = "INSERT INTO `usulan_alkes_list` (`id_usulan_alkes_list`,`id_usulan_alkes`,`id_user`,`id_barang`,`jumlah_tersedia`,`kondisi`,`jumlah_kebutuhan`,`justifikasi`,`catatan_list`)
+	VALUES('','".$_POST['id_usulan_alkes']."','".$_POST['id_user']."','".$_POST['id_barang']."','".$_POST['jumlah_tersedia']."','".$_POST['kondisi']."','".$_POST['jumlah_kebutuhan']."','".$_POST['justifikasi']."','".$_POST['catatan_list']."');";
+	$sql = mysqli_query($koneksi,$query);  
+	if($sql){
+		$tampil = mysqli_query($koneksi,"SELECT * FROM usulan_alkes_list ORDER BY id_usulan_alkes_list DESC LIMIT 1 ")or die(mysql_error());
+		$x = mysqli_fetch_array($tampil);
+		$id_usulan_alkes_list = $x['id_usulan_alkes_list'];
+		$merek = mysqli_query($koneksi,"INSERT INTO `merek_alkes` (`id_usulan_alkes_list`,`nama_merek`,`spesifikasi_merek`,`harga_merek`,`status_merek`) VALUES ('".$id_usulan_alkes_list."','".$_POST['nama_merek']."','".$_POST['spesifikasi_merek']."','".$_POST['harga_merek']."','Pengajuan') ");
+		header('Location: ../list-alkes.php?message=input'.'&id_usulan_alkes='.$_POST["id_usulan_alkes"]);
+	}else{   
+		$err = mysqli_error($koneksi);
+		header('Location: ../list-alkes.php?id_usulan_alkes='.$_POST["id_usulan_alkes"]);
+	}
+}
+
 if(isset($_POST['submit']) && $_POST['submit'] == "Tambah Usulan Barang"){
 	$data = $_POST;
 

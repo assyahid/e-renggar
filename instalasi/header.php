@@ -132,6 +132,13 @@
 							</a>
 						</li> -->
 						<li class="nav-item">
+							<a href="permintaan-usulan.php">
+								<i class="fas fa-th-list"></i>
+								<span class="sub-item">Permintaan usulan</span>
+							</a>
+						</li>
+
+						<li class="nav-item">
 							<a href="usulan.php">
 								<i class="fas fa-th-list"></i>
 								<span class="sub-item">Usulan</span>
