@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 21, 2021 at 06:06 AM
+-- Generation Time: Jul 31, 2021 at 01:43 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.9
 
@@ -53,6 +53,13 @@ CREATE TABLE `art` (
   `ket_art` text NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `art`
+--
+
+INSERT INTO `art` (`id_art`, `id_usulan`, `id_barang`, `jumlah_kebutuhan`, `ket_art`, `created_at`) VALUES
+(1, 2, 118, '2', 'aaaa', '2021-07-30 14:30:43');
 
 -- --------------------------------------------------------
 
@@ -193,7 +200,8 @@ INSERT INTO `barang` (`id_barang`, `kode_katalog`, `nama_barang`, `nama_umum`, `
 (118, '', 'Buku A3', 'Buku A3', 'buah', '', 'ART'),
 (119, '', 'Buku Ekspedisi', 'Buku Ekspedisi', 'buah', '', 'ART'),
 (120, '30308', 'Anti HCV', '', 'Kit', '60 test', 'Reagen'),
-(121, '30318', 'Anti Hbs Total', '', 'Kit', '60 test', 'Reagen');
+(121, '30318', 'Anti Hbs Total', '', 'Kit', '60 test', 'Reagen'),
+(123, '12', '2nonl', 'nnlnl', 'nlnl', 'lnlnln', 'Alat Kesehatan');
 
 -- --------------------------------------------------------
 
@@ -3446,6 +3454,29 @@ CREATE TABLE `justifikasi` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `merek_alkes`
+--
+
+CREATE TABLE `merek_alkes` (
+  `id_merek_alkes` int(11) NOT NULL,
+  `id_usulan_alkes_list` int(11) NOT NULL,
+  `nama_merek` varchar(255) NOT NULL,
+  `spesifikasi_merek` text NOT NULL,
+  `harga_merek` varchar(255) NOT NULL,
+  `status_merek` varchar(255) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `merek_alkes`
+--
+
+INSERT INTO `merek_alkes` (`id_merek_alkes`, `id_usulan_alkes_list`, `nama_merek`, `spesifikasi_merek`, `harga_merek`, `status_merek`, `created_at`) VALUES
+(1, 1, 'ABOTH', 'blablablabla blablabla\r\nblablabla blablalbla\r\nblabla bla blaaaaaaa', '12000000', 'Pengajuan', '2021-07-29 08:54:27');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `merek_barang`
 --
 
@@ -3465,7 +3496,10 @@ CREATE TABLE `merek_barang` (
 
 INSERT INTO `merek_barang` (`id_merek_barang`, `id_usulan_barang`, `nama_merek`, `spesifikasi_merek`, `harga_merek`, `status_merek`, `created_at`) VALUES
 (1, 1, 'ICA', '7000 Amp', 8000000, 'disetujui', '2021-07-15 04:29:02'),
-(2, 1, 'ACI', ' 6000 Volt', 7600000, 'Pengajuan', '2021-07-15 04:34:56');
+(2, 1, 'ACI', ' 6000 Volt', 7600000, 'Pengajuan', '2021-07-15 04:34:56'),
+(3, 2, 'ICA', 'sss', 242424, 'Pengajuan', '2021-07-27 04:55:16'),
+(4, 0, 'ARCITECH', 'nksbksnd\r\nsdlsndkshdnsdn\r\nsd\r\nsds\r\nd\r\nsd\r\nsd\r\nsdsd', 18000000, 'Pengajuan', '2021-07-30 06:36:57'),
+(5, 3, 'imi', 'ndksndksnds\r\nsdksbdksbds\r\nsd', 10000000, 'Pengajuan', '2021-07-30 07:02:34');
 
 -- --------------------------------------------------------
 
@@ -3482,6 +3516,13 @@ CREATE TABLE `merek_pdata` (
   `status_merek` varchar(50) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `merek_pdata`
+--
+
+INSERT INTO `merek_pdata` (`id_merek_pdata`, `id_pdata`, `nama_merek`, `spesifikasi_merek`, `harga_merek`, `status_merek`, `created_at`) VALUES
+(1, 1, 'ICA', 'nksnfksn', '1200000', 'Pengajuan', '2021-07-30 07:09:56');
 
 -- --------------------------------------------------------
 
@@ -3559,6 +3600,13 @@ CREATE TABLE `pdata` (
   `persetujuan` varchar(255) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `pdata`
+--
+
+INSERT INTO `pdata` (`id_pdata`, `id_usulan`, `id_barang`, `jumlah_tersedia`, `kondisi`, `jumlah_kebutuhan`, `justifikasi`, `persetujuan`, `created_at`) VALUES
+(1, 2, 89, 1, 'Baik', 1, 'lflsnflsnflsnflnfslf', '', '2021-07-30 07:09:56');
 
 -- --------------------------------------------------------
 
@@ -3655,7 +3703,10 @@ CREATE TABLE `permintaan_pembelian` (
   `id_usulan` int(11) NOT NULL,
   `id_user` int(11) NOT NULL,
   `tgl_pengiriman_permintaan` date NOT NULL,
+  `posisi_permintaan_id` int(11) NOT NULL,
   `catatan` text DEFAULT NULL,
+  `history` text NOT NULL,
+  `step` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -3726,7 +3777,8 @@ CREATE TABLE `reagen` (
 --
 
 INSERT INTO `reagen` (`id_reagen`, `id_user`, `id_usulan`, `id_barang`, `merek_reagen`, `jumlah_usulan`, `ket_reagen`, `status_reagen`, `created_at`, `updated_at`) VALUES
-(1, 17, 1, 3035, 'Biotec', 10, 'urgent', 'divalidasi oleh Kepala BBLK Palembang', '2021-07-15 04:30:42', '2021-07-16 09:31:59');
+(1, 17, 1, 3035, 'Biotec', 10, 'urgent', 'divalidasi oleh Kepala BBLK Palembang', '2021-07-15 04:30:42', '2021-07-16 09:31:59'),
+(2, 17, 2, 766, 'Sysmex XS-800i', 0, 'jjhj', 'divalidasi oleh Kasubbag Administrasi Umum', '2021-07-30 07:31:12', '2021-07-30 07:50:45');
 
 -- --------------------------------------------------------
 
@@ -3832,7 +3884,63 @@ CREATE TABLE `usulan` (
 
 INSERT INTO `usulan` (`id_usulan`, `id_user`, `no_usulan`, `anggaran`, `tgl_usulan`, `sent`, `status`, `tgl_kirim`, `posisi`, `catatan`, `created_at`, `updated_at`) VALUES
 (1, 17, '01/USU/VII/2021', '2021', '2021-07-15', 5, 'diverifikasi oleh Kepala BBLK Palembang', '2021-07-15', 'Sudah di Verifikasi Semua', NULL, '2021-07-15 10:55:18', '2021-07-16 16:32:03'),
-(2, 17, '02/USU/VII/2021', '2022', '2021-07-15', 0, 'Pengajuan', NULL, NULL, NULL, '2021-07-15 14:29:31', NULL);
+(2, 17, '02/USU/VII/2021', '2022', '2021-07-15', 3, 'diverifikasi oleh Kasubbag Administrasi Umum', '2021-07-30', 'Koordinator Tata Usaha', NULL, '2021-07-15 14:29:31', '2021-07-30 14:50:51'),
+(3, 16, '03/USU/VII/2021', '2021', '2021-07-21', 0, 'Pengajuan', NULL, NULL, NULL, '2021-07-21 13:55:01', NULL),
+(4, 1, '04/USU/VII/2021', '2021', '2021-07-22', 0, 'Pengajuan', NULL, NULL, NULL, '2021-07-22 11:13:43', NULL),
+(5, 17, '05/USU/VII/2021', '2021', '2021-07-30', 2, 'diverifikasi kasi / sub koordinator', '2021-07-30', 'Kasubbag Adum', NULL, '2021-07-30 13:57:57', '2021-07-30 14:38:52');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `usulan_alkes`
+--
+
+CREATE TABLE `usulan_alkes` (
+  `id_usulan_alkes` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
+  `anggaran` varchar(100) NOT NULL,
+  `tgl_usulan_alkes` date NOT NULL,
+  `posisi_usulan_alkes` int(11) DEFAULT NULL,
+  `catatan` text DEFAULT NULL,
+  `history` text DEFAULT NULL,
+  `step` int(11) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `usulan_alkes`
+--
+
+INSERT INTO `usulan_alkes` (`id_usulan_alkes`, `id_user`, `anggaran`, `tgl_usulan_alkes`, `posisi_usulan_alkes`, `catatan`, `history`, `step`, `created_at`) VALUES
+(1, 17, '', '2021-07-29', 0, NULL, NULL, NULL, '2021-07-29 07:53:13'),
+(2, 17, '', '2021-07-30', 0, NULL, NULL, NULL, '2021-07-30 06:53:35');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `usulan_alkes_list`
+--
+
+CREATE TABLE `usulan_alkes_list` (
+  `id_usulan_alkes_list` int(11) NOT NULL,
+  `id_usulan_alkes` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
+  `id_barang` int(11) NOT NULL,
+  `merek` varchar(255) NOT NULL,
+  `jumlah_tersedia` varchar(255) NOT NULL,
+  `kondisi` varchar(255) NOT NULL,
+  `jumlah_kebutuhan` int(100) NOT NULL,
+  `justifikasi` text NOT NULL,
+  `catatan_list` text NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `usulan_alkes_list`
+--
+
+INSERT INTO `usulan_alkes_list` (`id_usulan_alkes_list`, `id_usulan_alkes`, `id_user`, `id_barang`, `merek`, `jumlah_tersedia`, `kondisi`, `jumlah_kebutuhan`, `justifikasi`, `catatan_list`, `created_at`) VALUES
+(1, 1, 17, 73, '', '0', '-', 1, 'snnslnslnslsnlsnlsnlsnlsnslnslnslnslsnlsnlsnlsnls', '', '2021-07-29 08:54:27');
 
 -- --------------------------------------------------------
 
@@ -3859,7 +3967,51 @@ CREATE TABLE `usulan_barang` (
 --
 
 INSERT INTO `usulan_barang` (`id_usulan_barang`, `id_user`, `id_usulan`, `id_barang`, `jumlah_tersedia`, `kondisi`, `jumlah_kebutuhan`, `justifikasi`, `kategori`, `persetujuan`, `created_at`) VALUES
-(1, 17, 1, 84, 0, '', 1, 'untuk backup server', 'alkes', 'divalidasi oleh Kepala BBLK Palembang', '2021-07-15 04:29:02');
+(1, 17, 1, 84, 0, '', 1, 'untuk backup server', 'alkes', 'divalidasi oleh Kepala BBLK Palembang', '2021-07-15 04:29:02'),
+(2, 17, 2, 123, 3, '', 2, 'nksnd', 'alkes', 'divalidasi oleh Kasubbag Administrasi Umum', '2021-07-27 04:55:16'),
+(3, 17, 5, 1, 1, 'Rusak Ringan', 2, 'lsnls\r\nsdslnlsnfs\r\nfsfsfsfsfnslfnsf\r\nsfsnflsnflsf', 'alkes', 'Pengajuan', '2021-07-30 07:02:34');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `usulan_reagen`
+--
+
+CREATE TABLE `usulan_reagen` (
+  `id_usulan_reagen` int(11) NOT NULL,
+  `id_usulan` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
+  `tgl_usulan_reagen` date NOT NULL,
+  `posisi_usulan_reagen` int(11) DEFAULT NULL,
+  `catatan` text DEFAULT NULL,
+  `history` text DEFAULT NULL,
+  `step` int(11) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `usulan_reagen`
+--
+
+INSERT INTO `usulan_reagen` (`id_usulan_reagen`, `id_usulan`, `id_user`, `tgl_usulan_reagen`, `posisi_usulan_reagen`, `catatan`, `history`, `step`, `created_at`) VALUES
+(1, 4, 1, '0000-00-00', NULL, NULL, NULL, NULL, '2021-07-22 06:21:21');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `usulan_reagen_list`
+--
+
+CREATE TABLE `usulan_reagen_list` (
+  `id_usulan_reagen_list` int(11) NOT NULL,
+  `id_usulan_reagen` int(11) NOT NULL,
+  `id_usulan` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
+  `id_barang` int(11) NOT NULL,
+  `jumlah_pembelian` varchar(100) NOT NULL,
+  `catatan_list` text NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Indexes for dumped tables
@@ -3917,6 +4069,12 @@ ALTER TABLE `commodity_prices`
 --
 ALTER TABLE `justifikasi`
   ADD PRIMARY KEY (`id_justifikasi`);
+
+--
+-- Indexes for table `merek_alkes`
+--
+ALTER TABLE `merek_alkes`
+  ADD PRIMARY KEY (`id_merek_alkes`);
 
 --
 -- Indexes for table `merek_barang`
@@ -4016,10 +4174,34 @@ ALTER TABLE `usulan`
   ADD PRIMARY KEY (`id_usulan`);
 
 --
+-- Indexes for table `usulan_alkes`
+--
+ALTER TABLE `usulan_alkes`
+  ADD PRIMARY KEY (`id_usulan_alkes`);
+
+--
+-- Indexes for table `usulan_alkes_list`
+--
+ALTER TABLE `usulan_alkes_list`
+  ADD PRIMARY KEY (`id_usulan_alkes_list`);
+
+--
 -- Indexes for table `usulan_barang`
 --
 ALTER TABLE `usulan_barang`
   ADD PRIMARY KEY (`id_usulan_barang`);
+
+--
+-- Indexes for table `usulan_reagen`
+--
+ALTER TABLE `usulan_reagen`
+  ADD PRIMARY KEY (`id_usulan_reagen`);
+
+--
+-- Indexes for table `usulan_reagen_list`
+--
+ALTER TABLE `usulan_reagen_list`
+  ADD PRIMARY KEY (`id_usulan_reagen_list`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -4035,13 +4217,13 @@ ALTER TABLE `alat_kantor`
 -- AUTO_INCREMENT for table `art`
 --
 ALTER TABLE `art`
-  MODIFY `id_art` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_art` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `barang`
 --
 ALTER TABLE `barang`
-  MODIFY `id_barang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=122;
+  MODIFY `id_barang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=124;
 
 --
 -- AUTO_INCREMENT for table `batas_tanggal`
@@ -4074,16 +4256,22 @@ ALTER TABLE `justifikasi`
   MODIFY `id_justifikasi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
+-- AUTO_INCREMENT for table `merek_alkes`
+--
+ALTER TABLE `merek_alkes`
+  MODIFY `id_merek_alkes` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `merek_barang`
 --
 ALTER TABLE `merek_barang`
-  MODIFY `id_merek_barang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_merek_barang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `merek_pdata`
 --
 ALTER TABLE `merek_pdata`
-  MODIFY `id_merek_pdata` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_merek_pdata` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `merk`
@@ -4095,7 +4283,7 @@ ALTER TABLE `merk`
 -- AUTO_INCREMENT for table `pdata`
 --
 ALTER TABLE `pdata`
-  MODIFY `id_pdata` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_pdata` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `pegawai`
@@ -4143,7 +4331,7 @@ ALTER TABLE `proker`
 -- AUTO_INCREMENT for table `reagen`
 --
 ALTER TABLE `reagen`
-  MODIFY `id_reagen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_reagen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `surat_permohonan`
@@ -4161,13 +4349,37 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `usulan`
 --
 ALTER TABLE `usulan`
-  MODIFY `id_usulan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_usulan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `usulan_alkes`
+--
+ALTER TABLE `usulan_alkes`
+  MODIFY `id_usulan_alkes` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `usulan_alkes_list`
+--
+ALTER TABLE `usulan_alkes_list`
+  MODIFY `id_usulan_alkes_list` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `usulan_barang`
 --
 ALTER TABLE `usulan_barang`
-  MODIFY `id_usulan_barang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_usulan_barang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `usulan_reagen`
+--
+ALTER TABLE `usulan_reagen`
+  MODIFY `id_usulan_reagen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `usulan_reagen_list`
+--
+ALTER TABLE `usulan_reagen_list`
+  MODIFY `id_usulan_reagen_list` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
